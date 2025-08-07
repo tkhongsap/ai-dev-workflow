@@ -10,35 +10,37 @@ This repository provides a comprehensive framework for developers working with A
 - Consistent implementation patterns
 - Traceable development progress
 
-## 📋 Overview
+## 📋 Available Workflows
 
-The AI Developer Workflow follows a three-phase approach:
+### PRD-Driven Workflow
+A structured three-phase approach for systematic feature development:
 
-### Phase 1: Requirements Documentation
+#### Phase 1: Requirements Documentation
 **Create a Product Requirements Document (PRD)**
-- Standard process: [`01-create-prd.md`](01-create-prd.md)
-- Replit-specific: [`01-create-prd-replit.md`](01-create-prd-replit.md)
+- Standard process: [`prd-driven-workflow/01-create-prd.md`](prd-driven-workflow/01-create-prd.md)
+- Replit-specific: [`prd-driven-workflow/01-create-prd-replit.md`](prd-driven-workflow/01-create-prd-replit.md)
 
-### Phase 2: Task Planning
+#### Phase 2: Task Planning
 **Generate a structured task list from the PRD**
-- Standard process: [`02-generate-tasks.md`](02-generate-tasks.md)
-- Replit-specific: [`02-generate-tasks-replit.md`](02-generate-tasks-replit.md)
+- Standard process: [`prd-driven-workflow/02-generate-tasks.md`](prd-driven-workflow/02-generate-tasks.md)
+- Replit-specific: [`prd-driven-workflow/02-generate-tasks-replit.md`](prd-driven-workflow/02-generate-tasks-replit.md)
 
-### Phase 3: Implementation
+#### Phase 3: Implementation
 **Execute tasks systematically**
-- Standard process: [`03-process-task-list.md`](03-process-task-list.md)
-- Replit-specific: [`03-process-tasks-replit.md`](03-process-tasks-replit.md)
+- Standard process: [`prd-driven-workflow/03-process-task-list.md`](prd-driven-workflow/03-process-task-list.md)
+- Replit-specific: [`prd-driven-workflow/03-process-tasks-replit.md`](prd-driven-workflow/03-process-tasks-replit.md)
 
 ## 📁 Repository Structure
 
 ```
 ai-dev-workflow/
-├── 01-create-prd.md           # PRD generation guidelines
-├── 01-create-prd-replit.md    # PRD rules for Replit environment
-├── 02-generate-tasks.md       # Task list creation methodology
-├── 02-generate-tasks-replit.md # Task generation for Replit
-├── 03-process-task-list.md    # Task execution and management
-├── 03-process-tasks-replit.md # Task processing for Replit
+├── prd-driven-workflow/        # PRD-based development methodology
+│   ├── 01-create-prd.md       # PRD generation guidelines
+│   ├── 01-create-prd-replit.md # PRD rules for Replit environment
+│   ├── 02-generate-tasks.md   # Task list creation methodology
+│   ├── 02-generate-tasks-replit.md # Task generation for Replit
+│   ├── 03-process-task-list.md # Task execution and management
+│   └── 03-process-tasks-replit.md # Task processing for Replit
 ├── LICENSE                     # MIT License
 ├── README.md                   # This file
 └── tasks/                      # Directory for PRDs and task lists (create as needed)

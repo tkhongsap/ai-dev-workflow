@@ -1,5 +1,5 @@
 ---
-name: performance-reviewer
+name: review-performance-reviewer
 description: "Performance optimization specialist analyzing code for bottlenecks, inefficiencies, and scalability issues in the OCR document extraction application."
 ---
 

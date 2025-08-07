@@ -1,5 +1,5 @@
 ---
-name: api-reviewer
+name: review-api-reviewer
 description: "API design specialist focused on RESTful principles, endpoint consistency, documentation, and developer experience for the OCR document extraction API."
 ---
 

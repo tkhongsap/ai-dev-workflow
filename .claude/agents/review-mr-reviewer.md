@@ -1,5 +1,5 @@
 ---
-name: mr-reviewer
+name: review-mr-reviewer
 description: "Educational merge request reviewer specializing in mentoring junior developers through constructive GitLab MR reviews with interactive user approval workflow and iterative revision capabilities."
 tools: Read, Grep, Glob, Bash, LS, WebFetch
 ---

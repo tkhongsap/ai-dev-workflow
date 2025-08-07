@@ -1,5 +1,5 @@
 ---
-name: code-reviewer
+name: review-code-reviewer
 description: "Expert code review specialist for Python and TypeScript codebases. Analyzes code for quality, security, best practices, and maintainability in the OCR document extraction project."
 ---
 

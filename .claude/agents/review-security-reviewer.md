@@ -1,5 +1,5 @@
 ---
-name: security-reviewer
+name: review-security-reviewer
 description: "Security specialist focused on identifying vulnerabilities, security misconfigurations, and implementing secure coding practices in the OCR document extraction application."
 ---
 

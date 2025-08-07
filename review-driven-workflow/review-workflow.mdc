@@ -1,0 +1,201 @@
+---
+description: Complete review-driven development workflow integrating issue extraction, specialist reviewers, and GitLab automation
+globs: []
+alwaysApply: false
+---
+
+# Review-Driven Development Workflow
+
+A comprehensive code review system that integrates GitLab issues, specialist reviewers, and automated feedback posting to ensure high-quality code delivery.
+
+## 🎯 Workflow Overview
+
+```mermaid
+graph TD
+    A[GitLab Issues] --> B[@extract-issues]
+    B --> C[Issue-Branch Mapping]
+    C --> D[@branch-review]
+    D --> E[@code-reviewer]
+    D --> F[@security-reviewer]
+    D --> G[@performance-reviewer]
+    D --> H[@api-reviewer]
+    D --> I[@mr-reviewer]
+    E --> J[Comprehensive Review]
+    F --> J
+    G --> J
+    H --> J
+    I --> J
+    J --> K[GitLab Integration]
+    K --> L[Developer Feedback]
+```
+
+## 🔧 Workflow Components
+
+### **1. Issue Extraction (`@extract-issues`)**
+- **Purpose**: GitLab issues extraction and branch mapping
+- **Trigger**: Manual - `@extract-issues`
+- **Output**: `issues-extraction-[date].md` in `/workflow/`
+- **Integration**: Sets up context for branch reviews
+
+### **2. Branch Review Orchestrator (`@branch-review`)**
+- **Purpose**: Comprehensive branch/MR review coordination
+- **Trigger**: Manual - `@branch-review #123` or `@branch-review branch-name`
+- **Integration**: Automatically invokes specialist reviewers
+- **Output**: `review-[issue-num]-[date].md` in `/workflow/`
+
+### **3. Specialist Reviewers**
+
+#### **Code Quality (`@code-reviewer`)**
+- **Auto-applies**: `**/*.py`, `**/*.ts`, `**/*.tsx`, `**/*.js`, `**/*.jsx`
+- **Focus**: General code quality, patterns, maintainability
+- **Always Active**: `alwaysApply: true`
+
+#### **Security Analysis (`@security-reviewer`)**
+- **Auto-applies**: Code files + Docker/env files
+- **Focus**: Vulnerabilities, secure coding practices
+- **Triggers**: Security-sensitive file changes
+
+#### **Performance Optimization (`@performance-reviewer`)**
+- **Auto-applies**: Code files + Docker files
+- **Focus**: Bottlenecks, scalability, optimization
+- **Always Active**: `alwaysApply: true`
+
+#### **API Design (`@api-reviewer`)**
+- **Auto-applies**: `**/api/**`, `**/routes/**`, `**/endpoints/**`
+- **Focus**: RESTful design, consistency, documentation
+- **Triggers**: API-related file changes
+
+#### **Educational MR Review (`@mr-reviewer`)**
+- **Manual invoke**: Agent requested rule
+- **Focus**: Mentoring junior developers
+- **Triggers**: Explicit mention in MR reviews
+
+## 🚀 Usage Patterns
+
+### **Complete Workflow**
+```bash
+# 1. Extract issues and map to branches
+@extract-issues
+
+# 2. Review specific issue implementation
+@branch-review #123 --post
+
+# 3. Educational review for junior developers
+@mr-reviewer https://gitlab.com/.../merge_requests/45
+```
+
+### **Quick Reviews**
+```bash
+# Direct branch review
+@branch-review feature/user-authentication
+
+# Security-focused review
+@branch-review #123 --security-focus
+
+# Performance-focused review  
+@branch-review feature/file-processing --performance-focus
+```
+
+### **Batch Operations**
+```bash
+# Review all ready issues from extraction
+@branch-review --queue
+
+# Post reviews to GitLab automatically
+@branch-review #123 #124 #125 --post
+```
+
+## 📊 Review Quality Metrics
+
+### **Automatic Assessment**
+- **Code Quality Score**: 1-10 based on multiple factors
+- **Security Assessment**: Vulnerability classification (Critical/High/Medium/Low)
+- **Performance Impact**: Bottleneck identification and optimization suggestions
+- **API Consistency**: RESTful compliance and design quality
+
+### **Review Coverage**
+- **Requirements Validation**: ✅ Met / ⚠️ Partial / ❌ Missing
+- **Test Coverage**: Percentage + quality assessment
+- **Documentation**: Completeness and clarity
+- **GitLab Integration**: Automated status updates
+
+## 🔄 GitLab Integration
+
+### **Automated Actions**
+- **Issue Comments**: Review summaries and action items
+- **MR Feedback**: Detailed code-level comments
+- **Status Updates**: Issue/MR state changes based on review outcome
+- **Label Management**: Automatic label application
+- **Approval Workflow**: Approve/request changes based on review
+
+### **Review Artifacts**
+- **Location**: `/workflow/` directory
+- **Naming**: `review-[issue-num]-[YYYY-MM-DD].md`
+- **Format**: Structured markdown with sections for each review type
+- **Integration**: Links back to GitLab issues and MRs
+
+## 🎓 Educational Features
+
+### **Knowledge Transfer**
+- **Pattern Recognition**: Identify and highlight good/bad patterns
+- **Best Practice Guidance**: Context-aware suggestions
+- **Resource Linking**: Documentation and learning material references
+- **Progressive Difficulty**: Adjust feedback based on developer experience
+
+### **Mentoring Integration**
+- **Growth Tracking**: Monitor developer improvement over time
+- **Skill Development**: Identify areas for learning focus
+- **Celebration**: Highlight excellent work and improvements
+- **Constructive Feedback**: Balance criticism with encouragement
+
+## 🔧 Configuration
+
+### **Environment Requirements**
+```env
+GITLAB_ACCESS_TOKEN=your_gitlab_access_token_here
+GITLAB_PROJECT_ID=your_project_id_here
+GITLAB_URL=https://gitlab.yourdomain.com
+```
+
+### **Rule Activation**
+- **Always Active**: code-reviewer, performance-reviewer
+- **Auto-Attached**: security-reviewer (security files), api-reviewer (API files)
+- **Manual Invoke**: extract-issues, branch-review, mr-reviewer
+
+### **Customization Options**
+- **Review Depth**: Adjust based on issue priority
+- **Specialist Focus**: Enable/disable specific reviewer types
+- **GitLab Integration**: Toggle automated posting and status updates
+- **Output Format**: Customize review report structure
+
+## 📈 Benefits
+
+### **Quality Assurance**
+- **Comprehensive Coverage**: Multiple specialist perspectives on every change
+- **Consistency**: Standardized review criteria and output format
+- **Automation**: Reduced manual effort in review coordination
+- **Traceability**: Clear link from issue to implementation to review
+
+### **Team Efficiency**
+- **Faster Reviews**: Automated issue-branch mapping and context gathering
+- **Better Feedback**: Specific, actionable suggestions with code examples
+- **Knowledge Sharing**: Educational reviews build team expertise
+- **Process Standardization**: Consistent workflow across all development
+
+### **Developer Experience**
+- **Clear Expectations**: Understand review criteria upfront
+- **Actionable Feedback**: Specific instructions for improvements
+- **Learning Opportunities**: Educational content embedded in reviews
+- **Recognition**: Positive feedback highlights good work
+
+## 🔮 Future Enhancements
+
+- **AI-Powered Insights**: Trend analysis across reviews
+- **Custom Review Templates**: Issue-type specific review criteria
+- **Integration Expansion**: Support for other Git platforms
+- **Metrics Dashboard**: Visual review quality and team performance tracking
+- **Automated Fix Suggestions**: AI-generated code improvements
+
+---
+
+**Review-Driven Development**: Where every code change is an opportunity for quality improvement and knowledge sharing.

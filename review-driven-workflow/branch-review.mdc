@@ -1,0 +1,368 @@
+---
+alwaysApply: true
+---
+# GitLab Branch/MR Review Workflow
+
+## Goal
+
+To review branches and merge requests in the context of their associated GitLab issues, provide comprehensive feedback, and optionally post review results back to GitLab issue boards and merge requests.
+
+## Process
+
+1. **Load Issue Context:** Read from latest `issues-extraction-[date].md` file or GitLab API
+2. **Select Review Target:** User specifies issue number, branch name, or MR to review
+3. **Gather Code Context:** Analyze branch/MR diff, commits, and implementation details
+4. **Review Against Requirements:** Compare implementation with original issue requirements
+5. **Generate Comprehensive Review:** Create detailed review with actionable feedback
+6. **Write Back to GitLab:** Post review comments to issue/MR (optional)
+7. **Save Review:** Save detailed review as `review-[issue-num]-[date].md`
+
+## Input Methods
+
+The AI should accept these review triggers:
+- `@branch-review #123` - Review specific issue's branch/MR
+- `@branch-review branch-name` - Review specific branch
+- `@branch-review !45` - Review specific MR number
+- `@branch-review --queue` - Review all ready issues from extraction
+- `@branch-review --post` - Include GitLab posting in review process
+
+## Review Process
+
+### 1. **Context Gathering**
+- Read original issue description and acceptance criteria
+- Analyze issue labels, priority, and success metrics
+- Review any linked designs, mockups, or specifications
+- Check previous comments and discussion history
+
+### 2. **Code Analysis** (Leveraging Specialist Reviewers)
+- **@code-reviewer**: General code quality, patterns, and architecture
+- **@security-reviewer**: Security vulnerabilities and best practices  
+- **@performance-reviewer**: Performance bottlenecks and optimizations
+- **@api-reviewer**: API design and consistency (for API changes)
+- Examine branch diff and implementation approach
+- Review commit history and commit messages
+
+### 3. **Requirements Validation**
+- Map implementation to original issue requirements
+- Check if acceptance criteria are met
+- Validate edge cases and error handling
+- Ensure proper testing coverage
+
+### 4. **Compliance Check**
+- Verify documentation updates
+- Check for breaking changes
+- Ensure proper testing coverage
+- Review security implications
+
+## Review Structure
+
+```markdown
+# Branch Review: [ISSUE_TITLE]
+
+**Developer**: @[DEVELOPER_USERNAME]  
+**Branch**: `[BRANCH_NAME]`  
+**Issue**: #[ISSUE_NUM] - [ISSUE_TITLE]  
+**MR**: ![MR_NUM] - [MR_TITLE]  
+**Review Date**: [DATE]  
+**Overall Quality Score**: [SCORE]/10
+
+---
+
+## 📋 Requirements Analysis
+
+### Original Issue Context
+- **Problem Statement**: [Brief description of issue]
+- **Acceptance Criteria**: [List from original issue]
+- **Priority**: [critical/high/medium/low]
+- **Labels**: [issue labels]
+
+### Requirements Validation
+- ✅ **[Requirement 1]**: Implemented correctly in `[file.ts:lines]`
+- ❌ **[Requirement 2]**: Missing implementation - [explanation]
+- ⚠️ **[Requirement 3]**: Partially implemented - [details]
+
+### Missing Requirements
+- **[Missing item]**: [explanation of what's missing]
+- **[Missing item]**: [explanation of what's missing]
+
+---
+
+## 🚨 Critical Issues (Must Fix Before Merge)
+
+### Security - Priority: High
+**File**: `[file.ts]` (Line [num])
+**Problem**: [Description of security issue]
+
+```typescript
+// Problematic code example
+[code snippet]
+```
+
+**Why this is critical**: [Security explanation]
+
+**Fix Required** (30 min):
+1. [Specific fix instruction]
+2. [Specific fix instruction]
+
+```typescript
+// Corrected code
+[corrected code snippet]
+```
+
+**Test after fix**:
+```bash
+npm test -- --grep "security"
+```
+
+---
+
+## 🔧 Improvements & Suggestions
+
+### Code Quality - Medium Priority
+**Performance Optimization**
+
+Current implementation in `[file.ts]` could be optimized:
+
+```typescript
+// Current approach
+[current code]
+```
+
+```typescript
+// Suggested improvement
+[improved code]
+```
+
+**Benefits**: Reduces memory usage by 40%, improves response time  
+**Effort**: 1-2 hours
+
+---
+
+## 🚀 Excellent Work Highlights
+
+### Code Architecture
+- **Clean separation of concerns**: Well-organized modules in `src/components/`
+- **Proper error handling**: Comprehensive try-catch blocks with user-friendly messages
+- **Type safety**: Excellent TypeScript usage throughout
+
+### Testing
+- **Comprehensive test coverage**: 95% coverage with meaningful test cases
+- **Edge case handling**: Tests cover error scenarios and boundary conditions
+
+---
+
+## 📊 Detailed Assessment
+
+### ✅ Strengths
+- Clear, readable code with proper documentation
+- Follows established project patterns and conventions
+- Comprehensive error handling and user feedback
+- Well-structured commit history with descriptive messages
+
+### 🔍 Code Quality Areas
+- **Architecture**: 9/10 - Clean, well-organized structure
+- **Security**: 7/10 - Good practices, minor issues noted above
+- **Performance**: 8/10 - Efficient implementation with room for optimization
+- **Maintainability**: 9/10 - Easy to understand and modify
+- **Testing**: 8/10 - Good coverage, could use more integration tests
+
+### 🧪 Testing & Coverage
+- **Test Coverage**: 87%
+- **Test Quality**: 8/10
+- **Missing Tests**: 
+  - Error handling for API failures
+  - Edge cases for user input validation
+  - Integration tests for payment flow
+
+### 🔒 Security Assessment
+- **Security Score**: 8/10
+- **Security Notes**:
+  - Input validation properly implemented
+  - SQL injection prevention in place
+  - Minor: API tokens should be rotated more frequently
+
+---
+
+## 🎯 Final Recommendation
+
+### ✅ CONDITIONAL APPROVAL
+
+This can be merged after addressing the critical security issue above.
+
+**Estimated fix time**: 30 minutes
+
+**Conditions for approval**:
+- Fix SQL injection vulnerability in `payment.ts:45`
+- Add missing test for error handling
+
+**Why this is nearly approved**:
+- Excellent code quality and architecture
+- Comprehensive implementation of requirements
+- Good testing coverage
+- Clear documentation and commit history
+
+---
+
+## 📚 GitLab Integration Actions
+
+### Recommended Actions
+- [ ] Post review summary to Issue #[NUM]
+- [ ] Post detailed feedback to MR ![NUM]
+- [ ] Update issue status to "needs-fixes"
+- [ ] Assign back to developer for corrections
+
+### Review Comments for GitLab
+
+**For Issue #[NUM]**:
+```
+## Code Review Complete ✅
+
+**Status**: Conditional Approval  
+**Score**: 8/10  
+
+**Critical Fix Needed**: Security issue in payment processing
+**ETA**: 30 minutes  
+
+**Excellent Work**: Clean architecture and comprehensive testing!
+
+Full review: [link to review file]
+```
+
+**For MR ![NUM]**:
+```
+## Security Issue - Line 45 in payment.ts
+
+This SQL query is vulnerable to injection attacks:
+
+[code snippet]
+
+**Fix**: Use parameterized queries:
+[corrected code]
+
+Otherwise, excellent work on the implementation! 🚀
+```
+
+---
+
+## 📝 Next Steps
+
+### For Developer
+1. **Address critical security issue** (30 min)
+2. **Add missing error handling test** (15 min)
+3. **Update documentation** for new API endpoints (15 min)
+4. **Request re-review** once fixes are complete
+
+### For Team
+- **Schedule security review** of payment processing module
+- **Consider performance optimization** in future iteration
+- **Update coding standards** based on excellent patterns in this MR
+
+---
+
+**Review completed by**: Claude AI Assistant  
+**Next review**: After critical fixes are applied  
+**GitLab sync**: [timestamp if posted]
+```
+
+## GitLab Integration
+
+### Write-Back Options
+The AI should offer to:
+- **Post review summary** to the original issue as a comment
+- **Add detailed feedback** to the merge request
+- **Update issue status** based on review outcome
+- **Set MR approval status** (approve/request changes)
+- **Add review labels** to issue/MR
+
+### GitLab API Endpoints for Write-Back
+```bash
+# Post comment to issue
+POST /projects/:id/issues/:issue_iid/notes
+{
+  "body": "Review summary markdown content"
+}
+
+# Post comment to MR
+POST /projects/:id/merge_requests/:merge_request_iid/notes
+{
+  "body": "Review feedback markdown content"
+}
+
+# Update issue status
+PUT /projects/:id/issues/:issue_iid
+{
+  "state_event": "close|reopen",
+  "labels": "needs-fixes,code-review-complete"
+}
+
+# Approve/Request changes on MR
+POST /projects/:id/merge_requests/:merge_request_iid/approve
+POST /projects/:id/merge_requests/:merge_request_iid/unapprove
+```
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/workflow/`
+- **Filename:** `review-[issue-num]-[YYYY-MM-DD].md`
+
+## AI Instructions
+
+1. **Context First:** Always reference the original issue and requirements
+2. **Leverage Specialist Reviewers:** Automatically invoke relevant reviewers based on code changes:
+   - @code-reviewer for all code quality analysis
+   - @security-reviewer for security-sensitive files
+   - @performance-reviewer for performance-critical code
+   - @api-reviewer for API endpoint changes
+   - @mr-reviewer for educational MR feedback
+3. **Be Specific:** Include file names, line numbers, and code snippets
+4. **Actionable Feedback:** Provide clear, step-by-step fix instructions
+5. **Balance Criticism:** Highlight both issues and excellent work
+6. **Consider Issue Priority:** Adjust review depth based on issue importance
+7. **Offer GitLab Integration:** Always ask if user wants to post back to GitLab
+8. **Link to Workflow:** Reference the issues extraction for context
+
+## Error Handling
+
+- **Missing Issue Context:** "No issue extraction found. Run @extract-issues first"
+- **Invalid Input:** "Please specify valid issue number (#123), branch name, or MR (!45)"
+- **API Errors:** "GitLab API error during review: [details]"
+- **Missing Branch/MR:** "No branch or MR found for issue #[NUM]"
+
+## Workflow Commands
+
+```bash
+# Review specific issue
+@branch-review #123
+
+# Review specific branch
+@branch-review feature/auth-improvement
+
+# Review specific MR
+@branch-review !45
+
+# Review all ready issues
+@branch-review --queue
+
+# Review with GitLab posting
+@branch-review #123 --post
+
+# Review with custom focus
+@branch-review #123 --security-focus
+```
+
+## Post-Review Actions
+
+After completing review:
+1. **Update workflow files** with review status
+2. **Ask about GitLab posting**: "Should I post this review to GitLab?"
+3. **Suggest next steps** for developer and team
+4. **Track review metrics** for continuous improvement
+
+## Environment Requirements
+
+Ensure `.env` file contains:
+```
+GITLAB_ACCESS_TOKEN=your_gitlab_access_token_here
+GITLAB_PROJECT_ID=your_project_id_here
+```

@@ -1,41 +1,163 @@
 # AI Developer Workflow
 
-Guidelines and rules for using an AI assistant to plan and implement software features.
+A structured methodology for leveraging AI assistants to efficiently plan, document, and implement software features with consistency and quality.
 
-## Overview
+## 🎯 Purpose
 
-This repository describes a three step workflow:
+This repository provides a comprehensive framework for developers working with AI assistants, ensuring:
+- Clear requirements documentation
+- Systematic task breakdown
+- Consistent implementation patterns
+- Traceable development progress
 
-1. **Create a Product Requirements Document (PRD).**  
-   See [`01-create-prd.md`](01-create-prd.md) for the standard process and [`01-create-prd-replit.md`](01-create-prd-replit.md) for Replit‑specific guidance.
-2. **Generate a task list from the PRD.**  
-   Instructions are in [`02-generate-tasks.md`](02-generate-tasks.md) and [`02-generate-tasks-replit.md`](02-generate-tasks-replit.md).
-3. **Work through the task list.**  
-   Rules for updating tasks and committing code are in [`03-process-task-list.md`](03-process-task-list.md) and [`03-process-tasks-replit.md`](03-process-tasks-replit.md).
+## 📋 Overview
 
-All generated PRDs and task lists should be saved in the `/tasks` directory using the naming conventions described in the rule files.
+The AI Developer Workflow follows a three-phase approach:
 
-## Repository structure
+### Phase 1: Requirements Documentation
+**Create a Product Requirements Document (PRD)**
+- Standard process: [`01-create-prd.md`](01-create-prd.md)
+- Replit-specific: [`01-create-prd-replit.md`](01-create-prd-replit.md)
+
+### Phase 2: Task Planning
+**Generate a structured task list from the PRD**
+- Standard process: [`02-generate-tasks.md`](02-generate-tasks.md)
+- Replit-specific: [`02-generate-tasks-replit.md`](02-generate-tasks-replit.md)
+
+### Phase 3: Implementation
+**Execute tasks systematically**
+- Standard process: [`03-process-task-list.md`](03-process-task-list.md)
+- Replit-specific: [`03-process-tasks-replit.md`](03-process-tasks-replit.md)
+
+## 📁 Repository Structure
 
 ```
-01-create-prd.md           – PRD generation rules
-02-generate-tasks.md       – Task list creation rules
-03-process-task-list.md    – Task management and commit rules
-*-replit.md                – Variants of the rules tailored for the Replit platform
-LICENSE                    – Project license
+ai-dev-workflow/
+├── 01-create-prd.md           # PRD generation guidelines
+├── 01-create-prd-replit.md    # PRD rules for Replit environment
+├── 02-generate-tasks.md       # Task list creation methodology
+├── 02-generate-tasks-replit.md # Task generation for Replit
+├── 03-process-task-list.md    # Task execution and management
+├── 03-process-tasks-replit.md # Task processing for Replit
+├── LICENSE                     # MIT License
+├── README.md                   # This file
+└── tasks/                      # Directory for PRDs and task lists (create as needed)
+    ├── prd-[feature].md        # Feature requirements documents
+    └── tasks-prd-[feature].md  # Corresponding task lists
 ```
 
-## Usage
+## 🚀 Getting Started
 
-1. Start with a brief feature description.
-2. Follow the PRD rules to ask clarifying questions and write `prd-[feature].md` in `/tasks`.
-3. Use the task generation rules to produce `tasks-prd-[feature].md`.
-4. Implement each sub‑task sequentially while following the task processing rules.
+### Prerequisites
+- An AI assistant (e.g., Claude, GPT-4, or similar)
+- A development environment (standard or Replit)
+- Version control system (Git recommended)
 
-## Testing and contributions
+### Workflow Steps
 
-Before committing changes, run the project's tests (for example, `pytest` or `npm test`) and ensure they pass. Use conventional commit messages and reference relevant tasks when committing.
+1. **Initialize the project**
+   ```bash
+   # Create tasks directory if it doesn't exist
+   mkdir -p tasks
+   ```
 
-## License
+2. **Start with a feature idea**
+   - Provide a brief description of the desired functionality
+   - The AI will ask clarifying questions based on the PRD template
 
-This project is licensed under the [MIT License](LICENSE).
+3. **Generate the PRD**
+   - Save as `tasks/prd-[feature-name].md`
+   - Include all technical specifications, constraints, and acceptance criteria
+
+4. **Create the task list**
+   - Generate from the PRD following the task generation rules
+   - Save as `tasks/tasks-prd-[feature-name].md`
+   - Tasks should be atomic, measurable, and ordered by dependency
+
+5. **Implement systematically**
+   - Work through tasks sequentially
+   - Update task status as you progress
+   - Commit changes with meaningful messages referencing task IDs
+
+## 💡 Best Practices
+
+### When Creating PRDs
+- Be specific about technical requirements
+- Include edge cases and error handling
+- Define clear acceptance criteria
+- Consider performance and scalability
+
+### When Generating Tasks
+- Break down complex features into atomic units
+- Order tasks by dependency
+- Include testing and documentation tasks
+- Estimate complexity for each task
+
+### During Implementation
+- Complete one task before moving to the next
+- Run tests after each significant change
+- Use conventional commit messages
+- Reference task IDs in commits
+
+## 🧪 Testing Guidelines
+
+Before committing any changes:
+
+```bash
+# For Node.js projects
+npm test
+
+# For Python projects
+pytest
+
+# For other languages, use appropriate test runners
+```
+
+Ensure all tests pass and consider adding new tests for implemented features.
+
+## 🤝 Contributing
+
+1. Follow the established workflow for new features
+2. Maintain consistency with existing patterns
+3. Document any workflow improvements
+4. Submit pull requests with clear descriptions
+
+## 📝 Commit Message Convention
+
+Use conventional commit messages with task references:
+
+```
+feat: implement user authentication [TASK-001]
+fix: resolve database connection timeout [TASK-015]
+docs: update API documentation [TASK-023]
+test: add unit tests for payment module [TASK-008]
+```
+
+## 🛠️ Platform-Specific Notes
+
+### Replit Environment
+The `*-replit.md` files contain platform-specific adaptations for:
+- Replit's file system structure
+- Environment variable management
+- Database integrations
+- Deployment considerations
+
+### Standard Development
+The standard rule files apply to:
+- Local development environments
+- Traditional CI/CD pipelines
+- Self-hosted or cloud deployments
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+
+## 🔗 Additional Resources
+
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [Semantic Versioning](https://semver.org/)
+- [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
+
+---
+
+*This workflow framework helps maintain consistency, quality, and efficiency when working with AI assistants on software development projects.*

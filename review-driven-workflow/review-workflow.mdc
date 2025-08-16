@@ -1,9 +1,6 @@
 ---
-description: Complete review-driven development workflow integrating issue extraction, specialist reviewers, and GitLab automation
-globs: []
-alwaysApply: false
+alwaysApply: true
 ---
-
 # Review-Driven Development Workflow
 
 A comprehensive code review system that integrates GitLab issues, specialist reviewers, and automated feedback posting to ensure high-quality code delivery.

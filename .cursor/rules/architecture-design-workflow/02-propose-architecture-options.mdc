@@ -1,154 +1,76 @@
 ---
-description: Propose 2–3 architecture options with trade-offs and diagrams based on requirements
-globs:
-  - "**/architecture/architecture-requirements-*.md"
-  - "**/architecture/*requirements*.md"
+description: Generate and compare viable architecture alternatives
 alwaysApply: false
 ---
-# Rule: Propose Architecture Options & Trade-offs
+# Rule: Propose Architecture Options
 
 ## Goal
 
-Convert requirements into 2–3 viable architecture options, each with diagrams, pros/cons, risks, and when to choose. Produce a comparison and request a selection.
-
-## Validation & Prerequisites
-
-Before proposing architecture options:
-
-1. **Requirements Validation**: Ensure architecture requirements file exists and is complete
-2. **Directory Structure**: Verify `/architecture/` directory exists and is writable
-3. **Requirements Quality**: Validate that NFRs have measurable targets
-4. **Stakeholder Context**: Confirm decision criteria and evaluation priorities
+To guide an AI assistant in generating multiple architecture options based on requirements and helping stakeholders make informed decisions through comparative analysis.
 
 ## Process
 
-1. **Validate Prerequisites**: Check for requirements file and validate completeness
-2. **Read Requirements**: Load the referenced `architecture-requirements-[TARGET_NAME].md`
-3. **Generate Options**: Propose 2–3 architecture options aligned to constraints and NFRs
-4. **Model & Diagram**: Include context, container, and key sequence diagrams (Mermaid) for each option
-5. **Compare Options**: Provide a trade-off matrix aligned to NFRs and constraints
-6. **Request Decision**: Ask the user to select Option A/B/C or propose a hybrid
-7. **Save Output**: Write `architecture-options-[TARGET_NAME].md` to `/architecture/`
+1. **Load Requirements**: Read from `/architecture/architecture-requirements-[TARGET_NAME].md`
+2. **Generate Options**: Create 2-3 distinct architecture approaches
+3. **Create Diagrams**: Develop visual representations for each option
+4. **Compare Trade-offs**: Analyze pros, cons, and trade-offs
+5. **Save Options**: Generate `architecture-options-[TARGET_NAME].md` in `/architecture/`
 
-## Option Template
+## Architecture Option Template
+
+For each option include:
 
 ```markdown
-# Option A — [Name]
+## Option [N]: [Descriptive Name]
 
-## Summary
-- Overview and key ideas
-- Primary benefits and trade-offs
+### Overview
+Brief description of the approach
 
-## Core Components
-- Services/components and responsibilities
-- Data stores and messaging
+### Architecture Diagram
+[C4 Context/Container diagram or similar]
 
-## Diagrams
-### Context Diagram
-```mermaid
-graph LR
-  User --> Web
-  Web --> API
-  API --> DB
-```
+### Key Components
+- Component A: Purpose and technology
+- Component B: Purpose and technology
 
-### Container Diagram
-```mermaid
-graph LR
-  subgraph Frontend
-    FE[Web App]
-  end
-  subgraph Backend
-    API[API Service] --> MQ[Message Queue]
-    API --> DB[(Database)]
-  end
-  FE --> API
-```
+### Pros
+- Advantage 1
+- Advantage 2
 
-### Key Sequence (Critical Flow)
-```mermaid
-sequenceDiagram
-  participant U as User
-  participant FE as Web
-  participant API as API
-  participant DB as DB
-  U->>FE: Action
-  FE->>API: Request
-  API->>DB: Query
-  DB-->>API: Result
-  API-->>FE: Response
-```
+### Cons
+- Disadvantage 1
+- Disadvantage 2
 
-## NFR Alignment
-- Availability & reliability
-- Performance & scalability
-- Security & compliance
-- Cost & operability
-
-## Risks & Mitigations
-- [Risk] → [Mitigation]
-
-## When to Choose
-- Best for [context]
+### Best For
+Scenarios where this option excels
 ```
 
 ## Comparison Matrix
 
-```markdown
-| Aspect | Option A | Option B | Option C |
-|---|---|---|---|
-| Meets Availability SLO | High | Medium | High |
-| Latency Targets | Good | Excellent | Medium |
-| Complexity | Medium | High | Low |
+Create a comparison table:
+| Criteria | Option 1 | Option 2 | Option 3 |
+|----------|----------|----------|----------|
+| Complexity | Low | Medium | High |
 | Cost | $$ | $$$ | $ |
-| Team Fit | Strong | Moderate | Strong |
-| Time-to-Market | Medium | Slow | Fast |
-```
+| Scalability | Good | Excellent | Fair |
+| Time to Market | Fast | Medium | Slow |
+
+## Key Considerations
+
+- Vary optimization focus (cost vs performance vs simplicity)
+- Consider different deployment models (monolith, microservices, serverless)
+- Include rough cost and timeline estimates
+- Address key NFRs from requirements
 
 ## Output
 
-- **Format:** Markdown (`.md`)
-- **Location:** `/architecture/`
-- **Filename:** `architecture-options-[TARGET_NAME].md`
+- **Format**: Markdown (`.md`)
+- **Location**: `/architecture/`
+- **Filename**: `architecture-options-[TARGET_NAME].md`
 
-## Interaction Model
+## Final Instructions
 
-- After generating options and the comparison, pause and ask: "Select Option A, B, C, or request a hybrid. Reply with 'Go' after selection."
-
-## AI Instructions
-
-- Ensure each option satisfies core constraints/NFRs differently
-- Avoid technology bias; justify choices with requirements
-- Keep diagrams minimal but meaningful; focus on critical flows
-
-## Error Handling
-
-- **Missing Requirements**: "No architecture requirements found at `/architecture/architecture-requirements-[TARGET_NAME].md`. Please run @architecture-design-workflow/01-define-architecture-requirements first to create requirements before proposing options."
-- **Incomplete Requirements**: "Architecture requirements are incomplete or missing critical sections. Required sections: Context & Objectives, NFRs, Domain & Data, Platform & Technology, Team & Delivery Constraints. Please complete requirements before proceeding."
-- **Insufficient Options**: "Unable to propose distinct architecture options given current constraints: [SPECIFIC_CONSTRAINTS]. Please consider: A) Relaxing budget constraints, B) Adjusting performance targets, C) Extending timeline, D) Reducing scope to enable viable options."
-- **Conflicting NFRs**: "Non-functional requirements contain conflicts that prevent viable options: [CONFLICTS]. Please resolve: cost vs performance trade-offs, availability vs complexity, security vs usability."
-- **Directory Issues**: "Cannot write to `/architecture/` directory. Please ensure the directory exists and you have write permissions."
-- **Requirements Format**: "Requirements file format is invalid or corrupted. Please ensure the file contains all required sections and valid markdown structure."
-
-## Decision Support
-
-### Option Selection Guidance
-- **Option A typically best for**: [Context-specific guidance]
-- **Option B typically best for**: [Context-specific guidance]  
-- **Option C typically best for**: [Context-specific guidance]
-- **Hybrid approach when**: Multiple constraints require combining approaches
-
-### Evaluation Framework
-- **Risk vs Reward**: Balance innovation with proven approaches
-- **Team Capabilities**: Match complexity to team experience
-- **Time vs Quality**: Consider delivery timeline and quality requirements
-- **Cost vs Performance**: Optimize for budget and performance targets
-
-## Next Steps
-
-After option selection:
-1. Save selected option and rationale in `architecture-options-[TARGET_NAME].md`
-2. Document any hybrid approach modifications
-3. Confirm stakeholder alignment on selected direction
-4. Inform user: "Architecture option selected successfully. Ready to create detailed technical design? Run @architecture-design-workflow/03-create-technical-design to proceed."
-
+1. Make options genuinely different, not variations
+2. Keep descriptions concise but complete
+3. Use visuals to clarify complex concepts
+4. Provide clear recommendation with rationale

@@ -97,9 +97,11 @@ The review-driven workflow consists of four sequential cursor rules that guide y
 @review-driven-workflow/03-execute-review-process
 ```
 
-## Integration with Existing Reviewers
+## Integration with Other Workflows
 
-The workflow seamlessly integrates with existing specialist reviewers:
+### With Specialist Reviewers
+
+The workflow automatically leverages specialist reviewers:
 
 - **@code-reviewer**: General code quality and pattern analysis
 - **@security-reviewer**: Security vulnerability assessment
@@ -107,7 +109,45 @@ The workflow seamlessly integrates with existing specialist reviewers:
 - **@api-reviewer**: API design and consistency review
 - **@mr-reviewer**: Educational merge request reviews
 
-These specialist reviewers are automatically invoked during the execution phase based on the type of analysis being performed.
+### PRD-Driven Workflow Integration
+
+**Post-Implementation Review:**
+```bash
+# 1. Complete PRD implementation
+@prd-driven-workflow/03-process-tasks
+# Feature implemented and committed
+
+# 2. Initiate comprehensive review
+@review-driven-workflow/01-initiate-review
+# Review the implemented feature
+
+# 3. Generate and execute review tasks
+@review-driven-workflow/02-generate-review-tasks
+@review-driven-workflow/03-execute-review-process
+
+# 4. Create improvement tasks from findings
+@review-driven-workflow/04-publish-review-results
+# Findings feed back into next PRD cycle
+```
+
+### Architecture-Design Workflow Integration
+
+**Architecture Compliance Review:**
+```bash
+# 1. Reference approved architecture
+# /architecture/technical-design-api-gateway.md
+
+# 2. Review implementation against design
+@review-driven-workflow/01-initiate-review
+# Focus: Architecture compliance
+
+# 3. Validate design decisions in code
+@review-driven-workflow/03-execute-review-process
+# Check: patterns, boundaries, contracts
+
+# 4. Report compliance status
+@review-driven-workflow/04-publish-review-results
+```
 
 ## Output Structure
 
@@ -172,36 +212,40 @@ The workflow supports generating reports in both English and Thai:
 
 ## Best Practices
 
-### When to Use Each Phase
+### Review Planning
+1. Define clear objectives before starting - what are you trying to improve?
+2. Scope reviews appropriately - comprehensive for releases, focused for sprints
+3. Include the right stakeholders - developers, architects, security team
+4. Set realistic timelines - allow time for fixes before deadlines
+5. Document review context - why this review, why now?
 
-1. **Initiate Review**: 
-   - Before major releases or deployments
-   - After significant feature additions
-   - For security audits or compliance checks
-   - When onboarding new team members
+### Task Generation  
+1. Balance breadth and depth - cover critical paths thoroughly
+2. Prioritize by risk and impact - security and performance first
+3. Make tasks measurable - "review authentication" vs "verify OAuth implementation"
+4. Include validation steps - how to verify findings are addressed
+5. Set clear completion criteria - what constitutes "done"
 
-2. **Generate Tasks**:
-   - When you need structured analysis approach
-   - For complex codebases requiring systematic review
-   - When multiple review aspects need coordination
+### Review Execution
+1. One finding at a time - provide full context and evidence
+2. Be constructive - suggest solutions, not just problems
+3. Use concrete examples - show actual code, not theoretical issues
+4. Classify appropriately - don't inflate severity for attention
+5. Track patterns - recurring issues indicate systemic problems
 
-3. **Execute Review**:
-   - For thorough, evidence-based analysis
-   - When you need detailed findings with specific recommendations
-   - For generating comprehensive documentation
+### Results Publication
+1. Tailor communication to audience - technical for devs, summary for managers
+2. Make findings actionable - include fix instructions and effort estimates
+3. Create trackable items - use issue templates for consistency
+4. Follow up on resolutions - verify fixes address root causes
+5. Archive for learning - build institutional knowledge
 
-4. **Publish Results**:
-   - When findings need to be tracked as issues
-   - For stakeholder communication and reporting
-   - When creating permanent documentation records
-
-### Customization Options
-
-- **Review Depth**: Adjust based on project criticality and timeline
-- **Focus Areas**: Emphasize specific aspects (security, performance, etc.)
-- **Output Format**: Customize report structure for different audiences
-- **Language**: Generate reports in English, Thai, or both
-- **Integration**: Configure GitHub/GitLab publishing preferences
+### Quality Control
+1. Validate findings before publishing - reduce false positives
+2. Cross-reference with past reviews - track improvement trends
+3. Get developer feedback - are findings helpful and accurate?
+4. Measure impact - do reviews lead to better code?
+5. Iterate and improve - refine process based on results
 
 ## Environment Setup
 
@@ -235,39 +279,61 @@ Ensure these directories exist in your project:
 | **Focus** | Building new functionality | Improving existing code |
 | **Timeline** | Development cycle | Review & improvement cycle |
 
-## Success Metrics
+## Performance Metrics
 
-Track these metrics to measure workflow effectiveness:
+Track workflow effectiveness with these metrics:
 
-- **Review Completion Rate**: Percentage of initiated reviews that reach publication
-- **Finding Resolution**: How many identified issues get addressed
-- **Quality Improvement**: Measurable improvements in subsequent reviews
-- **Team Adoption**: Usage frequency and team feedback
-- **Time Efficiency**: Average time from initiation to publication
+### Process Metrics
+- Time from review initiation to final report
+- Number of findings per 1000 lines of code
+- Percentage of automated vs manual analysis
+- Review coverage (% of codebase reviewed)
+
+### Quality Metrics  
+- Critical findings caught before production
+- False positive rate in findings
+- Finding resolution rate within sprint
+- Repeat issue rate in subsequent reviews
+
+### Team Metrics
+- Developer agreement with findings (survey)
+- Time saved through automated reviews
+- Knowledge transfer from review documentation
+- Code quality improvement over time
+
+### Business Metrics
+- Reduced production incidents
+- Decreased security vulnerabilities
+- Performance improvements achieved
+- Technical debt reduction rate
 
 ## Troubleshooting
 
-### Common Issues
+### Common Issues and Solutions
 
-1. **Review Scope Too Broad**
-   - Break large codebases into smaller, focused reviews
-   - Use specific review types (security-only, performance-only)
-   - Review critical paths or recent changes first
+**Issue**: Review takes too long to complete  
+**Solution**: Focus on changed files only, limit scope to critical paths, use sampling for large codebases
 
-2. **Specialist Reviewers Not Available**
-   - Ensure existing reviewer files are in correct location
-   - Check file permissions and cursor rule activation
-   - Fall back to general analysis if specialists unavailable
+**Issue**: Too many findings to address  
+**Solution**: Prioritize by severity, focus on security/performance first, create phased improvement plan
 
-3. **Publishing Failures**
-   - Verify environment variables are correctly set
-   - Check API permissions for GitHub/GitLab
-   - Validate network connectivity and rate limits
+**Issue**: Findings are too generic or obvious  
+**Solution**: Provide specific review objectives, focus on business-critical aspects, skip basic linting issues
 
-4. **Report Quality Issues**
-   - Ensure review tasks are specific and actionable
-   - Provide clear context and objectives in review plan
-   - Use appropriate review depth for project complexity
+**Issue**: Team doesn't act on review findings  
+**Solution**: Create actionable tickets, assign owners, include effort estimates, track resolution metrics
+
+**Issue**: Reviews miss important issues  
+**Solution**: Use multiple specialist reviewers, include domain experts, validate against past incidents
+
+**Issue**: Report format doesn't suit stakeholders  
+**Solution**: Customize executive summary, use visual metrics, provide technical appendix separately
+
+**Issue**: Integration with GitHub/GitLab fails  
+**Solution**: Check token permissions, verify API rate limits, use manual issue creation as fallback
+
+**Issue**: Bilingual reports have quality issues  
+**Solution**: Review technical terms separately, maintain glossary, have native speakers validate
 
 ## Future Enhancements
 

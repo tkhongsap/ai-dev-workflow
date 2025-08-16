@@ -1,220 +1,52 @@
 ---
-description: Analyze code components to understand testing requirements and scope with comprehensive validation
+description: Analyze code components to understand testing requirements
 alwaysApply: false
 ---
 # Rule: Analyze Code for Testing Requirements
 
 ## Goal
 
-To guide an AI assistant in analyzing specific code components (functions, classes, modules, or APIs) to understand their logic, inputs, outputs, dependencies, and edge cases as preparation for comprehensive test generation.
-
-## Validation & Prerequisites
-
-Before starting code analysis:
-
-1. **Directory Structure**: Ensure `/tests/` directory exists, create if necessary
-2. **Code Accessibility**: Verify target code is accessible and readable
-3. **Testing Framework**: Identify available testing frameworks in the project
-4. **Project Context**: Understand project structure and existing test patterns
-5. **Stakeholder Requirements**: Confirm testing objectives and scope
+To guide an AI assistant in analyzing code components (functions, classes, modules, or APIs) to understand their logic and prepare for test generation.
 
 ## Process
 
-1. **Validate Prerequisites**: Check directory structure, code accessibility, and project context
-2. **Receive Testing Target**: The user provides code to analyze (file path, function name, class, or API endpoint)
-3. **Ask Clarifying Questions**: Gather context about testing scope, requirements, and constraints
-4. **Analyze Code Structure**: Examine the code to understand logic flow, dependencies, and complexity
-5. **Identify Test Scenarios**: Map out test cases including happy paths, edge cases, and error conditions
-6. **Validate Analysis Quality**: Ensure comprehensive coverage and completeness
-7. **Save Analysis**: Generate `test-analysis-[TARGET_NAME].md` in `/tests/` directory
+1. **Receive Testing Target**: The user provides code to analyze (file path, function name, class, or API endpoint)
+2. **Ask Clarifying Questions**: Gather context about testing scope and requirements
+3. **Analyze Code Structure**: Examine the code to understand logic flow and dependencies
+4. **Identify Test Scenarios**: Map out test cases including happy paths, edge cases, and errors
+5. **Save Analysis**: Generate `test-analysis-[TARGET_NAME].md` in `/tests/` directory
 
 ## Clarifying Questions (Examples)
 
-The AI should adapt questions based on the code target, but here are common areas to explore:
+- **Test Type**: "What type of tests do you need? (unit, integration, e2e, or all)"
+- **Business Purpose**: "What is the primary business purpose of this code?"
+- **Critical Paths**: "Which code paths are most critical?"
+- **Known Issues**: "Are there any known bugs or edge cases?"
+- **Testing Framework**: "Which testing framework should be used?"
 
-### Testing Scope & Objectives
-- **Test Type Focus:** "What type of tests do you need?"
-  - A) Unit tests (individual functions/methods)
-  - B) Integration tests (component interactions)
-  - C) End-to-end tests (full user workflows)
-  - D) API tests (endpoint behavior)
-  - E) Comprehensive (all types)
+## Analysis Output Structure
 
-### Code Context & Requirements
-- **Business Logic:** "What is the primary business purpose of this code?"
-- **Critical Paths:** "Which code paths are most critical for business operations?"
-- **Known Issues:** "Are there any known bugs or edge cases that need special attention?"
-- **Performance Requirements:** "Are there performance criteria that should be tested?"
+The analysis document should include:
 
-### Testing Environment & Constraints
-- **Testing Framework:** "Which testing framework should be used?"
-  - JavaScript/TypeScript: Jest, Vitest, Mocha, Cypress
-  - Python: pytest, unittest, FastAPI TestClient
-  - Other: Specify framework
-- **Mocking Strategy:** "What external dependencies need to be mocked?"
-- **Test Data:** "Do you have existing test data or fixtures to use?"
-- **Coverage Goals:** "What test coverage percentage are you targeting?"
-
-### Dependencies & Integration Points
-- **External Services:** "What external APIs or services does this code interact with?"
-- **Database Dependencies:** "Does this code interact with databases or data stores?"
-- **Authentication:** "Are there authentication or authorization requirements to test?"
-- **File System:** "Does the code read/write files or handle uploads?"
-
-## Code Analysis Structure
-
-The generated analysis should include the following sections:
-
-1. **Code Overview:** Brief description of the component and its purpose
-2. **Function/Method Inventory:** List of all testable units with their signatures
-3. **Input/Output Analysis:** Expected inputs, outputs, and data types
-4. **Logic Flow Mapping:** Key decision points and execution paths
-5. **Dependencies:** External dependencies and integration points
-6. **Error Conditions:** Potential failure modes and exception scenarios
-7. **Edge Cases:** Boundary conditions and unusual input scenarios
-8. **Performance Considerations:** Areas where performance testing may be needed
-9. **Security Concerns:** Authentication, authorization, and data validation points
-10. **Test Scenarios Matrix:** Comprehensive list of test cases to implement
-
-## Test Analysis Template
-
-```markdown
-# Test Analysis: [Target Name]
-
-**Analysis Date**: [YYYY-MM-DD]  
-**Target**: [File/Function/Class/API]  
-**Testing Framework**: [Framework Name]  
-**Coverage Goal**: [X]%
-
-## 1. Code Overview
-- **Purpose**: [Brief description]
-- **Complexity**: [Low/Medium/High]
-- **Business Criticality**: [Low/Medium/High/Critical]
-
-## 2. Function/Method Inventory
-| Function | Parameters | Return Type | Complexity | Priority |
-|----------|------------|-------------|------------|----------|
-| `functionName()` | `param: type` | `returnType` | Medium | High |
-
-## 3. Input/Output Analysis
-### Valid Inputs
-- [Input type 1]: [Description and examples]
-- [Input type 2]: [Description and examples]
-
-### Expected Outputs
-- [Output type 1]: [Description and examples]
-- [Output type 2]: [Description and examples]
-
-### Invalid Inputs
-- [Invalid input 1]: [Expected behavior]
-- [Invalid input 2]: [Expected behavior]
-
-## 4. Logic Flow Mapping
-```mermaid
-flowchart TD
-    A[Input Validation] --> B{Valid Input?}
-    B -->|Yes| C[Process Data]
-    B -->|No| D[Return Error]
-    C --> E[Return Result]
-```
-
-## 5. Dependencies
-### External Dependencies
-- [Dependency 1]: [Purpose and mocking strategy]
-- [Dependency 2]: [Purpose and mocking strategy]
-
-### Internal Dependencies
-- [Internal module 1]: [Interaction type]
-- [Internal module 2]: [Interaction type]
-
-## 6. Error Conditions
-- **[Error Type 1]**: [Trigger condition] → [Expected behavior]
-- **[Error Type 2]**: [Trigger condition] → [Expected behavior]
-
-## 7. Edge Cases
-- **[Edge Case 1]**: [Scenario description]
-- **[Edge Case 2]**: [Scenario description]
-
-## 8. Performance Considerations
-- **Load Testing**: [Scenarios requiring performance validation]
-- **Memory Usage**: [Memory-intensive operations to test]
-- **Timeout Handling**: [Long-running operations]
-
-## 9. Security Concerns
-- **Input Validation**: [Security validation requirements]
-- **Authentication**: [Auth testing requirements]
-- **Data Sanitization**: [Data cleaning and validation]
-
-## 10. Test Scenarios Matrix
-| Scenario | Type | Priority | Expected Result | Notes |
-|----------|------|----------|-----------------|-------|
-| Happy path with valid data | Unit | High | Success | Basic functionality |
-| Invalid input handling | Unit | High | Error | Input validation |
-| Boundary value testing | Unit | Medium | Varies | Edge cases |
-| Integration with [Service] | Integration | High | Success | External dependency |
-| Performance under load | Performance | Medium | Within SLA | Load testing |
-```
+1. **Code Overview**: Purpose and main functionality
+2. **Function/Method Inventory**: List of testable units
+3. **Input/Output Analysis**: Valid inputs, expected outputs, invalid inputs
+4. **Logic Flow**: Conditional branches, loops, state changes
+5. **Dependencies**: External services, modules, databases
+6. **Test Scenarios**: Happy path, edge cases, error conditions
 
 ## Target Audience
 
-Assume the primary reader is a **developer or QA engineer** who will implement the test cases based on this analysis.
+Assume the analysis will be used by developers to write comprehensive tests.
 
 ## Output
 
-- **Format:** Markdown (`.md`)
-- **Location:** `/tests/`
-- **Filename:** `test-analysis-[TARGET_NAME].md`
+- **Format**: Markdown (`.md`)
+- **Location**: `/tests/`
+- **Filename**: `test-analysis-[TARGET_NAME].md`
 
 ## Final Instructions
 
-1. Do NOT start generating actual test code yet
-2. Focus on understanding the "what" and "why" of testing requirements
-3. Be thorough in identifying edge cases and error conditions
-4. Consider both functional and non-functional testing requirements
-5. Provide clear priorities for test scenarios based on business criticality
-
-## Analysis Quality Gates
-
-### Completeness Checklist
-- [ ] All public methods/functions identified and cataloged
-- [ ] Input/output specifications documented with types
-- [ ] Dependencies mapped with mocking strategies defined
-- [ ] Error conditions and edge cases comprehensively identified
-- [ ] Performance considerations evaluated
-- [ ] Security implications assessed
-- [ ] Business criticality and risk levels assigned
-
-### Analysis Validation
-- [ ] Code structure thoroughly understood
-- [ ] All execution paths identified
-- [ ] Test scenarios prioritized by impact and risk
-- [ ] Testing framework requirements specified
-- [ ] Resource and timeline estimates provided
-
-## Next Steps
-
-After completing code analysis:
-1. Save comprehensive analysis as `test-analysis-[TARGET_NAME].md` in `/tests/`
-2. Validate all sections are complete and actionable
-3. Confirm testing framework and approach with stakeholders
-4. Prepare for test case generation
-5. Inform user: "Code analysis completed successfully. Ready to generate test cases? Run @test-generation-workflow/02-generate-test-cases to proceed."
-
-## AI Instructions
-
-- Examine code thoroughly to understand all execution paths
-- Identify potential failure points and edge cases
-- Consider security implications and input validation requirements
-- Map dependencies that will need mocking or stubbing
-- Prioritize test scenarios based on business impact and risk
-- Ensure analysis is implementation-ready for test generation
-
-## Error Handling
-
-- **Missing Target**: "Please specify the code component to analyze (file path, function, class, or API endpoint). Example: `/src/components/UserAuth.ts` or `UserAuth.authenticate()` method."
-- **Inaccessible Code**: "Cannot access code at '[PATH]'. Please check: 1) File path exists, 2) Read permissions available, 3) File is not binary or encrypted."
-- **Complex Target**: "Code target is highly complex (>500 lines or >10 dependencies). Consider breaking into smaller components: A) Individual functions/methods, B) Class-by-class analysis, C) Module-level breakdown."
-- **Insufficient Context**: "Testing context incomplete. Please provide: 1) Business criticality (High/Medium/Low), 2) Testing scope preference (Unit/Integration/E2E), 3) Performance requirements, 4) Known edge cases or bugs."
-- **Directory Issues**: "Tests directory not found. Creating `/tests/` directory for test artifacts."
-- **Framework Detection Failed**: "No testing framework detected. Please specify: Jest, pytest, Mocha, Cypress, or provide custom configuration."
-- **Analysis Quality Issues**: "Code analysis incomplete. Missing: [SPECIFIC_GAPS]. Required for comprehensive testing: dependency mapping, error condition identification, edge case analysis."
+1. Focus on understanding the code's behavior
+2. Identify all testable scenarios
+3. Document findings clearly for test implementation

@@ -1,394 +1,59 @@
 ---
-description: Execute test suites, analyze results, and maintain test quality with comprehensive monitoring
+description: Execute test suites and maintain test quality
 globs:
-  - "**/tests/**/*.test.*"
-  - "**/test_*.py"
-  - "**/*.spec.*"
+  - "**/*.test.*"
+  - "**/*_test.*"
+  - "**/test_*.*"
 alwaysApply: false
 ---
-# Rule: Execute and Maintain Test Suites
+# Rule: Execute and Maintain Tests
 
 ## Goal
 
-To guide an AI assistant in executing test suites, analyzing test results, identifying issues, and maintaining test quality over time through continuous monitoring and improvement.
-
-## Validation & Prerequisites
-
-Before executing tests:
-
-1. **Test Suite Validation**: Ensure test files exist and are properly configured
-2. **Environment Readiness**: Verify test environment is available and stable
-3. **Dependency Check**: Confirm all test dependencies and tools are accessible
-4. **Configuration Validation**: Check test configuration and environment variables
-5. **Baseline Establishment**: Set performance and quality baselines for comparison
-6. **Monitoring Setup**: Ensure test result tracking and reporting mechanisms are ready
+To guide an AI assistant in executing test suites, analyzing results, and maintaining test quality over time.
 
 ## Process
 
-1. **Validate Prerequisites**: Check test environment, dependencies, and configuration
-2. **Execute Test Suites**: Run tests and collect comprehensive results
-3. **Analyze Test Results**: Identify failures, performance issues, and coverage gaps
-4. **Debug Test Failures**: Investigate and resolve test failures systematically
-5. **Performance Analysis**: Monitor execution speed, resource usage, and trends
-6. **Generate Test Reports**: Create comprehensive test execution reports
-7. **Quality Assessment**: Evaluate test effectiveness and maintainability
-8. **Maintain Test Quality**: Update tests, improve performance, and ensure reliability
-9. **Monitor Test Metrics**: Track coverage, performance, and maintenance indicators
-10. **Save Outputs**: Generate test execution reports and maintenance recommendations
+1. **Run Test Suite**: Execute tests using appropriate test runner
+2. **Analyze Results**: Review pass/fail status and coverage reports
+3. **Identify Issues**: Find failing tests, flaky tests, or gaps
+4. **Fix Problems**: Update tests or code to resolve issues
+5. **Document Results**: Record test execution outcomes and metrics
 
-## Test Execution Strategy
+## Test Execution Commands
 
-### Execution Types
-- **Local Development:** Individual developer test runs
-- **CI/CD Pipeline:** Automated testing on code changes
-- **Scheduled Runs:** Nightly or weekly comprehensive test execution
-- **On-Demand:** Manual test execution for specific scenarios
-- **Release Testing:** Pre-deployment comprehensive validation
+Common test execution patterns:
+- **JavaScript/Node**: `npm test`, `jest`, `mocha`
+- **Python**: `pytest`, `python -m unittest`
+- **Java**: `mvn test`, `gradle test`
+- **Ruby**: `rspec`, `rake test`
 
-### Test Execution Commands
+## Maintenance Activities
 
-#### JavaScript/TypeScript
-```bash
-# Run all tests
-npm test
+- **Fix Failing Tests**: Investigate and resolve test failures
+- **Update Outdated Tests**: Adjust tests when requirements change
+- **Improve Flaky Tests**: Stabilize intermittent failures
+- **Increase Coverage**: Add tests for uncovered code paths
+- **Optimize Performance**: Speed up slow-running tests
 
-# Run with coverage
-npm run test:coverage
+## Quality Metrics
 
-# Run specific test file
-npm test -- component.test.ts
-
-# Run tests in watch mode
-npm test -- --watch
-
-# Run tests with verbose output
-npm test -- --verbose
-```
-
-#### Python
-```bash
-# Run all tests with pytest
-pytest
-
-# Run with coverage
-pytest --cov=src --cov-report=html
-
-# Run specific test file
-pytest tests/test_component.py
-
-# Run tests with verbose output
-pytest -v
-
-# Run tests in parallel
-pytest -n auto
-```
-
-## Test Result Analysis
-
-### Result Categories
-- **Passed Tests:** Successful test executions
-- **Failed Tests:** Tests that failed due to code issues
-- **Broken Tests:** Tests that failed due to test issues
-- **Skipped Tests:** Tests that were skipped or ignored
-- **Flaky Tests:** Tests with inconsistent results
-
-### Failure Analysis Process
-1. **Categorize Failures:** Determine if failure is due to code or test issues
-2. **Prioritize by Impact:** Focus on critical functionality first
-3. **Root Cause Analysis:** Investigate underlying causes
-4. **Fix Strategy:** Determine whether to fix code or update tests
-5. **Regression Prevention:** Add tests to prevent similar issues
-
-## Test Report Template
-
-```markdown
-# Test Execution Report: [Date/Build]
-
-**Execution Date**: [YYYY-MM-DD HH:MM]  
-**Build/Version**: [Version Number]  
-**Environment**: [Environment Name]  
-**Total Execution Time**: [Duration]
-
-## Executive Summary
-- **Overall Status**: ✅ Pass / ⚠️ Warning / ❌ Fail
-- **Total Tests**: [X] tests executed
-- **Pass Rate**: [Y]% ([Z] passed, [W] failed)
-- **Coverage**: [X]% code coverage
-- **Critical Issues**: [Number] critical failures requiring immediate attention
-
-## Test Results by Category
-
-### Unit Tests
-- **Executed**: [X] tests
-- **Passed**: [Y] tests ([Z]%)
-- **Failed**: [W] tests
-- **Coverage**: [X]% line coverage
-- **Duration**: [Time]
-
-### Integration Tests
-- **Executed**: [X] tests
-- **Passed**: [Y] tests ([Z]%)
-- **Failed**: [W] tests
-- **Duration**: [Time]
-
-### End-to-End Tests
-- **Executed**: [X] tests
-- **Passed**: [Y] tests ([Z]%)
-- **Failed**: [W] tests
-- **Duration**: [Time]
-
-## Critical Failures (Immediate Action Required)
-
-### 🚨 [Test Name] - [Component]
-**Status**: Failed  
-**Impact**: High  
-**Error**: [Error Message]
-
-**Root Cause**: [Analysis of why test failed]
-
-**Recommended Action**:
-1. [Specific action item 1]
-2. [Specific action item 2]
-
-**Code Location**: `[file.ts:line]`
-
-## Test Failures Analysis
-
-### Failed Tests by Component
-| Component | Failed Tests | Pass Rate | Priority |
-|-----------|--------------|-----------|----------|
-| Authentication | 3 | 85% | High |
-| Payment Processing | 1 | 95% | Critical |
-| User Interface | 5 | 70% | Medium |
-
-### Failure Categories
-- **Logic Errors**: [X] failures ([Y]%)
-- **Integration Issues**: [X] failures ([Y]%)
-- **Environment Problems**: [X] failures ([Y]%)
-- **Test Data Issues**: [X] failures ([Y]%)
-- **Flaky Tests**: [X] failures ([Y]%)
-
-## Performance Analysis
-
-### Test Execution Performance
-- **Fastest Test Suite**: [Suite Name] - [Duration]
-- **Slowest Test Suite**: [Suite Name] - [Duration]
-- **Tests Exceeding Timeout**: [X] tests
-- **Performance Regression**: [Y] tests slower than baseline
-
-### Resource Usage
-- **Peak Memory Usage**: [X] MB
-- **CPU Utilization**: [Y]%
-- **Network Requests**: [Z] requests
-- **Database Queries**: [W] queries
-
-## Coverage Analysis
-
-### Coverage by Type
-- **Line Coverage**: [X]%
-- **Branch Coverage**: [Y]%
-- **Function Coverage**: [Z]%
-- **Statement Coverage**: [W]%
-
-### Coverage Gaps
-- **Uncovered Files**: [List files with low coverage]
-- **Critical Paths**: [Uncovered critical business logic]
-- **Error Handling**: [Uncovered error scenarios]
-
-## Flaky Test Analysis
-
-### Identified Flaky Tests
-| Test Name | Success Rate | Failure Pattern | Recommended Action |
-|-----------|--------------|-----------------|-------------------|
-| [Test 1] | 70% | Timing issues | Add explicit waits |
-| [Test 2] | 85% | Race conditions | Improve synchronization |
-
-## Recommendations
-
-### Immediate Actions (Next 24 hours)
-1. **[Priority 1]**: Fix critical authentication test failures
-2. **[Priority 2]**: Investigate payment processing integration issues
-3. **[Priority 3]**: Update test data for user interface tests
-
-### Short-term Improvements (Next Week)
-1. **[Improvement 1]**: Optimize slow-running test suites
-2. **[Improvement 2]**: Add missing test coverage for error handling
-3. **[Improvement 3]**: Fix identified flaky tests
-
-### Long-term Enhancements (Next Month)
-1. **[Enhancement 1]**: Implement parallel test execution
-2. **[Enhancement 2]**: Add performance regression testing
-3. **[Enhancement 3]**: Improve test data management
-
-## Test Maintenance Actions
-
-### Tests Requiring Updates
-- **[Test File 1]**: Update for new API response format
-- **[Test File 2]**: Add missing edge case coverage
-- **[Test File 3]**: Fix deprecated assertion methods
-
-### Test Infrastructure Improvements
-- **CI/CD Pipeline**: Optimize test execution order
-- **Test Environments**: Update environment configurations
-- **Test Data**: Refresh test datasets
-
-## Metrics Tracking
-
-### Quality Metrics
-- **Test Reliability**: [X]% (target: >95%)
-- **Coverage Trend**: [Improving/Stable/Declining]
-- **Execution Speed**: [X] tests/minute
-- **Maintenance Effort**: [X] hours/week
-
-### Historical Comparison
-| Metric | Current | Previous | Trend |
-|--------|---------|----------|-------|
-| Pass Rate | [X]% | [Y]% | [↑/↓/→] |
-| Coverage | [X]% | [Y]% | [↑/↓/→] |
-| Execution Time | [X]min | [Y]min | [↑/↓/→] |
-| Flaky Tests | [X] | [Y] | [↑/↓/→] |
-
----
-
-**Next Report**: [Date]  
-**Report Generated**: [Timestamp]  
-**Generated By**: AI Test Assistant
-```
-
-## Test Maintenance Guidelines
-
-### Regular Maintenance Tasks
-
-#### Daily
-- Monitor test execution results
-- Investigate and fix critical test failures
-- Update tests for code changes
-
-#### Weekly
-- Review test performance metrics
-- Update test data and fixtures
-- Refactor slow or unreliable tests
-- Review and merge test improvements
-
-#### Monthly
-- Analyze test coverage trends
-- Review and update test strategy
-- Optimize test infrastructure
-- Plan test automation improvements
-
-### Test Quality Indicators
-
-#### Green Indicators (Good)
-- Pass rate > 95%
-- Coverage > target thresholds
-- Execution time within acceptable limits
-- Low number of flaky tests
-- Minimal manual intervention required
-
-#### Yellow Indicators (Warning)
-- Pass rate 90-95%
-- Coverage declining but above minimum
-- Execution time increasing
-- Some flaky tests identified
-- Occasional manual fixes needed
-
-#### Red Indicators (Action Required)
-- Pass rate < 90%
-- Coverage below minimum thresholds
-- Execution time significantly increased
-- Many flaky tests
-- Frequent manual intervention required
+Track these metrics:
+- Test pass rate
+- Code coverage percentage
+- Test execution time
+- Flaky test frequency
+- Time to fix failing tests
 
 ## Output
 
-- **Test Execution Report**: `test-execution-report-[DATE].md` in `/tests/reports/`
-- **Coverage Report**: HTML/XML coverage reports in `/tests/coverage/`
-- **Performance Report**: Test performance metrics and trends
-- **Maintenance Plan**: Recommended actions and improvements
+- **Test Reports**: Store in `/test-reports/` or CI/CD artifacts
+- **Coverage Reports**: Generate HTML or JSON coverage summaries
+- **Metrics Dashboard**: Track trends over time
 
-## AI Instructions
+## Final Instructions
 
-1. **Systematic Analysis**: Thoroughly analyze test results and identify patterns
-2. **Prioritize Issues**: Focus on critical failures and high-impact problems first
-3. **Root Cause Focus**: Investigate underlying causes, not just symptoms
-4. **Actionable Recommendations**: Provide specific, implementable improvement suggestions
-5. **Track Trends**: Monitor metrics over time to identify improvement or degradation
-6. **Maintain Quality**: Balance test coverage with execution speed and reliability
-
-## Integration Points
-
-- **CI/CD Pipeline**: Integrate test execution into deployment pipeline
-- **Code Review**: Include test results in code review process
-- **Project Management**: Report test status to stakeholders
-- **Monitoring**: Alert on test failures and quality degradation
-
-## Comprehensive Monitoring Framework
-
-### Real-time Monitoring
-- **Execution Progress**: Track test execution in real-time with progress indicators
-- **Resource Monitoring**: Monitor CPU, memory, and network usage during tests
-- **Environment Health**: Continuously check test environment stability
-- **Dependency Status**: Monitor external service availability and response times
-
-### Quality Metrics Tracking
-- **Test Reliability**: Track consistency of test results over time
-- **Coverage Trends**: Monitor test coverage changes and gaps
-- **Performance Baselines**: Compare execution times against historical data
-- **Maintenance Overhead**: Track time spent fixing vs writing tests
-
-### Automated Alerting
-- **Critical Failures**: Immediate alerts for critical test failures
-- **Performance Degradation**: Alerts when tests exceed performance thresholds
-- **Coverage Drops**: Notifications when coverage falls below targets
-- **Flaky Test Detection**: Automatic identification of unreliable tests
-
-## Error Handling
-
-- **Test Environment Issues**: "Test environment unavailable: [ENVIRONMENT_STATUS]. Please check: 1) Infrastructure health at [MONITORING_URL], 2) Network connectivity, 3) Service dependencies: [FAILED_SERVICES], 4) Environment configuration: [CONFIG_ISSUES]."
-- **Dependency Failures**: "External service dependencies failing: [FAILED_SERVICES]. Check status: 1) Service health dashboards, 2) API endpoint availability, 3) Authentication tokens, 4) Network connectivity. Consider: fallback to mocked services for testing."
-- **Resource Constraints**: "Insufficient resources for test execution: [RESOURCE_ISSUES]. Current usage: CPU [X]%, Memory [Y]GB, Disk [Z]%. Consider: 1) Parallel execution optimization, 2) Test data reduction, 3) Resource scaling, 4) Test scheduling."
-- **Configuration Problems**: "Test configuration issues detected: [CONFIG_ISSUES]. Please review: 1) Environment variables: [MISSING_VARS], 2) Framework configuration: [CONFIG_FILE], 3) Database connections, 4) File permissions."
-- **Test Suite Corruption**: "Test files corrupted or missing: [MISSING_TESTS]. Please verify: 1) File system integrity, 2) Version control sync status, 3) Build process completion, 4) Test file permissions."
-- **Performance Regression**: "Test performance significantly degraded: [PERFORMANCE_ISSUES]. Baseline: [X]s, Current: [Y]s (+[Z]% increase). Investigate: 1) Resource bottlenecks, 2) Code changes impact, 3) Environment differences, 4) Test data growth."
-- **Coverage Degradation**: "Test coverage dropped below thresholds: [COVERAGE_ISSUES]. Current: [X]%, Target: [Y]%. Missing coverage in: [UNCOVERED_AREAS]. Action required: add tests for critical paths."
-
-## Advanced Analytics & Insights
-
-### Test Effectiveness Analysis
-- **Bug Prevention Rate**: Percentage of potential issues caught before production
-- **False Positive Detection**: Identification of tests that fail due to test issues
-- **Test Value Assessment**: ROI analysis of test maintenance vs bug prevention
-- **Coverage Quality**: Focus on meaningful coverage vs percentage targets
-
-### Predictive Analytics
-- **Flaky Test Prediction**: ML-based identification of tests likely to become flaky
-- **Maintenance Forecasting**: Predict when tests will need updates
-- **Performance Trending**: Identify tests that will likely hit performance issues
-- **Risk Assessment**: Predict areas most likely to have production issues
-
-### Continuous Improvement Tracking
-- **Test Evolution**: Track how tests improve over time
-- **Team Productivity**: Measure impact of testing on development velocity
-- **Quality Trends**: Monitor overall product quality improvements
-- **Technical Debt**: Track accumulation and reduction of test technical debt
-
-## Next Steps
-
-After test execution and analysis:
-1. Generate comprehensive execution report with actionable insights
-2. Update test baselines and performance benchmarks
-3. Create maintenance plan for identified issues
-4. Schedule follow-up analysis and continuous monitoring
-5. Communicate results to stakeholders with recommended actions
-6. Plan test suite improvements and optimizations
-
-## Success Metrics
-
-Track these metrics to measure testing effectiveness:
-- **Test Reliability**: Percentage of tests that consistently pass/fail
-- **Coverage Quality**: Meaningful coverage of critical business logic
-- **Execution Efficiency**: Time to execute full test suite
-- **Maintenance Overhead**: Time spent maintaining tests vs. writing new ones
-- **Bug Detection Rate**: Percentage of bugs caught by tests vs. production
-- **Mean Time to Resolution**: Average time to fix failing tests
-- **Test ROI**: Value delivered by testing vs investment in test maintenance
+1. Run tests regularly (on commit, daily, before release)
+2. Keep test suite fast and reliable
+3. Fix broken tests immediately
+4. Monitor and improve coverage continuously

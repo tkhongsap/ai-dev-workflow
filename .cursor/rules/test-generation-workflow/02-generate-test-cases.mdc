@@ -1,320 +1,62 @@
 ---
-description: Generate comprehensive test suites based on code analysis with quality gates and progress tracking
+description: Generate comprehensive test cases based on code analysis
 globs:
-  - "**/tests/test-analysis-*.md"
   - "**/test-analysis-*.md"
 alwaysApply: false
 ---
-# Rule: Generate Comprehensive Test Cases
+# Rule: Generate Test Cases from Analysis
 
 ## Goal
 
-To guide an AI assistant in creating comprehensive test suites based on the code analysis, covering unit tests, integration tests, and end-to-end tests with proper mocking, fixtures, and edge case handling.
-
-## Validation & Prerequisites
-
-Before generating test cases:
-
-1. **Analysis Validation**: Ensure test analysis file exists and is complete
-2. **Framework Setup**: Verify testing framework is installed and configured
-3. **Directory Structure**: Confirm test directories and conventions are established
-4. **Dependencies Available**: Check that all required testing dependencies are accessible
-5. **Environment Ready**: Validate test environment setup and configuration
-
-## Output
-
-- **Format:** Test files in appropriate language/framework
-- **Location:** `/tests/` or alongside source files (following project conventions)
-- **Naming:** `[COMPONENT_NAME].test.[ext]` or `test_[COMPONENT_NAME].[ext]`
+To guide an AI assistant in generating actual test code based on the test analysis, creating comprehensive test suites with proper setup, assertions, and coverage.
 
 ## Process
 
-1. **Validate Prerequisites**: Check for analysis file, framework setup, and environment readiness
-2. **Load Analysis**: Read the referenced `test-analysis-[TARGET_NAME].md` file
-3. **Plan Test Structure**: Organize tests by type (unit, integration, e2e) and priority
-4. **Phase 1: Generate Test Framework**: Create test file structure, imports, and setup/teardown
-5. **Phase 2: Generate Core Tests**: Implement high-priority test cases (happy path, critical errors)
-6. **Progress Checkpoint**: Save progress and validate quality gates
-7. **Wait for Confirmation**: Pause and ask user to review before generating additional tests
-8. **Phase 3: Generate Comprehensive Tests**: Add edge cases, integration tests, and performance tests
-9. **Final Validation**: Ensure all tests are runnable and follow best practices
-10. **Generate Test Documentation**: Create test execution and maintenance documentation
+1. **Load Test Analysis**: Read the test analysis document from `/tests/test-analysis-[TARGET_NAME].md`
+2. **Identify Testing Framework**: Detect or ask which framework to use (Jest, pytest, Mocha, etc.)
+3. **Generate Test Structure**: Create test file with proper imports and setup
+4. **Implement Test Cases**: Write tests for each identified scenario
+5. **Add Mocking/Fixtures**: Include necessary mocks and test data
+6. **Save Test File**: Create test file in appropriate location
 
-## Test Generation Categories
+## Test Implementation Guidelines
 
-### Unit Tests
-- **Happy Path Tests:** Normal execution with valid inputs
-- **Input Validation Tests:** Invalid inputs and boundary conditions
-- **Error Handling Tests:** Exception scenarios and error recovery
-- **Edge Case Tests:** Boundary values and unusual conditions
-- **Mock Integration Tests:** External dependencies mocked
+- **Test Organization**: Group related tests in describe/context blocks
+- **Test Names**: Use descriptive names that explain what is being tested
+- **Assertions**: Be specific about expected outcomes
+- **Test Independence**: Each test should run independently
+- **Coverage**: Include happy path, edge cases, and error scenarios
 
-### Integration Tests
-- **Service Integration:** Real interactions with external services
-- **Database Integration:** Database operations and transactions
-- **API Integration:** HTTP requests and responses
-- **File System Integration:** File operations and permissions
+## Test File Structure
 
-### End-to-End Tests
-- **User Workflow Tests:** Complete user journeys
-- **API Endpoint Tests:** Full request/response cycles
-- **Performance Tests:** Load and stress testing
-- **Security Tests:** Authentication and authorization
-
-## Test File Template Structure
-
-### JavaScript/TypeScript (Jest/Vitest)
 ```javascript
-// [COMPONENT_NAME].test.ts
-import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import { [ComponentName] } from './[COMPONENT_NAME]';
-
-describe('[ComponentName]', () => {
-  let [instance]: [ComponentType];
-  
+// Example for JavaScript/Jest
+describe('ComponentName', () => {
   beforeEach(() => {
-    // Setup code
+    // Setup
   });
-  
-  afterEach(() => {
-    // Cleanup code
-  });
-  
-  describe('Happy Path Tests', () => {
-    it('should [expected behavior] when [condition]', () => {
-      // Arrange
-      // Act  
-      // Assert
-    });
-  });
-  
-  describe('Error Handling', () => {
-    it('should throw [ErrorType] when [invalid condition]', () => {
+
+  describe('methodName', () => {
+    it('should handle normal input correctly', () => {
       // Test implementation
     });
-  });
-  
-  describe('Edge Cases', () => {
-    it('should handle [edge case scenario]', () => {
+
+    it('should handle edge case', () => {
       // Test implementation
     });
   });
 });
 ```
 
-### Python (pytest)
-```python
-# test_[COMPONENT_NAME].py
-import pytest
-from unittest.mock import Mock, patch
-from [module] import [ComponentName]
+## Output
 
-class Test[ComponentName]:
-    @pytest.fixture
-    def [fixture_name](self):
-        """Setup fixture for tests"""
-        return [ComponentName]()
-    
-    def test_[happy_path_scenario](self, [fixture_name]):
-        """Test normal execution with valid inputs"""
-        # Arrange
-        # Act
-        # Assert
-        
-    def test_[error_scenario](self, [fixture_name]):
-        """Test error handling with invalid inputs"""
-        # Test implementation
-        
-    @pytest.mark.parametrize("input,expected", [
-        (valid_input_1, expected_output_1),
-        (valid_input_2, expected_output_2),
-    ])
-    def test_[parameterized_scenario](self, [fixture_name], input, expected):
-        """Test multiple input/output combinations"""
-        # Test implementation
-```
+- **Location**: Same directory as source file or `/tests/` directory
+- **Naming**: `[filename].test.[ext]` or `test_[filename].[ext]`
+- **Language**: Match the source code language
 
-## Test Generation Process
+## Final Instructions
 
-### Phase 1: Test Framework Setup
-- Import necessary testing libraries and utilities
-- Set up test fixtures and mock objects
-- Configure test environment and database connections
-- Create helper functions for common operations
-
-### Phase 2: Core Test Implementation
-Generate tests for:
-- Primary business logic (happy path)
-- Critical error conditions
-- Input validation and sanitization
-- Basic integration points
-
-### Phase 3: Comprehensive Test Coverage
-Generate tests for:
-- All edge cases identified in analysis
-- Performance and load scenarios
-- Security vulnerabilities
-- Integration with all external dependencies
-- End-to-end user workflows
-
-## Mocking and Fixtures Strategy
-
-### External Service Mocking
-```javascript
-// Mock external API calls
-jest.mock('./external-service', () => ({
-  apiCall: jest.fn(),
-  authenticate: jest.fn(),
-}));
-```
-
-### Database Mocking
-```python
-@patch('module.database.connection')
-def test_database_operation(mock_db):
-    mock_db.query.return_value = expected_result
-    # Test implementation
-```
-
-### Test Data Fixtures
-```javascript
-const testFixtures = {
-  validUser: {
-    id: 1,
-    name: 'Test User',
-    email: 'test@example.com'
-  },
-  invalidUser: {
-    id: null,
-    name: '',
-    email: 'invalid-email'
-  }
-};
-```
-
-## Test Documentation Template
-
-```markdown
-# Test Suite: [Component Name]
-
-## Test Coverage
-- **Unit Tests**: [X] tests covering [Y]% of code
-- **Integration Tests**: [X] tests covering [Z] integrations
-- **E2E Tests**: [X] tests covering [W] workflows
-
-## Running Tests
-```bash
-# Run all tests
-npm test
-
-# Run specific test file
-npm test [COMPONENT_NAME].test.ts
-
-# Run with coverage
-npm run test:coverage
-```
-
-## Test Scenarios Covered
-- ✅ Happy path with valid inputs
-- ✅ Input validation and error handling
-- ✅ Edge cases and boundary conditions
-- ✅ Integration with external services
-- ✅ Performance under load
-- ✅ Security vulnerabilities
-
-## Mock Dependencies
-- [Service 1]: [Mock strategy and reasoning]
-- [Service 2]: [Mock strategy and reasoning]
-
-## Test Data
-- [Fixture 1]: [Description and usage]
-- [Fixture 2]: [Description and usage]
-
-## Maintenance Notes
-- Update tests when [Component] interface changes
-- Review mock data quarterly for accuracy
-- Monitor test execution time and optimize slow tests
-```
-
-## Interaction Model
-
-1. **Generate Framework**: Create test file structure and setup
-2. **Generate Core Tests**: Implement high-priority test cases
-3. **Pause for Review**: "Core tests generated. Review and respond with 'Go' to generate comprehensive tests"
-4. **Generate Comprehensive**: Add edge cases, integration, and performance tests
-5. **Generate Documentation**: Create test execution and maintenance guides
-
-## Target Audience
-
-Assume the primary reader is a **developer** who needs to understand, run, and maintain the generated tests.
-
-## AI Instructions
-
-1. **Follow Analysis**: Use the test analysis as the foundation for test generation
-2. **Prioritize by Risk**: Generate high-risk/high-impact tests first
-3. **Mock Appropriately**: Mock external dependencies but test real business logic
-4. **Use Best Practices**: Follow testing framework conventions and patterns
-5. **Include Documentation**: Provide clear test descriptions and maintenance notes
-6. **Consider Performance**: Ensure tests run efficiently and don't slow down CI/CD
-7. **Validate Coverage**: Aim for meaningful coverage, not just high percentages
-
-## Progress Tracking
-
-During test generation:
-
-1. **Phase Completion**: Track completion of each generation phase
-2. **Quality Validation**: Validate each test batch against quality standards
-3. **Coverage Monitoring**: Ensure meaningful coverage targets are met
-4. **Checkpoint Saves**: Auto-save progress after major phases
-5. **Performance Gates**: Monitor test execution speed and resource usage
-
-## Error Handling
-
-- **Missing Analysis**: "No test analysis found at `/tests/test-analysis-[TARGET_NAME].md`. Please run @test-generation-workflow/01-analyze-code-for-testing first to create the analysis before generating tests."
-- **Incomplete Analysis**: "Test analysis is incomplete. Missing required sections: [MISSING_SECTIONS]. Please complete: code structure analysis, test scenarios matrix, dependency mapping."
-- **Framework Unknown**: "Testing framework not specified or unsupported: [FRAMEWORK]. Supported frameworks: Jest, Vitest, pytest, Mocha, Cypress. Please specify framework or provide custom configuration."
-- **Complex Dependencies**: "Complex dependency graph detected: [DEPENDENCIES]. Consider: A) Simplifying component structure, B) Using dependency injection, C) Creating comprehensive mocking strategy, D) Breaking into smaller testable units."
-- **Environment Issues**: "Test environment not ready: [SPECIFIC_ISSUES]. Please ensure: testing framework installed, test directories exist, environment variables configured."
-- **Performance Issues**: "Generated tests may exceed performance thresholds. Consider: A) Parallel test execution, B) Mock optimization, C) Test data minimization, D) Selective test running."
-- **Quality Gate Failures**: "Test quality standards not met: [FAILED_GATES]. Required improvements: test naming conventions, assertion clarity, mocking strategies, coverage adequacy."
-
-## Test Quality Gates
-
-### Code Quality Standards
-- [ ] All tests follow consistent naming conventions
-- [ ] Test descriptions clearly explain what is being tested
-- [ ] Assertions are specific and meaningful
-- [ ] Mocking strategy is appropriate and comprehensive
-- [ ] Test data is realistic and covers edge cases
-- [ ] Setup and teardown are properly implemented
-
-### Coverage Requirements
-- [ ] Critical business logic has 100% test coverage
-- [ ] Error conditions and edge cases are tested
-- [ ] Integration points are validated
-- [ ] Performance requirements are tested where applicable
-- [ ] Security considerations are addressed
-
-### Performance Standards
-- [ ] Individual tests execute in under 1 second
-- [ ] Test suite completes in reasonable time
-- [ ] Resource usage is optimized
-- [ ] Parallel execution is supported where possible
-
-## Next Steps
-
-After completing test generation:
-1. Run generated tests to ensure they execute successfully
-2. Validate test coverage meets requirements
-3. Review test quality and maintainability
-4. Prepare test documentation and maintenance guides
-5. Inform user: "Test cases generated successfully. Ready to create a comprehensive test plan? Run @test-generation-workflow/03-create-test-plan for larger features, or @test-generation-workflow/04-execute-and-maintain-tests to run and analyze results."
-
-## Quality Assurance
-
-Generated tests should:
-- **Be Readable**: Clear test names and descriptions
-- **Be Maintainable**: Easy to update when code changes
-- **Be Reliable**: Consistent results across environments
-- **Be Fast**: Execute quickly for rapid feedback
-- **Be Comprehensive**: Cover critical paths and edge cases
+1. Generate runnable test code, not pseudocode
+2. Include all necessary imports and setup
+3. Follow project's existing test patterns
+4. Ensure tests are maintainable and clear

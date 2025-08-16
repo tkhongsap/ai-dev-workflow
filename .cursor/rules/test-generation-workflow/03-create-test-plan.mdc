@@ -1,365 +1,49 @@
 ---
-description: Create comprehensive test plan for larger features and systems with strategic validation
-globs:
-  - "**/tests/test-analysis-*.md"
-  - "**/test-analysis-*.md"
+description: Create comprehensive test plan for larger features
 alwaysApply: false
 ---
-# Rule: Create Comprehensive Test Plan
+# Rule: Create Test Plan for Feature Testing
 
 ## Goal
 
-To guide an AI assistant in creating a high-level test plan for larger features, systems, or releases that coordinates multiple test types, defines testing strategy, and provides a roadmap for QA teams and developers.
-
-## Validation & Prerequisites
-
-Before creating test plan:
-
-1. **Scope Analysis**: Ensure feature/system scope is clearly defined and bounded
-2. **Requirements Context**: Verify functional and non-functional requirements are documented
-3. **Stakeholder Alignment**: Confirm key stakeholders and decision makers are identified
-4. **Resource Assessment**: Validate team capabilities and available tools/environments
-5. **Timeline Constraints**: Understand delivery timelines and milestone requirements
-6. **Risk Context**: Identify known risks and business criticality factors
+To guide an AI assistant in creating a strategic test plan for larger features or systems, coordinating multiple test types and defining success criteria.
 
 ## Process
 
-1. **Validate Prerequisites**: Check scope definition, requirements, and stakeholder context
-2. **Analyze Scope**: Review test analyses and understand the full system or feature scope
-3. **Define Test Strategy**: Determine testing approach, priorities, and resource allocation
-4. **Plan Test Phases**: Structure testing into logical phases with dependencies
-5. **Define Success Criteria**: Establish clear metrics and acceptance criteria
-6. **Resource Planning**: Estimate effort, timeline, and required tools/environments
-7. **Risk Assessment**: Identify testing risks and mitigation strategies
-8. **Stakeholder Review**: Validate plan with key stakeholders for alignment
-9. **Save Test Plan**: Generate `test-plan-[TARGET_NAME].md` in `/tests/` directory
+1. **Gather Requirements**: Review feature requirements and specifications
+2. **Define Test Scope**: Determine what needs testing and at what level
+3. **Plan Test Phases**: Organize testing into logical phases
+4. **Allocate Resources**: Identify tools, environments, and timeline
+5. **Create Test Plan**: Generate `test-plan-[FEATURE_NAME].md` in `/tests/`
 
 ## Test Plan Structure
 
-```markdown
-# Test Plan: [TARGET_NAME]
+The test plan should include:
 
-**Version**: 1.0  
-**Date**: [YYYY-MM-DD]  
-**Author**: AI Assistant  
-**Stakeholders**: [List key stakeholders]
+1. **Overview**: Feature description and testing objectives
+2. **Scope**: What will and won't be tested
+3. **Test Types**: Unit, integration, e2e, performance, security
+4. **Test Schedule**: Phases and timeline
+5. **Success Criteria**: Coverage targets, performance benchmarks
+6. **Risk Assessment**: Critical areas and mitigation strategies
 
-## 1. Executive Summary
-- **Scope**: [Brief description of what will be tested]
-- **Objectives**: [Primary testing goals]
-- **Timeline**: [Testing duration and key milestones]
-- **Resources**: [Team size and skill requirements]
-- **Risk Level**: [High/Medium/Low overall risk assessment]
+## Key Considerations
 
-## 2. Test Scope & Objectives
-
-### In Scope
-- [Feature/Component 1]: [Testing focus areas]
-- [Feature/Component 2]: [Testing focus areas]
-- [Integration Points]: [External systems and APIs]
-- [Performance Areas]: [Critical performance scenarios]
-- [Security Areas]: [Security testing requirements]
-
-### Out of Scope
-- [Excluded Item 1]: [Reason for exclusion]
-- [Excluded Item 2]: [Reason for exclusion]
-
-### Testing Objectives
-- **Functional**: Verify all features work as specified
-- **Performance**: Ensure system meets performance requirements
-- **Security**: Validate security controls and data protection
-- **Usability**: Confirm user experience meets standards
-- **Compatibility**: Test across supported platforms/browsers
-- **Reliability**: Verify system stability under various conditions
-
-## 3. Test Strategy
-
-### Testing Approach
-- **Test Pyramid**: [Distribution of unit/integration/e2e tests]
-- **Risk-Based Testing**: [High-risk areas get priority]
-- **Shift-Left Strategy**: [Early testing integration]
-- **Automation Level**: [X]% automated, [Y]% manual
-
-### Test Types & Coverage
-| Test Type | Coverage | Automation | Owner | Priority |
-|-----------|----------|------------|-------|----------|
-| Unit Tests | 90% | 100% | Developers | High |
-| Integration Tests | 80% | 90% | Developers | High |
-| API Tests | 100% | 95% | QA/Developers | High |
-| UI Tests | 70% | 80% | QA Team | Medium |
-| Performance Tests | Key scenarios | 100% | Performance Team | High |
-| Security Tests | Critical paths | 90% | Security Team | High |
-| E2E Tests | User journeys | 70% | QA Team | Medium |
-
-## 4. Test Phases & Schedule
-
-### Phase 1: Unit & Component Testing (Weeks 1-2)
-- **Objective**: Validate individual components
-- **Deliverables**: Unit test suites with 90%+ coverage
-- **Entry Criteria**: Code development 80% complete
-- **Exit Criteria**: All unit tests passing, coverage targets met
-
-### Phase 2: Integration Testing (Weeks 2-3)
-- **Objective**: Verify component interactions
-- **Deliverables**: Integration test suites
-- **Entry Criteria**: Unit tests complete, integration environments ready
-- **Exit Criteria**: All integration tests passing, APIs validated
-
-### Phase 3: System Testing (Weeks 3-4)
-- **Objective**: End-to-end functionality validation
-- **Deliverables**: System test results and bug reports
-- **Entry Criteria**: Integration tests complete, staging environment deployed
-- **Exit Criteria**: All critical/high bugs resolved, acceptance criteria met
-
-### Phase 4: Performance & Security Testing (Week 4)
-- **Objective**: Non-functional requirements validation
-- **Deliverables**: Performance and security test reports
-- **Entry Criteria**: System testing 90% complete
-- **Exit Criteria**: Performance targets met, security vulnerabilities addressed
-
-### Phase 5: User Acceptance Testing (Week 5)
-- **Objective**: Business stakeholder validation
-- **Deliverables**: UAT sign-off documentation
-- **Entry Criteria**: All previous phases complete
-- **Exit Criteria**: Business stakeholder approval
-
-## 5. Test Environment Requirements
-
-### Environment Setup
-- **Development**: [Dev environment specifications]
-- **Testing/QA**: [QA environment specifications]
-- **Staging**: [Staging environment specifications]
-- **Performance**: [Performance testing environment]
-
-### Test Data Requirements
-- **Volume**: [Amount of test data needed]
-- **Variety**: [Types of test data scenarios]
-- **Refresh Strategy**: [How often test data is refreshed]
-- **Privacy Compliance**: [Data privacy and masking requirements]
-
-### Tools & Infrastructure
-- **Test Automation**: [Testing frameworks and tools]
-- **Performance Testing**: [Load testing tools]
-- **Security Testing**: [Security scanning tools]
-- **Test Management**: [Test case management tools]
-- **CI/CD Integration**: [Pipeline integration requirements]
-
-## 6. Success Criteria & Metrics
-
-### Functional Quality Gates
-- [ ] All critical and high-priority test cases pass
-- [ ] Unit test coverage ≥ 90%
-- [ ] Integration test coverage ≥ 80%
-- [ ] Zero critical bugs, ≤ 5 high-priority bugs
-- [ ] All acceptance criteria validated
-
-### Performance Quality Gates
-- [ ] API response time ≤ [X]ms for 95th percentile
-- [ ] Page load time ≤ [Y] seconds
-- [ ] System supports [Z] concurrent users
-- [ ] Database queries optimized (≤ [W]ms average)
-
-### Security Quality Gates
-- [ ] No critical security vulnerabilities
-- [ ] Authentication and authorization working correctly
-- [ ] Data encryption implemented properly
-- [ ] Input validation prevents injection attacks
-- [ ] Security scan results within acceptable thresholds
-
-## 7. Risk Assessment & Mitigation
-
-### High-Risk Areas
-| Risk | Impact | Probability | Mitigation Strategy |
-|------|--------|-------------|-------------------|
-| [Risk 1] | High | Medium | [Mitigation approach] |
-| [Risk 2] | Medium | High | [Mitigation approach] |
-
-### Technical Risks
-- **Integration Complexity**: [Risk description and mitigation]
-- **Performance Bottlenecks**: [Risk description and mitigation]
-- **Security Vulnerabilities**: [Risk description and mitigation]
-- **Browser Compatibility**: [Risk description and mitigation]
-
-### Process Risks
-- **Timeline Constraints**: [Risk description and mitigation]
-- **Resource Availability**: [Risk description and mitigation]
-- **Requirement Changes**: [Risk description and mitigation]
-
-## 8. Team & Responsibilities
-
-### Testing Team Structure
-- **Test Lead**: [Name] - Overall test planning and coordination
-- **Automation Engineers**: [Names] - Test automation development
-- **Manual Testers**: [Names] - Exploratory and manual testing
-- **Performance Engineers**: [Names] - Performance testing
-- **Security Testers**: [Names] - Security testing
-
-### Developer Responsibilities
-- Write and maintain unit tests
-- Support integration test development
-- Fix bugs identified during testing
-- Participate in test reviews and planning
-
-### QA Responsibilities
-- Execute manual test cases
-- Develop and maintain automated tests
-- Report and track defects
-- Validate bug fixes
-
-## 9. Defect Management
-
-### Bug Classification
-- **Critical**: System crash, data loss, security breach
-- **High**: Major functionality broken, workaround exists
-- **Medium**: Minor functionality issues, cosmetic problems
-- **Low**: Enhancement requests, minor UI issues
-
-### Bug Workflow
-1. **Discovery**: Bug identified and documented
-2. **Triage**: Priority and severity assigned
-3. **Assignment**: Bug assigned to developer
-4. **Resolution**: Developer fixes and marks resolved
-5. **Verification**: QA verifies fix and closes bug
-
-## 10. Reporting & Communication
-
-### Test Progress Reporting
-- **Daily**: Test execution status and blocker identification
-- **Weekly**: Detailed progress report with metrics
-- **Phase Gates**: Comprehensive phase completion reports
-
-### Key Metrics to Track
-- Test case execution rate (planned vs. actual)
-- Bug discovery and resolution rates
-- Test coverage percentages
-- Environment availability and stability
-- Team velocity and productivity
-
-## 11. Test Deliverables
-
-### Documentation
-- [ ] Test plan (this document)
-- [ ] Test case specifications
-- [ ] Test automation scripts
-- [ ] Test data and fixtures
-- [ ] Environment setup guides
-
-### Reports
-- [ ] Test execution reports
-- [ ] Bug reports and resolution status
-- [ ] Performance test results
-- [ ] Security test results
-- [ ] Final test summary report
-
-## 12. Approval & Sign-off
-
-### Stakeholder Approvals Required
-- [ ] **Product Owner**: [Name/Date] - Business requirements validation
-- [ ] **Technical Lead**: [Name/Date] - Technical approach approval
-- [ ] **QA Manager**: [Name/Date] - Testing strategy approval
-- [ ] **Security Team**: [Name/Date] - Security testing approach
-- [ ] **Performance Team**: [Name/Date] - Performance testing strategy
-
-### Go-Live Criteria
-All quality gates met and stakeholder approvals obtained before production deployment.
-
----
-
-**Document Control**
-- **Version History**: Track changes and updates
-- **Review Schedule**: Quarterly review and updates
-- **Distribution**: All team members and stakeholders
-```
+- **Test Priorities**: Focus on critical user paths first
+- **Resource Planning**: Consider team capacity and deadlines
+- **Environment Needs**: Development, staging, production-like
+- **Data Requirements**: Test data, fixtures, mocks
+- **Automation Strategy**: What can be automated vs manual
 
 ## Output
 
-- **Format:** Markdown (`.md`)
-- **Location:** `/tests/`
-- **Filename:** `test-plan-[TARGET_NAME].md`
+- **Format**: Markdown (`.md`)
+- **Location**: `/tests/`
+- **Filename**: `test-plan-[FEATURE_NAME].md`
 
-## Target Audience
+## Final Instructions
 
-The test plan serves multiple audiences:
-- **QA Teams**: Detailed testing strategy and execution guidance
-- **Developers**: Integration requirements and responsibilities
-- **Project Managers**: Timeline, resource, and risk information
-- **Stakeholders**: Success criteria and quality assurance approach
-
-## AI Instructions
-
-1. **Scale Appropriately**: Adjust plan complexity based on feature/system size
-2. **Be Realistic**: Set achievable timelines and coverage targets
-3. **Consider Dependencies**: Account for environment, data, and team dependencies
-4. **Risk-Focused**: Prioritize high-risk areas for thorough testing
-5. **Measurable**: Include concrete metrics and success criteria
-6. **Collaborative**: Define clear roles and communication processes
-
-## Success Metrics & Tracking
-
-### Planning Quality Metrics
-- **Scope Coverage**: Percentage of features with defined test strategies
-- **Risk Mitigation**: Number of identified risks with mitigation plans
-- **Resource Accuracy**: Actual vs planned effort and timeline variance
-- **Stakeholder Satisfaction**: Approval rates and feedback quality
-
-### Execution Readiness Metrics
-- **Environment Readiness**: Test environment availability and stability
-- **Team Preparedness**: Skill gaps closed and training completed
-- **Tool Availability**: Required testing tools provisioned and configured
-- **Data Readiness**: Test data available and compliance-validated
-
-## Integration with Other Workflows
-
-- **PRD-Driven Workflow**: Use PRD acceptance criteria as testing requirements
-- **Architecture Design**: Align testing strategy with system architecture
-- **Review-Driven Workflow**: Incorporate code review findings into test priorities
-
-## Strategic Planning Framework
-
-### Test Plan Validation
-- [ ] Scope is clearly defined with measurable boundaries
-- [ ] Success criteria are specific and achievable
-- [ ] Resource estimates align with available capacity
-- [ ] Risk assessment covers technical and business aspects
-- [ ] Timeline is realistic with buffer for contingencies
-- [ ] Stakeholder roles and responsibilities are clear
-
-### Quality Gates
-- [ ] All critical business functionality is covered
-- [ ] Non-functional requirements are addressed
-- [ ] Test environment requirements are feasible
-- [ ] Automation strategy is cost-effective
-- [ ] Maintenance approach is sustainable
-
-## Error Handling
-
-- **Insufficient Analysis**: "Test analysis incomplete for comprehensive planning. Please run @test-generation-workflow/01-analyze-code-for-testing first for all components: [MISSING_COMPONENTS]. Required for planning: complexity assessment, dependency mapping, risk evaluation."
-- **Scope Too Large**: "Feature scope exceeds manageable test planning boundaries: [SCOPE_ISSUES]. Consider: A) Breaking into multiple test plans by component, B) Phased implementation approach, C) Risk-based scope reduction, D) Extended timeline with phases."
-- **Missing Requirements**: "Functional/non-functional requirements insufficient for planning: [MISSING_REQUIREMENTS]. Please provide: business acceptance criteria, performance targets, security requirements, compliance needs."
-- **Resource Constraints**: "Timeline/resource constraints conflict with quality goals: [CONSTRAINTS]. Options: A) Extend timeline to [RECOMMENDED_DURATION], B) Reduce scope to [CORE_FEATURES], C) Increase team capacity, D) Accept higher risk profile."
-- **Stakeholder Gaps**: "Key stakeholders not identified for test planning: [MISSING_STAKEHOLDERS]. Required input from: Product Owner, Technical Lead, QA Manager, Security Team, Performance Team."
-- **Environment Issues**: "Test environment requirements not feasible: [ENVIRONMENT_ISSUES]. Please address: infrastructure capacity, tool licensing, data availability, network access."
-- **Strategy Conflicts**: "Testing strategy conflicts detected: [CONFLICTS]. Please resolve: automation vs manual trade-offs, coverage vs timeline, quality vs cost constraints."
-
-## Resource Planning Framework
-
-### Team Capability Assessment
-- **Skill Gaps**: Identify required skills vs available expertise
-- **Capacity Planning**: Map team availability to testing phases
-- **Training Needs**: Plan skill development for complex testing requirements
-- **External Resources**: Determine if contractors or consultants are needed
-
-### Tool and Environment Planning
-- **Infrastructure Requirements**: Assess environment needs and provisioning time
-- **Tool Licensing**: Verify access to required testing tools and frameworks
-- **Data Management**: Plan test data creation, refresh, and compliance strategies
-- **Integration Readiness**: Ensure CI/CD pipeline capacity for automated testing
-
-## Next Steps
-
-After completing test plan:
-1. Save comprehensive plan as `test-plan-[TARGET_NAME].md` in `/tests/`
-2. Review plan with all stakeholders for approval and alignment
-3. Validate resource allocation and timeline feasibility
-4. Prepare for test implementation phase
-5. Inform user: "Test plan completed successfully. Ready to generate detailed test cases? Run @test-generation-workflow/02-generate-test-cases to implement the plan, or @test-generation-workflow/04-execute-and-maintain-tests for ongoing test management."
+1. Keep the plan practical and achievable
+2. Focus on risk-based testing approach
+3. Include clear success metrics
+4. Provide actionable next steps

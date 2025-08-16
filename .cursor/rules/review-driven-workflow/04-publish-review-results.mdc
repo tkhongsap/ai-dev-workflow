@@ -2,430 +2,78 @@
 description: Publish review results and create final documentation
 alwaysApply: false
 ---
-# Rule: Publishing Review Results and Final Documentation
+# Rule: Publish Review Results
 
 ## Goal
 
-To guide an AI assistant in publishing comprehensive review results to GitHub/GitLab, creating final documentation, and archiving review artifacts for future reference and team collaboration.
-
-## Validation & Prerequisites
-
-Before publishing review results:
-
-1. **Review Artifacts Validation**: Ensure all required review outputs exist and are complete
-2. **Platform Authentication**: Verify GitHub/GitLab access tokens and permissions
-3. **Quality Check**: Validate that review findings are properly formatted and actionable
-4. **Language Requirements**: Confirm which languages are required for publication
-5. **Target Repository**: Verify target repository access and publishing permissions
+To guide an AI assistant in publishing review results to GitHub/GitLab and creating final documentation for stakeholders.
 
 ## Process
 
-1. **Validate Prerequisites**: Check for complete review artifacts and platform access
-2. **Prepare Review Artifacts**: Collect and organize all review outputs from the execution phase
-3. **Format for Publishing**: Convert review findings into appropriate formats for GitHub/GitLab
-4. **Create Issues/Comments**: Generate and post issues, comments, or merge request feedback
-5. **Generate Final Documentation**: Create comprehensive documentation in requested languages
-6. **Archive Review Materials**: Organize and store all review artifacts for future reference
-7. **Provide Follow-up Recommendations**: Suggest next steps and ongoing quality assurance measures
-
-## Input Requirements
-
-Before publishing, ensure these artifacts exist:
-- Comprehensive review report (`review-report-[target-name]-en.md`)
-- Completed task list (`review-tasks-[target-name].md`)
-- Original review plan (`review-plan-[target-name].md`)
+1. **Load Review Report**: Read from `/reviews/review-report-[TARGET_NAME].md`
+2. **Format for Publishing**: Convert findings to platform-specific format
+3. **Create Issues**: Generate GitHub/GitLab issues for critical findings
+4. **Generate Documentation**: Create executive summary and technical guide
+5. **Archive Materials**: Store all review artifacts for future reference
 
 ## Publishing Options
 
-### 1. **GitHub Integration**
+### GitHub Integration
+Create issues for:
+- Critical security vulnerabilities
+- High-priority bugs
+- Performance bottlenecks
 
-#### Issue Creation
-- **Critical Issues**: Create separate GitHub issues for each critical finding
-- **Improvement Tracking**: Create issues for high-priority improvements
-- **Documentation Issues**: Create issues for documentation gaps
-
-#### Issue Format Template
+Issue format:
 ```markdown
-## [SEVERITY] [CATEGORY]: [ISSUE_TITLE]
+## [SEVERITY]: [Issue Title]
 
-**File**: `[file.py]` (Line [num])  
-**Severity**: [Critical/High/Medium/Low]  
-**Category**: [Security/Performance/Code Quality/etc.]  
-**Estimated Fix Time**: [time estimate]
+**File**: `[FILE_PATH]`
+**Category**: [Category]
 
-### Problem Description
-[Detailed description of the issue]
-
-### Code Location
-```[language]
-// Current problematic code
-[code snippet with context]
-```
+### Problem
+[Description of the issue]
 
 ### Recommended Solution
-```[language]
-// Suggested fix
-[corrected code snippet]
-```
-
-### Why This Matters
-[Explanation of impact and importance]
+[How to fix it]
 
 ### Acceptance Criteria
-- [ ] [Specific criterion 1]
-- [ ] [Specific criterion 2]
-- [ ] [Testing requirement]
-
-### References
-- [Link to coding standards]
-- [Security guidelines]
-- [Performance best practices]
-
----
-**Created by**: AI Code Review  
-**Review Date**: [YYYY-MM-DD]  
-**Full Review Report**: [Link to complete report]
+- [ ] Issue resolved
+- [ ] Tests added
+- [ ] Code reviewed
 ```
 
-#### Repository Documentation
-- **README Updates**: Add review summary and quality metrics
-- **SECURITY.md**: Update security documentation based on findings
-- **CONTRIBUTING.md**: Add guidelines based on review recommendations
+### GitLab Integration
+Similar format, using GitLab API for issue creation and merge request comments.
 
-### 2. **GitLab Integration**
+## Documentation Outputs
 
-#### Merge Request Comments
-- **Line-specific feedback**: Add comments to specific code lines
-- **General MR feedback**: Overall assessment and recommendations
-- **Approval/Request Changes**: Set appropriate MR status
+### Executive Summary
+- Key findings overview
+- Business impact assessment
+- Priority recommendations
+- Resource requirements
 
-#### Issue Board Updates
-- **Create new issues** for findings that require separate tracking
-- **Update existing issues** with review results and recommendations
-- **Apply labels** based on review categories and priorities
+### Technical Implementation Guide
+- Detailed fix instructions
+- Code examples
+- Testing requirements
+- Validation steps
 
-#### GitLab API Integration
-```bash
-# Create issue for critical finding
-POST /projects/:id/issues
-{
-  "title": "[CRITICAL] [CATEGORY]: [Issue Title]",
-  "description": "[Formatted issue content]",
-  "labels": ["critical", "security", "code-review"],
-  "assignee_id": [developer_id]
-}
+## Archive Structure
 
-# Add MR comment
-POST /projects/:id/merge_requests/:merge_request_iid/notes
-{
-  "body": "[Review feedback content]"
-}
-
-# Update issue labels
-PUT /projects/:id/issues/:issue_iid
-{
-  "labels": ["reviewed", "needs-fixes", "high-priority"]
-}
+```
+/reviews/[TARGET_NAME]/
+├── review-plan-[TARGET_NAME].md
+├── review-tasks-[TARGET_NAME].md
+├── review-report-[TARGET_NAME].md
+├── executive-summary-[TARGET_NAME].md
+└── implementation-guide-[TARGET_NAME].md
 ```
 
-## Documentation Generation
+## Final Instructions
 
-### 1. **Executive Summary Document**
-Create a high-level summary for management and stakeholders:
-
-```markdown
-# Code Review Executive Summary: [TARGET_NAME]
-
-**Review Date**: [YYYY-MM-DD]  
-**Review Scope**: [Brief description]  
-**Overall Quality Score**: [X]/10
-
-## Key Findings
-- **Critical Issues**: [X] (must fix before production)
-- **High Priority**: [X] (should fix in next sprint)
-- **Improvements**: [X] (recommended for future iterations)
-
-## Quality Assessment
-- **Security**: [Score]/10 - [Brief assessment]
-- **Performance**: [Score]/10 - [Brief assessment]  
-- **Maintainability**: [Score]/10 - [Brief assessment]
-- **Test Coverage**: [X]% - [Assessment]
-
-## Business Impact
-- **Risk Level**: [High/Medium/Low]
-- **Recommended Actions**: [Priority actions]
-- **Timeline**: [Suggested timeline for fixes]
-
-## Investment Required
-- **Critical Fixes**: [X] hours
-- **High Priority**: [X] hours
-- **Total Effort**: [X] person-days
-
-## Next Steps
-1. [Immediate action 1]
-2. [Short-term action 2]
-3. [Long-term recommendation 3]
-
----
-**Prepared by**: AI Code Review System  
-**Full Technical Report**: [Link to detailed report]
-```
-
-### 2. **Technical Implementation Guide**
-Create detailed implementation guidance for developers:
-
-```markdown
-# Implementation Guide: Review Findings
-
-## Critical Fixes (Immediate Action Required)
-
-### 1. [Critical Issue Title]
-**Priority**: Critical  
-**ETA**: [X] hours  
-**Assignee**: [Developer name]
-
-#### Implementation Steps
-1. [Step 1 with code example]
-2. [Step 2 with code example]
-3. [Testing requirements]
-
-#### Verification
-```bash
-# Commands to verify fix
-[test commands]
-```
-
-## High Priority Improvements
-
-### 1. [Improvement Title]
-**Priority**: High  
-**ETA**: [X] days  
-**Dependencies**: [Any dependencies]
-
-[Detailed implementation guidance]
-
-## Quality Assurance Checklist
-
-### Pre-Implementation
-- [ ] Review security implications
-- [ ] Check performance impact
-- [ ] Verify test coverage requirements
-- [ ] Review documentation needs
-
-### Post-Implementation
-- [ ] Run full test suite
-- [ ] Perform security scan
-- [ ] Update documentation
-- [ ] Code review by senior developer
-
-## Monitoring & Validation
-
-### Metrics to Track
-- [Metric 1]: [Target value]
-- [Metric 2]: [Target value]
-
-### Validation Tests
-```bash
-# Performance validation
-[performance test commands]
-
-# Security validation  
-[security test commands]
-```
-```
-
-### 3. **Bilingual Documentation**
-
-#### English Documentation
-- **Technical accuracy**: Use precise technical terminology
-- **Code examples**: Include comprehensive code snippets
-- **Best practices**: Reference industry standards and guidelines
-
-#### Thai Documentation (ภาษาไทย)
-- **Technical translation**: Maintain accuracy while using appropriate Thai technical terms
-- **Cultural context**: Adapt explanations for Thai development teams
-- **Local standards**: Reference Thai/regional coding standards where applicable
-
-```markdown
-# รายงานการตรวจสอบโค้ด: [TARGET_NAME]
-
-**วันที่ตรวจสอบ**: [YYYY-MM-DD]  
-**ขอบเขตการตรวจสอบ**: [คำอธิบายสั้นๆ]  
-**คะแนนคุณภาพโดยรวม**: [X]/10
-
-## ผลการตรวจสอบหลัก
-- **ปัญหาวิกฤต**: [X] รายการ (ต้องแก้ไขก่อนใช้งานจริง)
-- **ความสำคัญสูง**: [X] รายการ (ควรแก้ไขในสปรินต์ถัดไป)
-- **การปรับปรุง**: [X] รายการ (แนะนำสำหรับการพัฒนาต่อไป)
-
-## การประเมินคุณภาพ
-- **ความปลอดภัย**: [Score]/10 - [การประเมิน]
-- **ประสิทธิภาพ**: [Score]/10 - [การประเมิน]
-- **ความสามารถในการบำรุงรักษา**: [Score]/10 - [การประเมิน]
-- **การครอบคลุมการทดสอบ**: [X]% - [การประเมิน]
-
-[Continue with Thai translations of key sections]
-```
-
-## Archive Organization
-
-### Directory Structure
-```
-/reviews/
-├── [TARGET_NAME]/
-│   ├── review-plan-[TARGET_NAME].md
-│   ├── review-tasks-[TARGET_NAME].md
-│   ├── review-report-[TARGET_NAME]-en.md
-│   ├── review-report-[TARGET_NAME]-th.md
-│   ├── executive-summary-[TARGET_NAME].md
-│   ├── implementation-guide-[TARGET_NAME].md
-│   └── artifacts/
-│       ├── github-issues/
-│       ├── gitlab-comments/
-│       └── supporting-files/
-```
-
-### Metadata File
-Create `review-metadata.json` for each review:
-```json
-{
-  "review_id": "[unique-id]",
-  "target": "[TARGET_NAME]",
-  "review_date": "[YYYY-MM-DD]",
-  "review_type": "[comprehensive/security/performance]",
-  "reviewer": "AI Assistant",
-  "scope": "[scope description]",
-  "languages": ["en", "th"],
-  "findings": {
-    "critical": 2,
-    "high": 5,
-    "medium": 8,
-    "low": 12
-  },
-  "quality_scores": {
-    "overall": 7.5,
-    "security": 8.0,
-    "performance": 7.0,
-    "maintainability": 8.5
-  },
-  "published_to": {
-    "github": ["issue-123", "issue-124"],
-    "gitlab": ["mr-45", "issue-67"]
-  },
-  "next_review_date": "[YYYY-MM-DD]"
-}
-```
-
-## Publishing Workflow
-
-### 1. **Pre-Publishing Checklist**
-- [ ] Review report completed and validated
-- [ ] Critical findings verified and documented
-- [ ] Code examples tested and accurate
-- [ ] Recommendations are actionable and specific
-- [ ] Bilingual content reviewed for accuracy (if applicable)
-
-### 2. **Publishing Steps**
-1. **Format Content**: Convert review findings to appropriate platform formats
-2. **Create Issues**: Generate GitHub/GitLab issues for critical and high-priority findings
-3. **Post Comments**: Add detailed feedback to merge requests or pull requests
-4. **Update Documentation**: Modify repository documentation based on findings
-5. **Archive Materials**: Store all review artifacts in organized structure
-6. **Notify Stakeholders**: Send summary to relevant team members
-
-### 3. **Post-Publishing Actions**
-- **Track Issue Progress**: Monitor resolution of created issues
-- **Schedule Follow-up**: Set reminders for next review cycle
-- **Update Metrics**: Record review metrics for trend analysis
-- **Gather Feedback**: Collect team feedback on review quality and usefulness
-
-## AI Instructions
-
-When publishing review results, the AI must:
-
-1. **Verify Completeness**: Ensure all review artifacts are complete and accurate
-2. **Format Appropriately**: Use platform-specific formatting for optimal readability
-3. **Prioritize Findings**: Focus on critical and high-priority issues for immediate attention
-4. **Provide Context**: Include sufficient background and rationale for each finding
-5. **Generate Bilingual Content**: Create both English and Thai versions when requested
-6. **Organize Systematically**: Structure all outputs for easy navigation and reference
-7. **Link Resources**: Connect findings to relevant documentation and best practices
-8. **Plan Follow-up**: Suggest concrete next steps and timelines
-
-## Error Handling
-
-- **Missing Review Report**: "No completed review report found at `/reviews/review-report-[TARGET_NAME]-en.md`. Please run @review-driven-workflow/03-execute-review-process first to complete the review analysis before publishing results."
-- **Platform API Errors**: "Error connecting to [GitHub/GitLab]: [error details]. Please verify your access token is valid, has appropriate permissions, and the repository URL is correct."
-- **Permission Issues**: "Insufficient permissions to create issues/comments on [platform]. Please ensure your access token has write access to issues, pull requests, and repository content."
-- **Format Validation**: "Review content validation failed: [specific issues]. Please ensure all critical findings have proper formatting, code examples, and actionable recommendations before publishing."
-- **Authentication Failed**: "Authentication failed for [platform]. Please check that your access token is set correctly in environment variables: GITHUB_ACCESS_TOKEN or GITLAB_ACCESS_TOKEN."
-- **Repository Not Found**: "Target repository '[REPO_NAME]' not found or not accessible. Please verify the repository exists and your token has access to it."
-- **Rate Limit Exceeded**: "API rate limit exceeded for [platform]. Please wait [TIME] before retrying or consider using a different authentication method."
-
-## Publication Workflow
-
-### Pre-Publishing Checklist
-- [ ] Review report completed and validated
-- [ ] Critical findings verified and documented with evidence
-- [ ] Code examples tested and accurate
-- [ ] Recommendations are actionable and specific
-- [ ] Bilingual content reviewed for accuracy (if applicable)
-- [ ] Platform authentication and permissions verified
-- [ ] Target repository access confirmed
-
-### Publishing Steps
-1. **Validate Prerequisites**: Ensure all required artifacts and permissions are in place
-2. **Format Content**: Convert review findings to platform-specific formats
-3. **Create Issues**: Generate GitHub/GitLab issues for critical and high-priority findings
-4. **Post Comments**: Add detailed feedback to merge requests or pull requests
-5. **Update Documentation**: Modify repository documentation based on findings
-6. **Archive Materials**: Store all review artifacts in organized structure
-7. **Notify Stakeholders**: Send summary to relevant team members
-
-### Post-Publishing Actions
-- **Track Issue Progress**: Monitor resolution of created issues
-- **Schedule Follow-up**: Set reminders for next review cycle
-- **Update Metrics**: Record review metrics for trend analysis
-- **Gather Feedback**: Collect team feedback on review quality and usefulness
-
-## Success Metrics
-
-Track these metrics to measure publishing effectiveness:
-- **Issue Resolution Rate**: Percentage of created issues that get resolved
-- **Review Adoption**: How many recommendations are implemented
-- **Time to Fix**: Average time from issue creation to resolution
-- **Team Feedback**: Qualitative feedback on review usefulness
-- **Quality Improvement**: Measurable improvement in subsequent reviews
-
-## Next Steps
-
-After successful publication:
-1. **Monitor Issue Activity**: Track progress on created issues and feedback
-2. **Schedule Follow-up Review**: Plan next review cycle based on findings and improvements
-3. **Update Review Templates**: Incorporate lessons learned into future review processes
-4. **Team Communication**: Share review summary with relevant stakeholders
-5. **Archive Completion**: Ensure all artifacts are properly stored and accessible
-
-## Environment Requirements
-
-Ensure appropriate environment variables are set:
-
-```env
-# GitHub Integration
-GITHUB_ACCESS_TOKEN=your_github_token_here
-GITHUB_REPOSITORY=owner/repo-name
-
-# GitLab Integration  
-GITLAB_ACCESS_TOKEN=your_gitlab_token_here
-GITLAB_PROJECT_ID=your_project_id_here
-GITLAB_URL=https://gitlab.yourdomain.com
-```
-
-## Success Metrics
-
-Track these metrics to measure publishing effectiveness:
-- **Issue Resolution Rate**: Percentage of created issues that get resolved
-- **Review Adoption**: How many recommendations are implemented
-- **Time to Fix**: Average time from issue creation to resolution
-- **Team Feedback**: Qualitative feedback on review usefulness
-- **Quality Improvement**: Measurable improvement in subsequent reviews
+1. Prioritize critical findings for immediate action
+2. Create trackable issues with clear acceptance criteria
+3. Provide both executive and technical documentation
+4. Archive all materials for audit trail

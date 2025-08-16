@@ -101,13 +101,50 @@ The architecture-design workflow consists of four sequential phases that guide y
 @architecture-design-workflow/04-architecture-signoff-and-readiness
 ```
 
-## Integration with Existing Workflows
+## Integration with Other Workflows
 
-The architecture-design workflow seamlessly integrates with other workflow systems:
+### PRD-Driven Workflow Integration
 
-- **PRD-Driven Workflow**: Architecture requirements can be derived from PRDs, and approved designs feed into implementation planning
-- **Review-Driven Workflow**: Technical designs provide context for code reviews and architecture compliance validation
-- **Cross-Workflow Artifacts**: Requirements traceability from business needs through design to implementation
+**PRD → Architecture Design:**
+```bash
+# 1. Start with PRD for complex feature
+@prd-driven-workflow/01-create-prd
+# Creates: /tasks/prd-user-authentication.md
+
+# 2. Generate architecture requirements from PRD
+@architecture-design-workflow/01-define-architecture-requirements
+# Reference PRD requirements in architecture planning
+
+# 3. Design system architecture
+@architecture-design-workflow/02-propose-architecture-options
+@architecture-design-workflow/03-create-technical-design
+
+# 4. Generate implementation tasks with architecture context
+@prd-driven-workflow/02-generate-tasks
+# Tasks now include architecture considerations
+```
+
+### Review-Driven Workflow Integration
+
+**Architecture Review Process:**
+```bash
+# 1. Complete architecture design
+@architecture-design-workflow/03-create-technical-design
+# Creates: /architecture/technical-design-microservices.md
+
+# 2. Initiate architecture review
+@review-driven-workflow/01-initiate-review
+# Target: /architecture/technical-design-microservices.md
+
+# 3. Execute specialized review
+@review-driven-workflow/03-execute-review-process
+# Leverages architecture-specific review criteria
+```
+
+### Cross-Workflow Traceability
+- PRD requirements → Architecture requirements → Technical design
+- Architecture decisions → Implementation tasks → Code reviews
+- Review findings → Architecture updates → PRD refinements
 
 ## Output Structure
 
@@ -161,10 +198,33 @@ Each architecture document includes:
 
 ## Best Practices
 
-- Keep requirements measurable; map each NFR to a concrete design choice
-- Prefer simple, evolvable designs; defer heavy complexity until proven necessary
-- Use diagrams to clarify intent; keep them minimal and up to date
-- Document risks and rollback strategies early
+### Requirements Gathering
+1. Always start with business goals before technical requirements
+2. Make NFRs measurable with specific targets (e.g., "< 200ms response time")
+3. Document constraints early - they shape all design decisions
+4. Include both current and future scale requirements
+5. Get stakeholder agreement on priorities and trade-offs
+
+### Architecture Design
+1. Start simple - evolve complexity only when proven necessary
+2. Design for the 80% case, not edge cases
+3. Prefer proven patterns over novel approaches
+4. Make boundaries explicit with clear interfaces
+5. Design for observability from the start
+
+### Documentation
+1. Keep diagrams minimal and focused on one concern
+2. Use consistent notation (C4, UML, etc.)
+3. Version control all architecture artifacts
+4. Link decisions back to requirements
+5. Update docs as implementation evolves
+
+### Stakeholder Management
+1. Tailor communication to audience expertise level
+2. Use visual aids for complex concepts
+3. Provide clear trade-off analysis for decisions
+4. Get explicit sign-off at each phase
+5. Document dissenting opinions and concerns
 
 ## Environment Setup
 
@@ -181,44 +241,61 @@ Ensure these directories exist in your project:
 - Access to business requirements and constraints
 - Understanding of existing system landscape
 
-## Success Metrics
+## Performance Metrics
 
-Track these metrics to measure workflow effectiveness:
+Track workflow effectiveness with these metrics:
 
-- **Requirements Quality**: Completeness and measurability of captured requirements
-- **Option Viability**: Number of feasible alternatives generated and quality of analysis
-- **Design Completeness**: Implementation readiness of technical designs
-- **Stakeholder Satisfaction**: Approval rates and feedback quality
-- **Implementation Success**: Actual vs predicted performance and timelines
-- **Decision Quality**: Effectiveness of architectural choices over time
+### Process Metrics
+- Time from requirements to approved design
+- Number of design iterations required
+- Stakeholder review cycles needed
+- Percentage of requirements addressed
+
+### Quality Metrics
+- Post-implementation design accuracy (actual vs planned)
+- Number of architecture changes during development
+- Technical debt introduced vs avoided
+- System performance vs design targets
+
+### Team Metrics
+- Developer understanding of architecture (survey)
+- Time to onboard new team members
+- Architecture documentation usage rates
+- ADR reference frequency
+
+### Business Metrics
+- Feature delivery acceleration post-design
+- Reduced rework from clear architecture
+- System reliability improvements
+- Cost savings from informed decisions
 
 ## Troubleshooting
 
-### Common Issues
+### Common Issues and Solutions
 
-1. **Incomplete Requirements**
-   - Conduct additional stakeholder interviews
-   - Use requirements templates and checklists
-   - Validate against similar system patterns
-   - Engage domain experts for clarification
+**Issue**: Requirements keep changing during design  
+**Solution**: Lock requirements at phase gates, document changes as new versions, assess impact before accepting changes
 
-2. **Option Generation Difficulties**
-   - Relax constraints to enable more alternatives
-   - Consider phased implementation approaches
-   - Evaluate hybrid solutions combining approaches
-   - Seek external architecture consultation
+**Issue**: Cannot generate distinct architecture options  
+**Solution**: Vary optimization dimensions (cost vs performance vs simplicity), consider buy vs build, explore different deployment models
 
-3. **Technical Design Complexity**
-   - Break down into smaller, manageable components
-   - Focus on MVP and essential features first
-   - Simplify interfaces and reduce dependencies
-   - Consider proven patterns and reference architectures
+**Issue**: Stakeholders don't understand technical designs  
+**Solution**: Use layered documentation (executive summary → technical details), provide analogies, conduct walkthrough sessions
 
-4. **Stakeholder Alignment Challenges**
-   - Clearly document trade-offs and implications
-   - Provide business impact analysis for decisions
-   - Use workshops and collaborative sessions
-   - Escalate conflicts to appropriate decision makers
+**Issue**: Design seems over-engineered  
+**Solution**: Apply YAGNI principle, design for current + 1 year needs, plan evolution path instead of building everything upfront
+
+**Issue**: Missing critical requirements discovered late  
+**Solution**: Use requirement checklists, review similar systems, conduct threat modeling, perform capacity planning exercises
+
+**Issue**: Cannot get stakeholder sign-off  
+**Solution**: Address specific concerns individually, provide proof-of-concepts, offer phased implementation, escalate to sponsors
+
+**Issue**: Technical design doesn't align with existing systems  
+**Solution**: Map integration points explicitly, validate with platform teams, consider adapter patterns, plan migration strategy
+
+**Issue**: Performance requirements seem impossible  
+**Solution**: Challenge requirements with data, propose tiered SLAs, consider caching strategies, evaluate specialized technologies
 
 ## Comparison with Other Workflows
 

@@ -1,0 +1,158 @@
+---
+description: Create a comprehensive Technical Design Document (TDD) from the selected option
+globs:
+  - "**/architecture/architecture-options-*.md"
+  - "**/architecture/*options*.md"
+alwaysApply: false
+---
+# Rule: Create Technical Design Document (TDD)
+
+## Goal
+
+Translate the selected architecture option into an implementation-ready Technical Design Document with detailed components, interfaces, data models, and operational concerns.
+
+## Validation & Prerequisites
+
+Before creating technical design:
+
+1. **Options Validation**: Ensure architecture options exist and selection is confirmed
+2. **Requirements Context**: Verify original requirements are accessible for reference
+3. **Design Completeness**: Confirm all open questions from options phase are resolved
+4. **Stakeholder Alignment**: Verify selected option has stakeholder agreement
+
+## Process
+
+1. **Validate Prerequisites**: Check for options file and confirmed selection
+2. **Confirm Selection**: Identify the chosen option (A/B/C/hybrid) and any adaptations
+3. **Clarify Open Points**: Ask targeted questions to close gaps (e.g., auth model, tenancy, consistency)
+4. **Generate TDD**: Produce `technical-design-[TARGET_NAME].md` with the structure below
+5. **Save Output**: Write to `/architecture/`
+
+## TDD Structure
+
+```markdown
+# Technical Design: [Project/Initiative Name]
+
+## 1. Overview & Goals
+- Summary, scope, and success criteria
+- Out-of-scope (non-goals)
+
+## 2. Architecture Summary
+- Final architecture description
+- Context & container diagrams (Mermaid)
+
+## 3. Components & Responsibilities
+- Component list with responsibilities and interfaces
+- Ownership and boundaries
+
+## 4. API Contracts
+- REST/GraphQL/gRPC endpoints
+- Request/response schemas (JSON Schema or zod-like examples)
+- Error model and versioning strategy
+
+## 5. Data Models
+- ERD (Mermaid) and schema definitions
+- Indexing, partitioning, and lifecycle policies
+- Consistency expectations; transactions
+
+## 6. Workflows & Sequences
+- Sequence diagrams for critical paths
+- Async/event flows and retries/compensation
+
+## 7. Security & Compliance
+- Threat model (STRIDE-lite)
+- AuthN/AuthZ, secrets, encryption (at-rest/in-transit)
+- Audit logging and data governance
+
+## 8. Performance & Capacity
+- Sizing assumptions; concurrency model
+- Latency & throughput targets; back-pressure
+- Caching and CDN strategies
+
+## 9. Observability & Operations
+- Logs, metrics, traces; SLOs & alerts
+- Runbooks; incident response basics
+- Feature flags, config, and rollout strategy
+
+## 10. Deployment & Infrastructure
+- Environments (dev/test/stage/prod)
+- IaC outline; CI/CD summary
+- Multi-AZ/region, networking, DNS, certificates
+
+## 11. Migration & Backward Compatibility
+- Data migration plan and cutover
+- Rollback strategy and safety checks
+
+## 12. Risks & Mitigations
+- Top risks and corresponding mitigations
+
+## 13. Test Strategy
+- Unit, integration, E2E, performance, and security testing
+
+## 14. Acceptance Criteria & Sign-off Gates
+- Objective criteria to accept the design
+- Required stakeholders for sign-off
+
+## 15. Open Questions
+- Items to resolve before implementation
+```
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/architecture/`
+- **Filename:** `technical-design-[TARGET_NAME].md`
+
+## AI Instructions
+
+- Be specific and implementation-ready without writing code
+- Use consistent naming and clear interfaces
+- Map each NFR to concrete design choices
+- Keep diagrams focused and useful
+
+## Progress Tracking
+
+During technical design creation:
+
+1. **Section Completion**: Track completion of each TDD section
+2. **Design Validation**: Validate each section against NFRs and constraints
+3. **Stakeholder Review**: Mark sections requiring stakeholder input
+4. **Checkpoint Saves**: Auto-save progress after major sections
+5. **Quality Gates**: Ensure implementation-readiness before completion
+
+## Error Handling
+
+- **Missing Options**: "No architecture options found at `/architecture/architecture-options-[TARGET_NAME].md`. Please run @architecture-design-workflow/02-propose-architecture-options first to create options before designing."
+- **No Selection Made**: "Architecture option selection not found in options document. Please specify which option (A/B/C/hybrid) was selected and any modifications."
+- **Unresolved Gaps**: "Critical design decisions remain unresolved: [SPECIFIC_GAPS]. Please provide answers for: [DECISION_LIST]. Required for proceeding: authentication model, data consistency requirements, deployment strategy."
+- **Requirements Mismatch**: "Technical design conflicts with original requirements: [CONFLICTS]. Please resolve: performance targets, security constraints, scalability requirements."
+- **Incomplete Dependencies**: "Missing architecture dependencies: [MISSING_ITEMS]. Please complete: requirements document, options selection, stakeholder alignment."
+- **Design Complexity**: "Technical design exceeds team capabilities or timeline. Consider: A) Simplifying architecture, B) Phased implementation approach, C) Additional resources, D) Extended timeline."
+
+## Design Quality Gates
+
+### Implementation Readiness Checklist
+- [ ] All components have clear responsibilities and interfaces
+- [ ] API contracts are specified with request/response schemas
+- [ ] Data models include relationships and constraints
+- [ ] Security controls are mapped to threat model
+- [ ] Performance targets have implementation strategies
+- [ ] Deployment approach addresses all environments
+- [ ] Migration plan includes rollback procedures
+
+### NFR Validation
+- [ ] Availability targets mapped to specific design choices
+- [ ] Performance requirements have measurable implementation paths
+- [ ] Security controls address all identified threats
+- [ ] Scalability approach handles projected growth
+- [ ] Cost targets align with infrastructure choices
+
+## Next Steps
+
+After completing technical design:
+1. Save comprehensive TDD as `technical-design-[TARGET_NAME].md` in `/architecture/`
+2. Validate all sections are implementation-ready
+3. Confirm all NFRs are addressed with specific design choices
+4. Prepare for architecture review and sign-off process
+5. Inform user: "Technical design completed successfully. Ready for architecture review and sign-off? Run @architecture-design-workflow/04-architecture-signoff-and-readiness to proceed."
+

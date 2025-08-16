@@ -1,0 +1,180 @@
+---
+description: Architecture review sign-off and implementation readiness checklist
+globs:
+  - "**/architecture/technical-design-*.md"
+alwaysApply: false
+---
+# Rule: Architecture Sign-off & Implementation Readiness
+
+## Goal
+
+Facilitate structured design review, capture decisions as ADRs, verify readiness against NFRs, and produce a sign-off record before implementation begins.
+
+## Validation & Prerequisites
+
+Before conducting architecture sign-off:
+
+1. **Technical Design Validation**: Ensure TDD exists and is complete
+2. **Stakeholder Availability**: Confirm all required reviewers are available
+3. **Review Readiness**: Validate that design meets quality gates
+4. **Documentation Completeness**: Verify all required artifacts are present
+5. **Directory Structure**: Ensure `/architecture/adr/` directory exists
+
+## Process
+
+1. **Validate Prerequisites**: Check for TDD and reviewer availability
+2. **Load TDD**: Read `technical-design-[TARGET_NAME].md`
+3. **Prepare Checklists**: Generate role-specific checklists (Security, SRE, Data, Backend, Frontend, QA, Product)
+4. **Run Reviews**: Walk through checklists; capture findings and required changes
+5. **Record Decisions**: Create ADR(s) for key architectural choices
+6. **Verify Readiness**: Validate NFR mappings, run risk assessment, confirm rollout and rollback plans
+7. **Save Outputs**: Write `architecture-signoff-[TARGET_NAME].md` and ADR files under `/architecture/adr/`
+
+## Sign-off Document Template
+
+```markdown
+# Architecture Sign-off: [Project/Initiative Name]
+
+## 1. Summary
+- Design status: [Approved / Conditional / Revisions Required]
+- Scope and goals
+
+## 2. Review Checklists
+### Security
+- [ ] Threat model completed
+- [ ] AuthN/AuthZ defined
+- [ ] Secrets & encryption plan reviewed
+- [ ] Data classification & compliance reviewed
+
+### SRE/Operations
+- [ ] SLOs defined and alerting mapped
+- [ ] Runbooks drafted
+- [ ] Rollout and rollback strategy
+- [ ] Capacity and scaling plan
+
+### Data
+- [ ] ERD reviewed; indexing & retention
+- [ ] Migration strategy validated
+- [ ] Privacy & residency requirements
+
+### Application
+- [ ] API contracts and versioning
+- [ ] Error model consistency
+- [ ] Test strategy completeness
+
+## 3. Risks & Actions
+- Risk register and mitigations
+- Required pre-implementation actions
+
+## 4. Stakeholder Approvals
+- Security: [Name/Date]
+- SRE: [Name/Date]
+- Data: [Name/Date]
+- Backend Lead: [Name/Date]
+- Frontend Lead: [Name/Date]
+- Product: [Name/Date]
+
+## 5. Links
+- Technical Design
+- ADRs
+- Tracking Issues
+```
+
+## ADR Template
+
+Save under `/architecture/adr/adr-[YYYYMMDD]-[short-title].md`.
+
+```markdown
+# ADR: [Title]
+
+## Status
+Proposed | Accepted | Deprecated | Superseded by ADR-XXXX
+
+## Context
+Relevant forces and constraints
+
+## Decision
+What was decided and why
+
+## Consequences
+Positive, negative, and risks
+
+## Alternatives Considered
+Key options and why not chosen
+```
+
+## Outputs
+
+- `architecture-signoff-[TARGET_NAME].md` in `/architecture/`
+- `adr-*.md` files in `/architecture/adr/`
+
+## AI Instructions
+
+- Be strict about readiness gates; require evidence or create follow-up tasks
+- Encourage incremental rollout and safety (feature flags, canaries)
+- Keep ADRs concise and high-signal
+
+## Comprehensive Review Process
+
+### Pre-Review Validation
+- [ ] Technical design document complete and reviewed
+- [ ] All NFRs addressed with specific implementation approaches
+- [ ] Security threat model completed
+- [ ] Performance benchmarks and capacity planning done
+- [ ] Migration and rollback strategies defined
+
+### Stakeholder Review Coordination
+1. **Review Scheduling**: Coordinate review sessions with all stakeholders
+2. **Artifact Distribution**: Ensure all reviewers have access to TDD and supporting documents
+3. **Review Guidelines**: Provide specific guidance for each reviewer role
+4. **Issue Tracking**: Document all findings and required actions
+5. **Resolution Validation**: Confirm all critical issues are addressed
+
+### ADR Management
+- **Decision Identification**: Identify all significant architectural choices
+- **Impact Assessment**: Evaluate consequences of each decision
+- **Alternative Documentation**: Record options considered and rationale
+- **Traceability**: Link ADRs to requirements and design sections
+
+## Error Handling
+
+- **Missing TDD**: "No technical design found at `/architecture/technical-design-[TARGET_NAME].md`. Please run @architecture-design-workflow/03-create-technical-design first to create the technical design before conducting sign-off."
+- **Incomplete TDD**: "Technical design document is incomplete. Missing required sections: [MISSING_SECTIONS]. Please complete all sections before proceeding to sign-off."
+- **Checklist Gaps**: "Architecture readiness gaps detected: [SPECIFIC_GAPS]. Address these items before approval: [ACTION_ITEMS]. Required sign-offs: Security, SRE, Data governance."
+- **Stakeholder Unavailability**: "Required stakeholders not available for review: [MISSING_STAKEHOLDERS]. Please coordinate with: [ROLE_LIST] to complete architecture review."
+- **Quality Gate Failures**: "Design quality gates not met: [FAILED_GATES]. Please address: implementation readiness, NFR validation, risk assessment."
+- **ADR Directory Missing**: "ADR directory not found. Creating `/architecture/adr/` directory for Architecture Decision Records."
+- **Risk Assessment Incomplete**: "Critical risks not adequately addressed: [RISKS]. Please provide mitigation strategies for: [RISK_LIST]."
+
+## Success Metrics & Tracking
+
+### Review Quality Metrics
+- **Review Coverage**: Percentage of design areas reviewed by appropriate stakeholders
+- **Issue Resolution Rate**: Number of review findings addressed before approval
+- **Time to Sign-off**: Duration from review start to final approval
+- **Post-Implementation Validation**: Actual performance vs design predictions
+
+### Architecture Decision Tracking
+- **Decision Completeness**: All significant choices documented as ADRs
+- **Traceability**: Requirements → Design → Decisions → Implementation
+- **Impact Assessment**: Business and technical consequences evaluated
+- **Review Effectiveness**: Quality of decisions and outcomes
+
+## Next Steps
+
+After successful architecture sign-off:
+1. **Final Documentation**: Ensure all artifacts are complete and archived
+2. **Implementation Readiness**: Confirm development teams understand the design
+3. **Monitoring Setup**: Establish architecture compliance and performance monitoring
+4. **Team Communication**: Share approved design and decisions with all stakeholders
+5. **Project Handoff**: Transition to implementation phase with clear acceptance criteria
+6. **Follow-up Planning**: Schedule design review checkpoints during implementation
+
+## Implementation Governance
+
+### Ongoing Oversight
+- **Design Compliance**: Regular checks against approved architecture
+- **Performance Validation**: Monitor actual vs predicted performance
+- **Decision Evolution**: Update ADRs as circumstances change
+- **Lessons Learned**: Capture insights for future architecture processes
+

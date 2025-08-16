@@ -1,0 +1,134 @@
+---
+description: Define architecture requirements, constraints, and success criteria for a project
+alwaysApply: false
+---
+# Rule: Define Architecture Requirements & Constraints
+
+## Goal
+
+Guide the AI assistant to capture clear business, product, and technical requirements as inputs to architecture design. Produce a structured "Architecture Requirements" document used by downstream steps.
+
+## Validation & Prerequisites
+
+Before starting architecture requirements gathering:
+
+1. **Directory Setup**: Ensure `/architecture/` directory exists, create if necessary
+2. **Project Context**: Verify project background and design target are clearly defined
+3. **Stakeholder Availability**: Confirm key stakeholders are available for requirements gathering
+4. **Previous Requirements**: Check for existing architecture requirements to avoid duplication
+
+## Process
+
+1. **Validate Prerequisites**: Check directory structure and project context before proceeding
+2. **Receive Context**: Ask the user for project background and the design target (new system, major feature, platform modernization, re-architecture)
+3. **Ask Clarifying Questions**: Collect requirements, constraints, and success criteria (see sections below). Provide multiple-choice options where helpful
+4. **Synthesize Requirements**: Organize inputs into a structured requirements document
+5. **Save Output**: Write `architecture-requirements-[TARGET_NAME].md` to `/architecture/`
+
+## Clarifying Questions (Guided Prompts)
+
+### Business & Product
+- Primary business goals? (e.g., time-to-market, reliability, cost, compliance)
+- KPIs and success metrics? (e.g., conversion, latency, error rate)
+- Key user journeys and SLAs?
+
+### Non-Functional Requirements (NFRs)
+- Availability SLO/SLA (e.g., 99.9%, multi-AZ/region?)
+- Performance (P95 latency targets, throughput, batch SLAs)
+- Scalability (vertical/horizontal, expected growth)
+- Data durability and consistency (RTO/RPO, CAP tradeoffs)
+- Security & Compliance (PII/PHI/PCI, encryption, auditing)
+- Privacy (data residency, retention policies)
+- Observability (logs, metrics, traces, SLOs)
+- Cost constraints and budget envelopes
+
+### Domain & Data
+- Main domain contexts and bounded contexts
+- Data entities, data volume, access patterns (OLTP/OLAP)
+- Eventing vs request-response needs; async workflows
+- Integration points (internal services, 3rd parties)
+
+### Team & Delivery Constraints
+- Team skills and size; ownership boundaries
+- Release cadence; change management; rollout strategy
+- Deadlines and milestones; regulatory dates
+
+### Platform & Technology
+- Runtime targets (cloud, on-prem, hybrid)
+- Preferred stacks, managed services, IaC toolchain
+- Networking, identity, secrets, keys, certificates
+- Persistence stores (SQL/NoSQL/Blob/Cache/Search)
+
+### Risks & Assumptions
+- Known risks and mitigations
+- Key assumptions to validate
+
+## Output Structure
+
+```markdown
+# Architecture Requirements: [Project/Initiative Name]
+
+## 1. Context & Objectives
+- Summary
+- Primary goals
+- KPIs / Success Metrics
+
+## 2. Non-Functional Requirements (NFRs)
+- Availability & Reliability
+- Performance & Scalability
+- Security & Compliance
+- Data Management (Consistency, RTO/RPO)
+- Observability
+- Cost Constraints
+
+## 3. Domain & Data Overview
+- Domain boundaries & contexts
+- Key entities & data flows
+- Integrations (internal/external)
+
+## 4. Platform & Technology
+- Runtime/platform targets
+- Technology preferences/constraints
+- Persistence & messaging
+
+## 5. Team & Delivery Constraints
+- Org boundaries & owners
+- Release/deployment constraints
+- Timelines & milestones
+
+## 6. Risks, Assumptions, Open Questions
+- Risks & mitigations
+- Assumptions
+- Open questions
+```
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/architecture/`
+- **Filename:** `architecture-requirements-[TARGET_NAME].md`
+
+## AI Instructions
+
+- Use concise, unambiguous language
+- Turn vague goals into measurable criteria
+- Flag contradictions or missing inputs explicitly
+- Avoid making technology choices in this step
+
+## Error Handling
+
+- **Missing Context**: "Project background and design target not provided. Please specify: 1) What type of system/feature you're designing, 2) The business problem it solves, 3) Key stakeholders and users, 4) Timeline and constraints."
+- **Directory Issues**: "Architecture directory not found. Creating `/architecture/` directory for architecture artifacts."
+- **Insufficient NFRs**: "Key non-functional requirements are missing or incomplete. Please provide specific targets for: availability (uptime %), performance (latency/throughput), security (compliance/encryption), and scalability (expected load/growth)."
+- **Conflicting Constraints**: "Requirements conflict detected: [SPECIFIC_CONFLICTS]. Please resolve these trade-offs: [PROPOSED_OPTIONS]. Consider: budget vs performance, speed vs reliability, simplicity vs scalability."
+- **Existing Requirements**: "Architecture requirements for '[TARGET_NAME]' already exist at '[PATH]'. Would you like to: A) Update existing requirements, B) Create new version, C) Compare and merge changes?"
+- **Stakeholder Gaps**: "Key stakeholders not identified for: [MISSING_AREAS]. Please specify decision makers for: security, operations, data governance, and business requirements."
+
+## Next Steps
+
+After completing architecture requirements:
+1. Save requirements as `architecture-requirements-[TARGET_NAME].md` in `/architecture/`
+2. Validate all NFRs have measurable targets and success criteria
+3. Confirm stakeholder alignment on priorities and constraints
+4. Inform user: "Architecture requirements completed successfully. Ready to generate architecture options? Run @architecture-design-workflow/02-propose-architecture-options to proceed."
+

@@ -1,0 +1,470 @@
+---
+description: Create detailed refactoring plan and task breakdown from technical debt analysis
+globs:
+  - "**/refactoring/tech-debt-analysis-*.md"
+  - "**/tech-debt-analysis-*.md"
+alwaysApply: false
+---
+# Rule: Plan Refactoring Tasks and Execution Strategy
+
+## Goal
+
+To guide an AI assistant in creating a detailed, step-by-step refactoring plan based on technical debt analysis. The plan should ensure safe, incremental improvements while maintaining system functionality and minimizing risk.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/refactoring/`
+- **Filename:** `refactoring-plan-[TARGET_NAME].md`
+
+## Process
+
+2. **Load Analysis**: Read the referenced `tech-debt-analysis-[TARGET_NAME].md` file
+2. **Assess Current State:** Review existing codebase structure and constraints
+3. **Phase 1: Generate Refactoring Strategy:** Create high-level approach and phases
+4. **Phase 2: Generate Detailed Tasks:** Break down each improvement into safe, actionable steps
+5. **Wait for Confirmation:** Pause and ask user to review before generating execution details
+6. **Phase 3: Generate Safety Plan:** Add testing, rollback, and validation procedures
+7. **Generate Timeline:** Create realistic timeline with dependencies and milestones
+
+## Refactoring Strategy Framework
+
+### Safety-First Approach
+- **Incremental Changes:** Small, reviewable changes that can be easily reverted
+- **Test-Driven Refactoring:** Ensure comprehensive test coverage before and after changes
+- **Feature Flag Protection:** Use feature flags for risky changes
+- **Rollback Plans:** Clear rollback procedures for each major change
+
+### Risk Assessment Categories
+- **Low Risk:** Code style, naming, documentation improvements
+- **Medium Risk:** Method extraction, class restructuring, dependency updates
+- **High Risk:** Architecture changes, major algorithm rewrites, framework migrations
+
+## Refactoring Plan Template
+
+```markdown
+# Refactoring Plan: [TARGET_NAME]
+
+**Plan Date**: [YYYY-MM-DD]  
+**Based on Analysis**: `tech-debt-analysis-[TARGET_NAME].md`  
+**Estimated Duration**: [X] weeks  
+**Team Size**: [X] developers  
+**Risk Level**: [Low/Medium/High]
+
+## Executive Summary
+
+### Refactoring Objectives
+- **Primary Goal**: [Main objective from analysis]
+- **Success Metrics**: [Quantifiable improvements expected]
+- **Business Value**: [Expected impact on development velocity, bug rates, etc.]
+
+### Approach Strategy
+- **Methodology**: [Incremental/Big Bang/Strangler Fig]
+- **Risk Management**: [Safety measures and rollback plans]
+- **Testing Strategy**: [How to ensure functionality is preserved]
+- **Timeline**: [X] weeks across [Y] phases
+
+## Phase Breakdown
+
+### Phase 1: Foundation & Safety (Week 1-2)
+**Objective**: Establish safety net and address critical issues
+**Risk Level**: Low
+**Prerequisites**: None
+
+#### Tasks:
+- [ ] **1.1**: Increase test coverage for refactoring targets
+- [ ] **1.2**: Set up automated quality gates and CI checks
+- [ ] **1.3**: Address critical security vulnerabilities
+- [ ] **1.4**: Fix immediate performance bottlenecks
+
+**Entry Criteria**: 
+- Technical debt analysis completed
+- Team alignment on refactoring priorities
+
+**Exit Criteria**:
+- Test coverage ≥ 80% for target areas
+- All critical issues resolved
+- CI pipeline enhanced with quality checks
+
+### Phase 2: Code Quality Improvements (Week 3-5)
+**Objective**: Address code smells and improve maintainability
+**Risk Level**: Medium
+**Prerequisites**: Phase 1 complete
+
+#### Tasks:
+- [ ] **2.1**: Extract methods from large functions
+- [ ] **2.2**: Eliminate duplicate code through shared utilities
+- [ ] **2.3**: Improve naming and documentation
+- [ ] **2.4**: Simplify complex conditionals
+
+### Phase 3: Structural Improvements (Week 6-8)
+**Objective**: Address architecture and design issues
+**Risk Level**: High
+**Prerequisites**: Phase 2 complete
+
+#### Tasks:
+- [ ] **3.1**: Refactor god classes into focused components
+- [ ] **3.2**: Implement proper design patterns
+- [ ] **3.3**: Resolve circular dependencies
+- [ ] **3.4**: Improve separation of concerns
+
+## Detailed Task Breakdown
+
+### Task 1.1: Increase Test Coverage
+**Priority**: Critical
+**Estimated Effort**: 2 days
+**Assigned To**: [Developer Name]
+**Dependencies**: None
+
+**Objective**: Ensure safe refactoring by establishing comprehensive test coverage
+
+**Current State**:
+- Test coverage: [X]%
+- Missing tests for: [List critical areas]
+- Test quality issues: [List issues]
+
+**Target State**:
+- Test coverage: ≥80%
+- All refactoring targets covered
+- Integration tests for critical paths
+
+**Implementation Steps**:
+1. **Analyze Coverage Gaps** (2 hours)
+   - Run coverage analysis on target files
+   - Identify untested critical paths
+   - Document test requirements
+
+2. **Write Unit Tests** (1 day)
+   ```typescript
+   // Example: Add tests for UserService.validateUser()
+   describe('UserService.validateUser', () => {
+     it('should validate correct user data', () => {
+       // Test implementation
+     });
+     
+     it('should reject invalid email format', () => {
+       // Test implementation
+     });
+   });
+   ```
+
+3. **Add Integration Tests** (4 hours)
+   - Test component interactions
+   - Verify API endpoints
+   - Database integration tests
+
+4. **Validate Test Quality** (2 hours)
+   - Review test assertions
+   - Ensure proper mocking
+   - Verify edge case coverage
+
+**Acceptance Criteria**:
+- [ ] Test coverage ≥80% for all refactoring targets
+- [ ] All critical business logic paths tested
+- [ ] Tests pass consistently in CI/CD pipeline
+- [ ] No flaky or unreliable tests
+
+**Rollback Plan**:
+If tests are unstable, revert new tests and fix issues before proceeding
+
+---
+
+### Task 2.1: Extract Methods from Large Functions
+**Priority**: High
+**Estimated Effort**: 3 days
+**Assigned To**: [Developer Name]
+**Dependencies**: Task 1.1 complete
+
+**Objective**: Improve code readability and maintainability by breaking down large functions
+
+**Target Functions**:
+| Function | File | Lines | Complexity | Priority |
+|----------|------|-------|------------|----------|
+| `processPayment()` | `payment.ts` | 150 | 25 | Critical |
+| `validateUserData()` | `user.ts` | 120 | 18 | High |
+| `generateReport()` | `reports.ts` | 200 | 30 | High |
+
+**Implementation Strategy**:
+1. **Identify Extraction Opportunities** (4 hours)
+   - Analyze function responsibilities
+   - Identify cohesive code blocks
+   - Plan extraction boundaries
+
+2. **Extract Helper Methods** (2 days)
+   ```typescript
+   // Before: Large function
+   function processPayment(order: Order): PaymentResult {
+     // 150 lines of mixed concerns
+   }
+   
+   // After: Extracted methods
+   function processPayment(order: Order): PaymentResult {
+     const validatedOrder = validatePaymentData(order);
+     const paymentMethod = selectPaymentMethod(validatedOrder);
+     const result = executePayment(paymentMethod, validatedOrder);
+     return formatPaymentResult(result);
+   }
+   
+   private function validatePaymentData(order: Order): ValidatedOrder {
+     // Focused validation logic
+   }
+   
+   private function selectPaymentMethod(order: ValidatedOrder): PaymentMethod {
+     // Payment method selection logic
+   }
+   ```
+
+3. **Update Tests** (4 hours)
+   - Modify existing tests for new structure
+   - Add tests for extracted methods
+   - Verify behavior preservation
+
+**Safety Measures**:
+- Extract one method at a time
+- Run full test suite after each extraction
+- Use IDE refactoring tools when possible
+- Maintain identical public interface
+
+**Acceptance Criteria**:
+- [ ] No function exceeds 50 lines
+- [ ] Cyclomatic complexity ≤10 for all functions
+- [ ] All tests continue to pass
+- [ ] Public API remains unchanged
+
+---
+
+### Task 3.1: Refactor God Classes
+**Priority**: High
+**Estimated Effort**: 5 days
+**Assigned To**: [Senior Developer Name]
+**Dependencies**: Tasks 1.1, 2.1 complete
+
+**Objective**: Break down large, monolithic classes into focused, single-responsibility components
+
+**Target Classes**:
+| Class | File | Lines | Responsibilities | Split Strategy |
+|-------|------|-------|-----------------|----------------|
+| `UserManager` | `user-manager.ts` | 500 | 8 different concerns | Split into 4 classes |
+| `PaymentProcessor` | `payment.ts` | 350 | 5 different concerns | Split into 3 classes |
+
+**Implementation Strategy**:
+1. **Analyze Class Responsibilities** (1 day)
+   ```typescript
+   // Current: UserManager (500 lines)
+   class UserManager {
+     // Authentication logic (100 lines)
+     login() { ... }
+     logout() { ... }
+     
+     // Profile management (150 lines)
+     updateProfile() { ... }
+     getProfile() { ... }
+     
+     // Permissions (100 lines)
+     checkPermission() { ... }
+     assignRole() { ... }
+     
+     // Notifications (150 lines)
+     sendEmail() { ... }
+     sendSMS() { ... }
+   }
+   ```
+
+2. **Design New Class Structure** (1 day)
+   ```typescript
+   // Proposed: Focused classes
+   class AuthenticationService {
+     login() { ... }
+     logout() { ... }
+     validateSession() { ... }
+   }
+   
+   class UserProfileService {
+     updateProfile() { ... }
+     getProfile() { ... }
+     validateProfileData() { ... }
+   }
+   
+   class UserPermissionService {
+     checkPermission() { ... }
+     assignRole() { ... }
+     getUserRoles() { ... }
+   }
+   
+   class UserNotificationService {
+     sendEmail() { ... }
+     sendSMS() { ... }
+     getNotificationPreferences() { ... }
+   }
+   ```
+
+3. **Implement Gradual Migration** (3 days)
+   - Create new focused classes
+   - Implement facade pattern for backward compatibility
+   - Gradually migrate callers to new classes
+   - Remove old class when migration complete
+
+**Migration Strategy**:
+```typescript
+// Step 1: Create new services
+const authService = new AuthenticationService();
+const profileService = new UserProfileService();
+
+// Step 2: Create facade for compatibility
+class UserManager {
+  constructor(
+    private authService: AuthenticationService,
+    private profileService: UserProfileService
+  ) {}
+  
+  // Delegate to new services
+  login(credentials: Credentials) {
+    return this.authService.login(credentials);
+  }
+  
+  updateProfile(data: ProfileData) {
+    return this.profileService.updateProfile(data);
+  }
+}
+
+// Step 3: Update callers gradually
+// Old: userManager.login(credentials)
+// New: authService.login(credentials)
+```
+
+**Safety Measures**:
+- Use facade pattern for backward compatibility
+- Migrate one method at a time
+- Maintain comprehensive test coverage
+- Feature flag new implementation
+
+**Acceptance Criteria**:
+- [ ] No class exceeds 200 lines
+- [ ] Each class has single responsibility
+- [ ] All existing functionality preserved
+- [ ] Test coverage maintained or improved
+- [ ] Performance impact ≤5%
+
+## Risk Management
+
+### High-Risk Tasks
+| Task | Risk Level | Mitigation Strategy |
+|------|------------|-------------------|
+| God class refactoring | High | Facade pattern, gradual migration |
+| Algorithm optimization | High | A/B testing, performance monitoring |
+| Framework updates | Medium | Staged rollout, comprehensive testing |
+
+### Rollback Procedures
+
+#### Immediate Rollback (< 1 hour)
+1. **Feature Flag Disable**: Turn off feature flags for new code
+2. **Code Revert**: Use git revert for recent commits
+3. **Database Rollback**: Restore from backup if schema changes made
+4. **Cache Clear**: Clear application caches to prevent stale data
+
+#### Extended Rollback (1-24 hours)
+1. **Full Deployment Revert**: Deploy previous stable version
+2. **Data Migration Rollback**: Run reverse migration scripts
+3. **Configuration Restore**: Restore previous configuration files
+4. **Third-party Service Updates**: Notify external services of changes
+
+### Monitoring and Validation
+
+#### Key Metrics to Monitor
+- **Performance**: Response times, throughput, resource usage
+- **Quality**: Bug rates, test coverage, code complexity
+- **Stability**: Error rates, uptime, user satisfaction
+- **Development**: Code review time, deployment frequency
+
+#### Validation Checkpoints
+- **After Each Task**: Run full test suite, check key metrics
+- **After Each Phase**: Conduct code review, performance testing
+- **Before Production**: Load testing, security scan, stakeholder approval
+
+## Timeline and Dependencies
+
+### Gantt Chart Overview
+```
+Week 1: [████████] Phase 1 - Foundation & Safety
+Week 2: [████████] Phase 1 continued
+Week 3: [████████] Phase 2 - Code Quality
+Week 4: [████████] Phase 2 continued  
+Week 5: [████████] Phase 2 continued
+Week 6: [████████] Phase 3 - Structural
+Week 7: [████████] Phase 3 continued
+Week 8: [████████] Phase 3 & Validation
+```
+
+### Critical Path
+1. **Test Coverage** → **Code Quality** → **Structural Changes**
+2. **Security Fixes** → **Performance Optimization** → **Architecture Improvements**
+
+### Resource Allocation
+- **Senior Developer**: Lead architectural changes, review all PRs
+- **Mid-level Developers**: Code quality improvements, method extraction
+- **Junior Developers**: Test writing, documentation, simple refactoring
+
+## Success Criteria
+
+### Technical Metrics
+- **Code Quality**: Reduce cyclomatic complexity by 40%
+- **Maintainability**: Improve maintainability index by 25%
+- **Test Coverage**: Achieve and maintain ≥85% coverage
+- **Performance**: Maintain or improve current performance levels
+- **Security**: Zero critical vulnerabilities
+
+### Business Metrics
+- **Development Velocity**: 20% faster feature delivery
+- **Bug Rate**: 30% reduction in production bugs
+- **Code Review Time**: 25% faster review cycles
+- **Developer Satisfaction**: Improved team feedback scores
+
+### Quality Gates
+- [ ] All automated tests pass
+- [ ] Code coverage targets met
+- [ ] Performance benchmarks maintained
+- [ ] Security scan passes
+- [ ] Code review approval from senior developer
+- [ ] Stakeholder sign-off on changes
+
+---
+
+**Plan Created**: [YYYY-MM-DD]  
+**Next Review**: [Date]  
+**Plan Version**: 1.0
+```
+
+## Interaction Model
+
+1. **Generate Strategy**: Create high-level refactoring approach and phases
+2. **Generate Detailed Tasks**: Break down each improvement into specific steps
+3. **Pause for Review**: "Refactoring plan generated. Review and respond with 'Go' to add safety procedures and timeline"
+4. **Generate Safety Plan**: Add comprehensive testing, rollback, and validation procedures
+5. **Generate Timeline**: Create realistic schedule with dependencies and resource allocation
+
+## Target Audience
+
+Assume the primary readers are **development teams and technical leads** who will execute the refactoring plan and need clear, actionable guidance.
+
+## AI Instructions
+
+1. **Safety First**: Always prioritize system stability and functionality preservation
+2. **Incremental Approach**: Break large changes into small, reviewable steps
+3. **Risk Assessment**: Clearly identify and mitigate risks for each task
+4. **Realistic Estimates**: Provide conservative effort estimates with buffer time
+5. **Clear Dependencies**: Map out task dependencies and critical path
+6. **Measurable Outcomes**: Define specific success criteria and validation procedures
+7. **Team Considerations**: Account for team skill levels and availability
+
+## Error Handling
+
+- **Missing Analysis**: "No technical debt analysis found. Run 01-identify-tech-debt first"
+- **Scope Too Large**: "Refactoring scope is very broad. Consider breaking into smaller, focused plans"
+- **High Risk Tasks**: "Multiple high-risk tasks identified. Consider extending timeline or reducing scope"
+- **Resource Constraints**: "Estimated effort exceeds available resources. Prioritize critical items or extend timeline"
+
+## Integration Points
+
+- **Test Generation Workflow**: Leverage test generation for comprehensive coverage before refactoring
+- **Review-Driven Workflow**: Use code review insights to validate refactoring decisions
+- **Architecture Design**: Align refactoring with architectural goals and patterns

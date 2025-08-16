@@ -1,0 +1,374 @@
+---
+description: Identify and analyze technical debt and refactoring opportunities with comprehensive validation
+alwaysApply: false
+---
+# Rule: Identify Technical Debt and Refactoring Opportunities
+
+## Goal
+
+To guide an AI assistant in systematically scanning and analyzing a codebase to identify technical debt, code smells, refactoring opportunities, and maintenance issues. Produce a prioritized list of improvement candidates with impact assessment.
+
+## Validation & Prerequisites
+
+Before starting technical debt analysis:
+
+1. **Directory Structure**: Ensure `/refactoring/` directory exists, create if necessary
+2. **Codebase Accessibility**: Verify target codebase is accessible and readable
+3. **Analysis Tools**: Confirm required analysis tools are available and configured
+4. **Baseline Metrics**: Establish current code quality and performance baselines
+5. **Stakeholder Context**: Understand business priorities and refactoring constraints
+6. **Resource Assessment**: Validate available time and team capacity for analysis
+
+## Process
+
+1. **Validate Prerequisites**: Check directory structure, codebase access, and tool availability
+2. **Receive Scope**: The user provides codebase scope (entire project, specific modules, or targeted areas)
+3. **Ask Clarifying Questions**: Gather context about priorities, constraints, and refactoring goals
+4. **Analyze Codebase**: Scan code for technical debt indicators and improvement opportunities
+5. **Assess Impact**: Evaluate business impact, risk, and effort for each identified item
+6. **Prioritize Issues**: Create prioritized list based on impact, effort, and business value
+7. **Validate Analysis Quality**: Ensure comprehensive coverage and actionable recommendations
+8. **Save Analysis**: Generate `tech-debt-analysis-[TARGET_NAME].md` in `/refactoring/` directory
+
+## Clarifying Questions (Examples)
+
+The AI should adapt questions based on the scope, but here are common areas to explore:
+
+### Refactoring Scope & Objectives
+- **Primary Goal:** "What is the main objective of this refactoring effort?"
+  - A) Improve code maintainability and readability
+  - B) Enhance performance and scalability
+  - C) Reduce technical debt and complexity
+  - D) Prepare for new features or architecture changes
+  - E) Comprehensive code health improvement
+
+### Priority Areas & Constraints
+- **Focus Areas:** "Which areas should be prioritized for analysis?"
+  - A) Performance bottlenecks and optimization
+  - B) Security vulnerabilities and code safety
+  - C) Code complexity and maintainability
+  - D) Outdated dependencies and libraries
+  - E) Architecture and design patterns
+  - F) All areas (comprehensive analysis)
+
+### Business Context & Impact
+- **Business Criticality:** "Which parts of the codebase are most business-critical?"
+- **Development Pain Points:** "What areas cause the most development friction or bugs?"
+- **Timeline Constraints:** "Are there any upcoming deadlines or release schedules to consider?"
+- **Resource Availability:** "How much development time can be allocated to refactoring?"
+
+### Technical Context
+- **Recent Issues:** "Are there any recent production issues or performance problems?"
+- **Team Knowledge:** "Are there areas of the codebase that are poorly understood by the team?"
+- **Technology Stack:** "Are there outdated technologies or libraries that need updating?"
+- **Testing Coverage:** "What is the current test coverage and quality?"
+
+## Technical Debt Analysis Categories
+
+### Code Quality Issues
+- **Code Smells:** Long methods, large classes, duplicate code, complex conditionals
+- **Naming Issues:** Unclear variable/function names, inconsistent naming conventions
+- **Structure Problems:** Poor separation of concerns, tight coupling, low cohesion
+- **Documentation Gaps:** Missing or outdated comments, lack of API documentation
+
+### Performance Issues
+- **Algorithm Inefficiencies:** O(n²) algorithms that could be O(n log n) or O(n)
+- **Memory Leaks:** Unreleased resources, circular references, excessive memory usage
+- **Database Issues:** N+1 queries, missing indexes, inefficient query patterns
+- **Caching Problems:** Missing caching, cache invalidation issues, over-caching
+
+### Security Concerns
+- **Input Validation:** Missing or inadequate input sanitization
+- **Authentication Issues:** Weak password policies, session management problems
+- **Data Exposure:** Logging sensitive data, insecure data transmission
+- **Dependency Vulnerabilities:** Outdated libraries with known security issues
+
+### Architecture Problems
+- **Design Pattern Violations:** Inconsistent or inappropriate pattern usage
+- **Dependency Issues:** Circular dependencies, excessive coupling
+- **Scalability Limitations:** Single points of failure, non-scalable architectures
+- **Technology Debt:** Outdated frameworks, end-of-life technologies
+
+## Tech Debt Analysis Template
+
+```markdown
+# Technical Debt Analysis: [Scope Name]
+
+**Analysis Date**: [YYYY-MM-DD]  
+**Scope**: [Codebase/Module/Feature area]  
+**Analyzer**: AI Assistant  
+**Priority Framework**: Impact × Frequency ÷ Effort
+
+## Executive Summary
+
+### Overall Health Assessment
+- **Technical Debt Level**: [Low/Medium/High/Critical]
+- **Code Quality Score**: [X]/10
+- **Maintainability Index**: [X]/100
+- **Total Issues Identified**: [X] items
+- **Estimated Refactoring Effort**: [X] person-days
+
+### Key Findings
+- **Critical Issues**: [X] items requiring immediate attention
+- **High-Impact Improvements**: [X] items with significant business value
+- **Quick Wins**: [X] items with low effort, high impact
+- **Long-term Investments**: [X] items requiring substantial effort
+
+## Critical Issues (Immediate Action Required)
+
+### 🚨 [Issue Title] - [Component/File]
+**Category**: [Code Quality/Performance/Security/Architecture]  
+**Impact**: Critical  
+**Effort**: [Low/Medium/High]  
+**Business Risk**: [Description of business impact]
+
+**Problem Description**:
+[Detailed description of the technical debt issue]
+
+**Code Location**: `[file.ts:lines]`
+```typescript
+// Problematic code example
+[code snippet showing the issue]
+```
+
+**Why This is Critical**:
+[Explanation of why this needs immediate attention]
+
+**Recommended Solution**:
+[High-level approach to fixing the issue]
+
+**Estimated Effort**: [X] hours/days
+**Dependencies**: [Any dependencies or prerequisites]
+
+---
+
+## High-Impact Improvements
+
+### 💡 [Improvement Title] - [Component/File]
+**Category**: [Category]  
+**Impact**: High  
+**Effort**: [Effort Level]  
+**ROI Score**: [X]/10
+
+**Current State**:
+[Description of current implementation]
+
+**Proposed Improvement**:
+[Description of proposed changes]
+
+**Benefits**:
+- [Benefit 1]: [Quantified impact where possible]
+- [Benefit 2]: [Quantified impact where possible]
+
+**Implementation Approach**:
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+---
+
+## Quick Wins (Low Effort, High Impact)
+
+### ⚡ [Quick Win Title]
+**File**: `[file.ts]`  
+**Effort**: [X] hours  
+**Impact**: [Description]
+
+**Change Required**:
+```typescript
+// Before
+[current code]
+
+// After
+[improved code]
+```
+
+## Detailed Analysis by Category
+
+### Code Quality Issues ([X] items)
+| Issue | File | Severity | Effort | Impact | Priority |
+|-------|------|----------|--------|--------|----------|
+| Long method (150+ lines) | `auth.ts:45` | Medium | Low | Medium | High |
+| Duplicate code blocks | `utils.ts:*` | Medium | Medium | High | High |
+| Complex conditional | `payment.ts:120` | High | Medium | High | Critical |
+
+### Performance Issues ([X] items)
+| Issue | File | Current Impact | Potential Gain | Effort | Priority |
+|-------|------|---------------|----------------|--------|----------|
+| N+1 Database Query | `user-service.ts:67` | 500ms avg | 50ms avg | Medium | Critical |
+| Memory leak in cache | `cache-manager.ts:34` | Growing memory | Stable memory | Low | High |
+| Inefficient algorithm | `search.ts:89` | O(n²) | O(n log n) | High | Medium |
+
+### Security Issues ([X] items)
+| Issue | File | Risk Level | Exploit Difficulty | Effort | Priority |
+|-------|------|-----------|-------------------|--------|----------|
+| SQL injection risk | `query-builder.ts:23` | High | Easy | Medium | Critical |
+| Unvalidated input | `api-handler.ts:45` | Medium | Medium | Low | High |
+| Weak encryption | `crypto-utils.ts:12` | High | Hard | High | Critical |
+
+### Architecture Issues ([X] items)
+| Issue | Component | Complexity | Maintainability Impact | Effort | Priority |
+|-------|-----------|------------|----------------------|--------|----------|
+| God class (500+ lines) | `UserManager` | Very High | Very High | High | High |
+| Circular dependency | `auth ↔ user` | High | High | Medium | High |
+| Missing abstraction | `payment-*` | Medium | Medium | Medium | Medium |
+
+## Dependency Analysis
+
+### Outdated Dependencies
+| Package | Current | Latest | Security Issues | Breaking Changes | Update Effort |
+|---------|---------|---------|----------------|-----------------|---------------|
+| `lodash` | 4.17.15 | 4.17.21 | 2 vulnerabilities | None | Low |
+| `express` | 4.17.1 | 4.18.2 | 0 vulnerabilities | Minor | Low |
+| `react` | 16.14.0 | 18.2.0 | 0 vulnerabilities | Major | High |
+
+### Unused Dependencies
+- `moment` (replaced by `date-fns`)
+- `jquery` (no longer used)
+- `underscore` (redundant with `lodash`)
+
+## Refactoring Opportunities
+
+### Design Pattern Applications
+- **Strategy Pattern**: Replace complex conditional logic in `payment-processor.ts`
+- **Factory Pattern**: Simplify object creation in `notification-service.ts`
+- **Observer Pattern**: Decouple event handling in `user-activity.ts`
+
+### Code Organization Improvements
+- **Module Extraction**: Extract utility functions from large service classes
+- **Interface Segregation**: Split large interfaces into focused contracts
+- **Dependency Injection**: Reduce tight coupling in service layer
+
+## Metrics and Measurements
+
+### Current Code Metrics
+- **Cyclomatic Complexity**: Average [X], Max [Y] (Target: <10)
+- **Lines of Code per Function**: Average [X] (Target: <50)
+- **Class Size**: Average [X] lines (Target: <200)
+- **Duplicate Code**: [X]% (Target: <5%)
+- **Test Coverage**: [X]% (Target: >80%)
+
+### Technical Debt Ratio
+- **Total Debt**: [X] hours
+- **Development Velocity Impact**: [Y]% slower
+- **Bug Rate Correlation**: [Z]% higher in high-debt areas
+
+## Prioritization Matrix
+
+### Priority Scoring Formula
+Priority Score = (Business Impact × Development Impact × Frequency) ÷ (Effort × Risk)
+
+### Top 10 Priority Items
+1. **[Item 1]**: Score [X] - [Brief description]
+2. **[Item 2]**: Score [X] - [Brief description]
+3. **[Item 3]**: Score [X] - [Brief description]
+[Continue for top 10]
+
+## Recommendations
+
+### Immediate Actions (Next Sprint)
+1. **Address Critical Security Issues**: [X] items, [Y] hours
+2. **Fix Performance Bottlenecks**: [X] items, [Y] hours
+3. **Quick Code Quality Wins**: [X] items, [Y] hours
+
+### Short-term Goals (Next Month)
+1. **Reduce Code Complexity**: Target areas with highest complexity scores
+2. **Update Critical Dependencies**: Focus on security-related updates
+3. **Improve Test Coverage**: Add tests for high-risk, low-coverage areas
+
+### Long-term Strategy (Next Quarter)
+1. **Architecture Improvements**: Address design pattern and structure issues
+2. **Technology Modernization**: Plan migration from outdated technologies
+3. **Process Improvements**: Implement automated code quality checks
+
+## Success Metrics
+
+### Quality Improvements
+- **Reduce Cyclomatic Complexity**: From [X] to [Y]
+- **Increase Test Coverage**: From [X]% to [Y]%
+- **Eliminate Critical Issues**: [X] items resolved
+- **Improve Performance**: [X]% faster response times
+
+### Development Efficiency
+- **Reduce Bug Rate**: From [X] to [Y] bugs per sprint
+- **Increase Development Velocity**: [X]% improvement
+- **Improve Code Review Time**: [X]% faster reviews
+- **Reduce Onboarding Time**: [X]% faster for new developers
+
+---
+
+**Analysis Completed**: [YYYY-MM-DD HH:MM]  
+**Next Review Recommended**: [Date]  
+**Estimated Total Refactoring Effort**: [X] person-weeks
+```
+
+## Target Audience
+
+Assume the primary readers are **development teams, technical leads, and engineering managers** who need to understand technical debt impact and plan refactoring efforts.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/refactoring/`
+- **Filename:** `tech-debt-analysis-[TARGET_NAME].md`
+
+## Final Instructions
+
+1. Do NOT start planning specific refactoring tasks yet
+2. Focus on comprehensive identification and impact assessment
+3. Be objective in severity and effort assessments
+4. Provide concrete examples with code snippets where possible
+5. Consider both technical and business impact in prioritization
+
+## Next Steps
+
+After completing technical debt analysis:
+1. Save comprehensive analysis as `tech-debt-analysis-[TARGET_NAME].md` in `/refactoring/`
+2. Validate all technical debt categories are covered with actionable insights
+3. Confirm prioritization framework aligns with business objectives
+4. Prepare for refactoring planning phase
+5. Inform user: "Technical debt analysis completed successfully. Ready to create refactoring plan? Run @refactoring-tech-debt-workflow/02-plan-refactoring-tasks to proceed."
+
+## AI Instructions
+
+- Scan code systematically using static analysis principles
+- Look for common anti-patterns and code smells
+- Consider performance implications of identified issues
+- Assess security risks and vulnerabilities
+- Evaluate maintainability and developer experience impact
+- Provide quantitative metrics where possible
+- Balance technical perfectionism with practical business needs
+- Ensure analysis is comprehensive and implementation-ready
+
+## Analysis Quality Gates
+
+### Completeness Checklist
+- [ ] All target code areas analyzed for technical debt indicators
+- [ ] Performance bottlenecks identified with impact assessment
+- [ ] Security vulnerabilities catalogued with risk levels
+- [ ] Code quality issues prioritized by business impact
+- [ ] Dependencies analyzed for version and security status
+- [ ] Architecture patterns evaluated for consistency and effectiveness
+
+### Analysis Validation
+- [ ] Technical debt ratio calculated with baseline comparison
+- [ ] Impact assessments include quantifiable business metrics
+- [ ] Effort estimates are realistic and well-justified
+- [ ] Prioritization framework consistently applied
+- [ ] Actionable recommendations provided for each issue
+
+## Error Handling
+
+- **Scope Too Large**: "Codebase scope exceeds analysis capacity: [SCOPE_SIZE]. Consider: A) Focus on high-risk modules: [SUGGESTED_MODULES], B) Break into phases: [PHASE_BREAKDOWN], C) Use automated tools for initial scanning, D) Prioritize business-critical areas."
+- **Insufficient Context**: "Analysis context incomplete. Please provide: 1) Business priorities (performance/security/maintainability), 2) Timeline constraints, 3) Resource availability, 4) Known pain points, 5) Upcoming feature requirements."
+- **Access Issues**: "Cannot access code areas: [INACCESSIBLE_PATHS]. Please ensure: 1) Read permissions for analysis directories, 2) Repository access tokens are valid, 3) Network connectivity to code repositories, 4) Required dependencies are installed."
+- **Analysis Complexity**: "Codebase complexity exceeds single-pass analysis: [COMPLEXITY_METRICS]. Recommend: A) Multi-phase analysis approach, B) Focus on critical components first, C) Use automated analysis tools, D) Engage domain experts for complex areas."
+- **Tool Dependencies**: "Required analysis tools not available: [MISSING_TOOLS]. Please install: static analysis tools, code complexity analyzers, security scanners, dependency checkers."
+- **Baseline Issues**: "Cannot establish baseline metrics: [BASELINE_ISSUES]. Please address: 1) Historical performance data, 2) Current quality metrics, 3) Existing technical debt records, 4) Team productivity baselines."
+- **Stakeholder Gaps**: "Key stakeholders not identified for analysis priorities: [MISSING_STAKEHOLDERS]. Required input from: Product Owner, Engineering Manager, Security Team, Operations Team."
+
+## Integration Points
+
+- **Review-Driven Workflow**: Use review findings as input for technical debt identification
+- **Architecture Design**: Consider architectural debt and design pattern violations
+- **Test Generation**: Identify areas with poor testability that need refactoring

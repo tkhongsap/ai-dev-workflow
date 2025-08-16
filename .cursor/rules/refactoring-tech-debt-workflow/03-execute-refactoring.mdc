@@ -1,0 +1,589 @@
+---
+description: Execute refactoring tasks safely with comprehensive monitoring and continuous validation
+globs:
+  - "**/refactoring/refactoring-plan-*.md"
+  - "**/refactoring-plan-*.md"
+alwaysApply: false
+---
+# Rule: Execute Refactoring Tasks Safely
+
+## Goal
+
+To guide an AI assistant in executing refactoring tasks from the refactoring plan, ensuring safety, maintaining functionality, and tracking progress. Follow the plan systematically while adapting to discoveries and maintaining system stability.
+
+## Validation & Prerequisites
+
+Before executing refactoring tasks:
+
+1. **Plan Validation**: Ensure refactoring plan is complete and approved
+2. **Environment Readiness**: Verify development and testing environments are prepared
+3. **Backup Procedures**: Confirm code and data backups are current and accessible
+4. **Test Coverage**: Validate comprehensive test coverage for refactoring targets
+5. **Team Coordination**: Ensure team is aligned on execution timeline and responsibilities
+6. **Monitoring Setup**: Confirm performance and error monitoring systems are active
+
+## Process
+
+1. **Validate Prerequisites**: Check plan completeness, environment readiness, and team coordination
+2. **Load Refactoring Plan**: Read the referenced `refactoring-plan-[TARGET_NAME].md` file
+3. **Execute Tasks Incrementally**: Process one task at a time with validation
+4. **Continuous Testing**: Run tests after each change to ensure functionality
+5. **Progress Tracking**: Update plan status and document changes made
+6. **Performance Monitoring**: Track system performance throughout execution
+7. **Risk Management**: Apply safety measures and rollback procedures when needed
+8. **Quality Validation**: Ensure code quality improvements meet targets
+9. **Generate Progress Reports**: Create status updates and completion summaries
+10. **Stakeholder Communication**: Provide regular updates on progress and issues
+
+## Task Execution Protocol
+
+### Pre-Execution Checklist
+- [ ] Refactoring plan reviewed and approved
+- [ ] Development environment set up
+- [ ] All tests passing before starting
+- [ ] Backup/version control confirmed
+- [ ] Team notified of refactoring start
+
+### Per-Task Execution Steps
+1. **Prepare Task Environment**
+2. **Execute Incremental Changes**
+3. **Validate Changes**
+4. **Update Documentation**
+5. **Mark Task Complete**
+
+### Post-Execution Validation
+- [ ] All tests continue to pass
+- [ ] Performance benchmarks maintained
+- [ ] Code review completed
+- [ ] Documentation updated
+- [ ] Progress tracked and reported
+
+## Task Execution Framework
+
+### Safety-First Execution
+```markdown
+## Task Execution: [Task ID] - [Task Name]
+
+**Started**: [YYYY-MM-DD HH:MM]
+**Assigned To**: [Developer Name]
+**Estimated Effort**: [X] hours
+**Actual Effort**: [X] hours (updated during execution)
+
+### Pre-Execution State
+- **Test Status**: [All passing/X failing]
+- **Performance Baseline**: [Current metrics]
+- **Code Complexity**: [Current measurements]
+- **Coverage**: [Current percentage]
+
+### Execution Steps
+
+#### Step 1: [Step Description]
+**Time**: [HH:MM] - [HH:MM]
+**Changes Made**:
+```typescript
+// File: [filename]
+// Before
+[original code]
+
+// After
+[refactored code]
+```
+
+**Validation**:
+- [ ] Tests pass: `npm test -- --testPathPattern=[relevant tests]`
+- [ ] Linting passes: `npm run lint`
+- [ ] Type checking passes: `npm run type-check`
+- [ ] Manual testing completed
+
+**Metrics Impact**:
+- Complexity: [Before] → [After]
+- Lines of code: [Before] → [After]
+- Performance: [Before] → [After]
+
+#### Step 2: [Next Step Description]
+[Repeat format for each step]
+
+### Post-Execution State
+- **Test Status**: [All passing/X failing]
+- **Performance Impact**: [% change]
+- **Code Quality Improvement**: [Metrics comparison]
+- **Coverage Change**: [% change]
+
+### Completion Summary
+**Status**: ✅ Completed / ⚠️ Partial / ❌ Rolled Back
+**Total Time**: [X] hours
+**Key Achievements**:
+- [Achievement 1]
+- [Achievement 2]
+
+**Issues Encountered**:
+- [Issue 1]: [Resolution]
+- [Issue 2]: [Resolution]
+
+**Next Steps**:
+- [Follow-up action 1]
+- [Follow-up action 2]
+```
+
+## Execution Patterns by Task Type
+
+### Code Quality Improvements
+
+#### Method Extraction Pattern
+```typescript
+// Pattern: Extract complex logic into focused methods
+
+// BEFORE: Large, complex method
+function processOrder(order: Order): OrderResult {
+  // 50+ lines of mixed validation, calculation, and persistence logic
+  if (!order.customerId || order.customerId.length === 0) {
+    throw new Error("Customer ID required");
+  }
+  
+  if (!order.items || order.items.length === 0) {
+    throw new Error("Order must contain items");
+  }
+  
+  let totalAmount = 0;
+  for (const item of order.items) {
+    if (item.quantity <= 0) {
+      throw new Error("Item quantity must be positive");
+    }
+    totalAmount += item.price * item.quantity;
+  }
+  
+  const tax = totalAmount * 0.08;
+  const finalAmount = totalAmount + tax;
+  
+  // Database persistence logic...
+  // Email notification logic...
+  // Inventory update logic...
+}
+
+// AFTER: Extracted, focused methods
+function processOrder(order: Order): OrderResult {
+  validateOrder(order);
+  const amounts = calculateOrderAmounts(order);
+  const savedOrder = persistOrder(order, amounts);
+  sendOrderConfirmation(savedOrder);
+  updateInventory(order.items);
+  
+  return {
+    orderId: savedOrder.id,
+    totalAmount: amounts.finalAmount,
+    status: 'confirmed'
+  };
+}
+
+private function validateOrder(order: Order): void {
+  if (!order.customerId?.length) {
+    throw new Error("Customer ID required");
+  }
+  
+  if (!order.items?.length) {
+    throw new Error("Order must contain items");
+  }
+  
+  order.items.forEach(item => {
+    if (item.quantity <= 0) {
+      throw new Error("Item quantity must be positive");
+    }
+  });
+}
+
+private function calculateOrderAmounts(order: Order): OrderAmounts {
+  const subtotal = order.items.reduce((sum, item) => 
+    sum + (item.price * item.quantity), 0);
+  const tax = subtotal * 0.08;
+  const finalAmount = subtotal + tax;
+  
+  return { subtotal, tax, finalAmount };
+}
+```
+
+**Execution Steps**:
+1. **Identify extraction boundaries** (30 min)
+2. **Extract validation logic** (45 min)
+3. **Extract calculation logic** (30 min)
+4. **Extract persistence logic** (45 min)
+5. **Update tests** (60 min)
+6. **Validate behavior** (30 min)
+
+### Performance Optimization Pattern
+
+#### Database Query Optimization
+```sql
+-- BEFORE: N+1 Query Problem
+-- Main query
+SELECT id, name FROM users WHERE active = true;
+
+-- For each user (N queries)
+SELECT COUNT(*) FROM orders WHERE user_id = ?;
+
+-- AFTER: Single optimized query
+SELECT 
+  u.id,
+  u.name,
+  COUNT(o.id) as order_count
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE u.active = true
+GROUP BY u.id, u.name;
+```
+
+**Execution Steps**:
+1. **Identify N+1 queries** (30 min)
+2. **Design optimized query** (45 min)
+3. **Implement query changes** (60 min)
+4. **Update data access layer** (45 min)
+5. **Performance test** (30 min)
+6. **Validate results** (30 min)
+
+### Architecture Improvement Pattern
+
+#### Dependency Injection Implementation
+```typescript
+// BEFORE: Tight coupling
+class UserService {
+  private emailService = new EmailService(); // Hard dependency
+  private database = new DatabaseConnection(); // Hard dependency
+  
+  async createUser(userData: UserData): Promise<User> {
+    const user = await this.database.save(userData);
+    await this.emailService.sendWelcomeEmail(user.email);
+    return user;
+  }
+}
+
+// AFTER: Dependency injection
+interface IEmailService {
+  sendWelcomeEmail(email: string): Promise<void>;
+}
+
+interface IUserRepository {
+  save(userData: UserData): Promise<User>;
+}
+
+class UserService {
+  constructor(
+    private emailService: IEmailService,
+    private userRepository: IUserRepository
+  ) {}
+  
+  async createUser(userData: UserData): Promise<User> {
+    const user = await this.userRepository.save(userData);
+    await this.emailService.sendWelcomeEmail(user.email);
+    return user;
+  }
+}
+
+// Dependency container setup
+const container = {
+  emailService: new EmailService(),
+  userRepository: new UserRepository(databaseConnection),
+  userService: new UserService(emailService, userRepository)
+};
+```
+
+**Execution Steps**:
+1. **Define interfaces** (60 min)
+2. **Update class constructors** (45 min)
+3. **Create dependency container** (30 min)
+4. **Update instantiation points** (90 min)
+5. **Update tests with mocks** (120 min)
+6. **Integration testing** (60 min)
+
+## Progress Tracking System
+
+### Task Status Updates
+```markdown
+## Refactoring Progress Report: [Date]
+
+### Overall Progress
+- **Phase 1 (Foundation)**: ✅ 100% Complete (4/4 tasks)
+- **Phase 2 (Code Quality)**: 🔄 60% Complete (3/5 tasks)
+- **Phase 3 (Architecture)**: ⏳ 0% Complete (0/3 tasks)
+
+### Current Sprint Status
+**Week [X] of [Y] - Phase 2: Code Quality Improvements**
+
+#### Completed This Week
+- ✅ **Task 2.1**: Method extraction from large functions
+  - **Impact**: Reduced average function length from 85 to 32 lines
+  - **Time**: 18 hours (est. 16 hours)
+  - **Quality**: Complexity reduced by 35%
+
+- ✅ **Task 2.2**: Eliminated duplicate code blocks
+  - **Impact**: Removed 450 lines of duplicate code
+  - **Time**: 12 hours (est. 14 hours)
+  - **Quality**: DRY violations reduced by 80%
+
+#### In Progress
+- 🔄 **Task 2.3**: Improve naming and documentation
+  - **Progress**: 70% complete
+  - **Current**: Renaming variables and functions
+  - **Next**: Update API documentation
+  - **ETA**: End of week
+
+#### Blocked/Issues
+- ⚠️ **Task 2.4**: Complex conditional simplification
+  - **Blocker**: Requires business logic clarification
+  - **Action**: Meeting scheduled with product team
+  - **Impact**: May delay Phase 2 by 2 days
+
+### Metrics Tracking
+| Metric | Baseline | Current | Target | Status |
+|--------|----------|---------|---------|---------|
+| Avg Function Length | 85 lines | 32 lines | <50 lines | ✅ Achieved |
+| Cyclomatic Complexity | 15.2 avg | 9.8 avg | <10 avg | ✅ On Track |
+| Code Duplication | 12% | 3% | <5% | ✅ Achieved |
+| Test Coverage | 72% | 78% | >80% | 🔄 In Progress |
+| Technical Debt Ratio | 8.2% | 5.1% | <4% | 🔄 In Progress |
+
+### Risk Assessment
+- **Low Risk**: 8 tasks completed without issues
+- **Medium Risk**: 2 tasks required minor scope adjustments
+- **High Risk**: 1 task blocked, mitigation in progress
+
+### Next Week Plan
+1. **Complete Task 2.3**: Finish naming improvements
+2. **Resolve Task 2.4**: Business logic meeting and implementation
+3. **Start Phase 3**: Begin architecture improvements
+4. **Team Training**: Dependency injection patterns workshop
+```
+
+## Continuous Validation Procedures
+
+### Automated Validation Pipeline
+```yaml
+# .github/workflows/refactoring-validation.yml
+name: Refactoring Validation
+
+on:
+  push:
+    branches: [refactoring/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-refactoring:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests
+        run: npm test -- --coverage
+        
+      - name: Check test coverage threshold
+        run: npm run test:coverage-check
+        
+      - name: Run linting
+        run: npm run lint
+        
+      - name: Type checking
+        run: npm run type-check
+        
+      - name: Performance benchmarks
+        run: npm run benchmark
+        
+      - name: Security scan
+        run: npm audit --audit-level moderate
+        
+      - name: Code complexity analysis
+        run: npm run complexity-check
+        
+      - name: Update metrics dashboard
+        run: npm run update-metrics
+```
+
+### Manual Validation Checklist
+```markdown
+## Pre-Commit Validation Checklist
+
+### Code Quality
+- [ ] All tests pass locally
+- [ ] No new linting errors introduced
+- [ ] Code complexity within acceptable limits
+- [ ] No security vulnerabilities added
+
+### Functionality
+- [ ] Core user flows tested manually
+- [ ] API endpoints respond correctly
+- [ ] Database operations complete successfully
+- [ ] UI components render properly (if applicable)
+
+### Performance
+- [ ] No significant performance regression
+- [ ] Memory usage remains stable
+- [ ] Database query performance maintained
+- [ ] API response times within SLA
+
+### Documentation
+- [ ] Code comments updated
+- [ ] API documentation reflects changes
+- [ ] README updated if necessary
+- [ ] Migration notes documented
+
+### Team Communication
+- [ ] Changes communicated to team
+- [ ] Breaking changes documented
+- [ ] Deployment notes prepared
+- [ ] Rollback procedure confirmed
+```
+
+## Error Handling and Recovery
+
+### Common Issues and Solutions
+
+#### Test Failures After Refactoring
+```markdown
+**Issue**: Tests failing after method extraction
+**Symptoms**: 
+- Unit tests can't access private methods
+- Integration tests failing due to interface changes
+
+**Solution**:
+1. Update test imports and mocks
+2. Test public interface behavior, not implementation
+3. Add integration tests for extracted workflows
+4. Consider making methods protected instead of private if testing is critical
+
+**Prevention**:
+- Write tests for behavior, not implementation
+- Use dependency injection for better testability
+- Maintain comprehensive integration test coverage
+```
+
+#### Performance Regression
+```markdown
+**Issue**: Performance degraded after refactoring
+**Symptoms**:
+- API response times increased
+- Database queries slower
+- Memory usage higher
+
+**Solution**:
+1. Profile code to identify bottlenecks
+2. Compare before/after performance metrics
+3. Optimize identified issues
+4. Consider reverting if impact is severe
+
+**Prevention**:
+- Run performance benchmarks before/after changes
+- Use profiling tools during development
+- Set up automated performance monitoring
+- Establish performance budgets and alerts
+```
+
+#### Rollback Procedures
+```markdown
+### Emergency Rollback (< 30 minutes)
+1. **Immediate**: Disable feature flags for new code
+2. **Quick**: Revert last commit(s) using git
+3. **Deploy**: Push reverted code to production
+4. **Verify**: Confirm system stability restored
+
+### Planned Rollback (1-4 hours)
+1. **Assess**: Determine scope of rollback needed
+2. **Plan**: Create rollback strategy and timeline
+3. **Execute**: Systematically revert changes
+4. **Test**: Validate system functionality
+5. **Document**: Record lessons learned
+
+### Data Recovery (if needed)
+1. **Stop**: Halt all data modifications
+2. **Assess**: Determine data integrity impact
+3. **Restore**: Use database backups if necessary
+4. **Validate**: Verify data consistency
+5. **Resume**: Carefully restart operations
+```
+
+## Output Files
+
+### Progress Reports
+- **Daily Standup Report**: `daily-progress-[date].md`
+- **Weekly Summary**: `weekly-summary-week-[X].md`
+- **Phase Completion**: `phase-[X]-completion-report.md`
+
+### Technical Documentation
+- **Change Log**: `refactoring-changelog.md`
+- **Metrics Dashboard**: `metrics-dashboard.md`
+- **Lessons Learned**: `lessons-learned.md`
+
+## Execution Quality Gates
+
+### Pre-Task Validation
+- [ ] Task dependencies satisfied and prerequisites met
+- [ ] Test coverage adequate for safe refactoring
+- [ ] Backup and rollback procedures confirmed
+- [ ] Performance baseline established
+- [ ] Team coordination and communication confirmed
+
+### During-Task Monitoring
+- [ ] Incremental changes validated through automated testing
+- [ ] Code quality metrics improving as expected
+- [ ] Performance impact within acceptable thresholds
+- [ ] No new security vulnerabilities introduced
+- [ ] Documentation updated to reflect changes
+
+### Post-Task Validation
+- [ ] All tests passing with maintained or improved coverage
+- [ ] Code quality targets achieved
+- [ ] Performance meets or exceeds baseline
+- [ ] Functionality preserved and enhanced
+- [ ] Changes properly documented and communicated
+
+## Next Steps
+
+After completing refactoring execution:
+1. Generate comprehensive execution report with metrics and outcomes
+2. Validate all refactoring objectives have been achieved
+3. Prepare for results validation and measurement phase
+4. Document lessons learned and execution insights
+5. Inform user: "Refactoring execution completed successfully. Ready to validate results and measure improvements? Run @refactoring-tech-debt-workflow/04-validate-and-measure to proceed."
+
+## AI Instructions
+
+1. **One Task at a Time**: Never execute multiple tasks simultaneously
+2. **Validate Continuously**: Run tests after every significant change
+3. **Document Everything**: Record all changes, decisions, and outcomes
+4. **Monitor Metrics**: Track quality and performance metrics throughout
+5. **Communicate Progress**: Provide regular updates on status and issues
+6. **Safety First**: Always have rollback plans and use them when needed
+7. **Learn and Adapt**: Adjust approach based on discoveries and feedback
+8. **Quality Focus**: Ensure all changes improve code quality and maintainability
+
+## Integration Points
+
+- **Test Generation Workflow**: Use to create additional tests before risky refactoring
+- **Review-Driven Workflow**: Conduct reviews of refactored code for quality assurance
+- **CI/CD Pipeline**: Integrate validation steps into deployment pipeline
+
+## Comprehensive Monitoring Framework
+
+### Real-time Execution Monitoring
+- **Task Progress**: Track completion status of individual refactoring tasks
+- **Quality Metrics**: Monitor code complexity, duplication, and maintainability changes
+- **Performance Impact**: Track system performance throughout refactoring execution
+- **Test Coverage**: Monitor test coverage changes and test execution results
+- **Error Rates**: Track application error rates and stability indicators
+
+### Safety and Rollback Monitoring
+- **Rollback Readiness**: Continuously validate rollback procedures and data integrity
+- **Change Impact**: Monitor blast radius of changes and system dependencies
+- **Team Velocity**: Track development speed and identify execution bottlenecks
+- **Risk Indicators**: Monitor for emerging risks and safety concerns
+
+## Error Handling
+
+- **Missing Plan**: "No refactoring plan found at `/refactoring/refactoring-plan-[TARGET_NAME].md`. Please run @refactoring-tech-debt-workflow/02-plan-refactoring-tasks first to create the execution plan before starting refactoring."
+- **Incomplete Plan**: "Refactoring plan is incomplete or missing critical sections: [MISSING_SECTIONS]. Please complete: task breakdown, safety procedures, timeline, resource allocation."
+- **Test Failures**: "Tests failing before refactoring execution: [FAILED_TESTS]. Please address: 1) Fix existing test failures, 2) Ensure test environment stability, 3) Validate test data integrity, 4) Resolve dependency issues."
+- **Environment Issues**: "Development environment not ready for refactoring: [ENVIRONMENT_ISSUES]. Please ensure: 1) Required tools installed, 2) Database connections active, 3) Development servers running, 4) Access permissions configured."
+- **Scope Creep**: "Additional technical debt discovered during execution: [NEW_ISSUES]. Options: A) Document for future cycle, B) Update current plan scope, C) Create separate refactoring initiative, D) Assess priority and impact."
+- **Performance Regression**: "Performance degradation detected during refactoring: [PERFORMANCE_ISSUES]. Immediate action: 1) Pause execution, 2) Analyze performance impact, 3) Consider rollback, 4) Optimize or adjust approach."
+- **Resource Conflicts**: "Resource conflicts detected: [CONFLICTS]. Please resolve: 1) Team availability changes, 2) Timeline conflicts, 3) Environment resource contention, 4) Dependency blocking issues."
+- **Safety Violations**: "Safety procedures violated: [VIOLATIONS]. Required actions: 1) Stop current execution, 2) Validate system integrity, 3) Review safety protocols, 4) Implement corrective measures before continuing."

@@ -1,0 +1,141 @@
+---
+description: Generate detailed review task breakdown from review plan
+alwaysApply: false
+---
+# Rule: Generating Review Tasks from a Review Plan
+
+## Goal
+
+To guide an AI assistant in creating a detailed, step-by-step review task list in Markdown format based on an existing Review Plan. The task list should guide a reviewer through comprehensive code analysis and evaluation.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/reviews/`
+- **Filename:** `review-tasks-[REVIEW_PLAN_NAME].md` (e.g., `review-tasks-security-audit.md`)
+
+## Validation & Prerequisites
+
+Before generating review tasks:
+
+1. **Review Plan Validation**: Ensure a valid review plan exists and is accessible
+2. **Directory Structure**: Verify `/reviews/` directory exists and is writable
+3. **Codebase Access**: Confirm target codebase/components are accessible
+4. **Plan Completeness**: Validate that the review plan contains all required sections
+
+## Process
+
+1. **Validate Prerequisites**: Check for review plan and verify all requirements are met
+2. **Receive Review Plan Reference**: The user points the AI to a specific review plan file
+3. **Analyze Review Plan**: Read and analyze the review objectives, scope, focus areas, and target components from the specified review plan
+4. **Assess Current Codebase**: Review the existing codebase to understand architecture, patterns, technologies used, and identify components that match the review scope
+5. **Phase 1: Generate Parent Tasks**: Based on the review plan analysis and codebase assessment, create the file and generate the main, high-level review tasks. Use your judgement on how many high-level tasks to use based on review scope. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level review tasks based on the review plan. Ready to generate the detailed sub-tasks? Respond with 'Go' to proceed."
+6. **Wait for Confirmation**: Pause and wait for the user to respond with "Go"
+7. **Phase 2: Generate Sub-Tasks**: Once the user confirms, break down each parent task into smaller, actionable review sub-tasks necessary to complete the parent task. Ensure sub-tasks logically follow from the parent task, cover the analysis areas specified in the review plan, and consider existing codebase patterns and technologies
+8. **Identify Relevant Files**: Based on the tasks and review plan, identify specific files, modules, and components that will need to be analyzed. List these under the `Files to Review` section
+9. **Generate Final Output**: Combine the parent tasks, sub-tasks, relevant files, and review notes into the final Markdown structure
+10. **Save Task List**: Save the generated document in the `/reviews/` directory with the filename `review-tasks-[REVIEW_PLAN_NAME].md`, where `[REVIEW_PLAN_NAME]` matches the base name of the input review plan file
+
+## Output Format
+
+The generated review task list _must_ follow this structure:
+
+```markdown
+## Files to Review
+
+- `path/to/component1.py` - Brief description of why this file is relevant (e.g., Core authentication logic for security review).
+- `path/to/component2.ts` - Brief description (e.g., Main API endpoints for performance analysis).
+- `path/to/config/settings.py` - Brief description (e.g., Configuration and security settings).
+- `docker-compose.yml` - Brief description (e.g., Container security and deployment configuration).
+- `requirements.txt` / `package.json` - Brief description (e.g., Dependency analysis for security vulnerabilities).
+
+### Review Tools & Commands
+
+- Use `grep -r "pattern" .` to search for specific patterns across the codebase
+- Use `find . -name "*.py" -exec wc -l {} +` to analyze code complexity
+- Use security scanners like `bandit` (Python) or `eslint-plugin-security` (JavaScript)
+- Use performance profiling tools appropriate to the technology stack
+
+## Review Tasks
+
+- [ ] 1.0 Security Analysis
+  - [ ] 1.1 [Authentication & Authorization Review]
+  - [ ] 1.2 [Input Validation & Sanitization Analysis]
+  - [ ] 1.3 [Dependency Vulnerability Scan]
+- [ ] 2.0 Code Quality Assessment
+  - [ ] 2.1 [Architecture & Design Pattern Analysis]
+  - [ ] 2.2 [Code Complexity & Maintainability Review]
+- [ ] 3.0 Performance Analysis
+  - [ ] 3.1 [Database Query Optimization Review]
+  - [ ] 3.2 [API Response Time Analysis]
+```
+
+## Interaction Model
+
+The process explicitly requires a pause after generating parent tasks to get user confirmation ("Go") before proceeding to generate the detailed sub-tasks. This ensures the high-level review approach aligns with user expectations before diving into details.
+
+## Target Audience
+
+Assume the primary reader of the task list is a **technical reviewer** who will conduct the comprehensive code review with awareness of the existing codebase context and review objectives.
+
+## Review Task Categories
+
+Based on common review types, include appropriate task categories:
+
+### Security Review Tasks
+- Authentication and authorization mechanisms
+- Input validation and sanitization
+- Dependency vulnerability analysis
+- Secrets and configuration management
+- API security and CORS configuration
+- File upload and data handling security
+
+### Performance Review Tasks
+- Database query optimization
+- API response time analysis
+- Memory usage and leak detection
+- Caching strategy evaluation
+- Bundle size and asset optimization
+- Scalability bottleneck identification
+
+### Code Quality Review Tasks
+- Architecture and design pattern analysis
+- Code complexity and maintainability
+- Documentation quality and completeness
+- Test coverage and quality assessment
+- Error handling and logging practices
+- Code duplication and refactoring opportunities
+
+### API Design Review Tasks
+- RESTful design principles compliance
+- Endpoint consistency and naming conventions
+- Request/response structure analysis
+- API documentation completeness
+- Versioning strategy evaluation
+- Error response standardization
+
+## AI Instructions
+
+1. **Context First:** Always reference the original review plan and objectives
+2. **Scope Awareness:** Ensure tasks align with the defined review scope and focus areas
+3. **Technology Specific:** Adapt tasks based on the technologies and languages in the codebase
+4. **Comprehensive Coverage:** Ensure all aspects mentioned in the review plan are covered by tasks
+5. **Actionable Tasks:** Make each sub-task specific and actionable with clear evaluation criteria
+6. **Tool Integration:** Suggest appropriate tools and commands for each type of analysis
+7. **Measurable Outcomes:** Include criteria for determining task completion and success
+
+## Error Handling
+
+- **Missing Review Plan**: "No review plan found at `/reviews/review-plan-[TARGET_NAME].md`. Please run @review-driven-workflow/01-initiate-review first to create a review plan before generating tasks."
+- **Invalid Plan Format**: "Review plan format is invalid or incomplete. Please ensure the plan contains all required sections: Review Overview, Objectives, Scope Definition, Focus Areas, Target Components, Review Criteria, Expected Deliverables, Success Metrics, Timeline & Phases."
+- **Scope Too Broad**: "Review scope appears very broad and may result in an overwhelming task list. Consider breaking this into multiple focused reviews (e.g., security-only, performance-only) or reducing the target components."
+- **Missing Codebase**: "Cannot access target codebase at '[PATH]'. Please verify the path exists, you have proper permissions, and the target components specified in the review plan are accessible."
+- **Directory Issues**: "Cannot write to `/reviews/` directory. Please ensure the directory exists and you have write permissions."
+- **Plan Incomplete**: "Review plan is missing critical information needed for task generation. Please update the plan with: [SPECIFIC_MISSING_SECTIONS]."
+
+## Next Steps
+
+After generating review tasks:
+1. Save task list as `review-tasks-[REVIEW_PLAN_NAME].md` in `/reviews/`
+2. Validate task completeness and ensure all review objectives are covered
+3. Inform user: "Review tasks generated successfully. Ready to execute the review process? Run @review-driven-workflow/03-execute-review-process to begin analysis."

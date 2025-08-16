@@ -1,0 +1,298 @@
+---
+description: Execute review tasks and generate comprehensive analysis reports
+globs:
+  - "**/reviews/review-tasks-*.md"
+  - "**/review-tasks-*.md"
+alwaysApply: false
+---
+# Review Task Execution and Analysis
+
+Guidelines for executing review tasks and generating comprehensive analysis reports to complete a review process
+
+## Task Implementation
+
+- **One sub-task at a time:** Do **NOT** start the next sub‑task until you ask the user for permission and they say "yes" or "y"
+- **Completion protocol:**  
+  1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.
+  2. **Document findings:** For each completed sub-task, document findings in the review report
+  3. **Leverage specialist reviewers:** Automatically invoke relevant specialist reviewers:
+     - `@code-reviewer` for code quality analysis
+     - `@security-reviewer` for security-focused tasks
+     - `@performance-reviewer` for performance analysis
+     - `@api-reviewer` for API design tasks
+  4. If **all** subtasks underneath a parent task are now `[x]`, follow this sequence:
+    - **First**: Compile findings from all subtasks into parent task summary
+    - **Generate section report**: Create detailed analysis for this review area
+    - **Update review report**: Add findings to the comprehensive review report
+    - **Mark parent complete**: Change parent task from `[ ]` to `[x]`
+  5. Once all parent tasks are completed, generate final comprehensive review report
+- Stop after each sub‑task and wait for the user's go‑ahead.
+
+## Review Analysis Process
+
+### 1. **Codebase Analysis**
+For each review task:
+- **Read and analyze** relevant files identified in the task list
+- **Apply appropriate review criteria** based on the review plan objectives
+- **Use specialist reviewers** to get expert analysis in specific domains
+- **Document specific findings** with file references and line numbers where applicable
+- **Identify patterns** and systemic issues across the codebase
+
+### 2. **Finding Classification**
+Classify each finding by:
+- **Severity Level**: Critical, High, Medium, Low, Info
+- **Category**: Security, Performance, Code Quality, Architecture, Documentation
+- **Impact**: Immediate fix required, Improvement recommended, Best practice suggestion
+- **Effort**: Time estimate for addressing the finding
+
+### 3. **Evidence Collection**
+For each finding:
+- **Code snippets** demonstrating the issue
+- **File paths and line numbers** for precise location
+- **Suggested improvements** with example code where applicable
+- **References** to best practices or standards violated
+
+## Review Report Structure
+
+The comprehensive review report should follow this structure:
+
+```markdown
+# Comprehensive Code Review Report: [TARGET_NAME]
+
+**Review Date**: [YYYY-MM-DD]  
+**Review Type**: [Security/Performance/Comprehensive/etc.]  
+**Reviewer**: AI Assistant  
+**Scope**: [Brief scope description]
+
+---
+
+## Executive Summary
+
+### Overall Assessment
+- **Overall Quality Score**: [X]/10
+- **Critical Issues Found**: [X]
+- **High Priority Issues**: [X]
+- **Recommendations**: [X]
+
+### Key Findings
+- [Brief summary of most important findings]
+- [Major patterns or systemic issues identified]
+- [Overall code quality assessment]
+
+---
+
+## Detailed Analysis
+
+### 🚨 Critical Issues (Must Fix)
+
+#### [ISSUE_TITLE] - Priority: Critical
+**Category**: [Security/Performance/etc.]  
+**File**: `[file.py]` (Line [num])  
+**Severity**: Critical
+
+**Problem Description**:
+[Detailed description of the issue]
+
+```python
+# Problematic code
+[code snippet]
+```
+
+**Why this is critical**: [Explanation of impact]
+
+**Recommended Fix**:
+```python
+# Corrected code
+[corrected code snippet]
+```
+
+**Estimated Fix Time**: [time estimate]
+
+---
+
+### ⚠️ High Priority Issues
+
+#### [ISSUE_TITLE] - Priority: High
+**Category**: [Category]  
+**File**: `[file.ts]` (Line [num])  
+**Impact**: [Description of impact]
+
+[Similar structure as critical issues]
+
+---
+
+### 💡 Improvements & Recommendations
+
+#### Code Quality Improvements
+[List of code quality suggestions with examples]
+
+#### Performance Optimizations
+[List of performance improvements with impact estimates]
+
+#### Architecture Recommendations
+[Suggestions for architectural improvements]
+
+---
+
+## 🎯 Review Summary by Category
+
+### Security Analysis
+- **Security Score**: [X]/10
+- **Vulnerabilities Found**: [X]
+- **Key Security Issues**:
+  - [Issue 1 with severity]
+  - [Issue 2 with severity]
+
+### Performance Analysis
+- **Performance Score**: [X]/10
+- **Bottlenecks Identified**: [X]
+- **Key Performance Issues**:
+  - [Issue 1 with impact]
+  - [Issue 2 with impact]
+
+### Code Quality Assessment
+- **Code Quality Score**: [X]/10
+- **Maintainability**: [Assessment]
+- **Key Quality Issues**:
+  - [Issue 1]
+  - [Issue 2]
+
+---
+
+## 📊 Metrics & Statistics
+
+### Code Metrics
+- **Total Lines of Code**: [X]
+- **Files Reviewed**: [X]
+- **Test Coverage**: [X]%
+- **Documentation Coverage**: [X]%
+
+### Issue Distribution
+- Critical: [X] issues
+- High: [X] issues  
+- Medium: [X] issues
+- Low: [X] issues
+
+---
+
+## 🔄 Action Items & Next Steps
+
+### Immediate Actions (Critical/High Priority)
+1. **[Action 1]** - Fix [critical issue] in `[file]` - ETA: [time]
+2. **[Action 2]** - Address [high priority issue] - ETA: [time]
+
+### Short-term Improvements (1-2 weeks)
+1. **[Improvement 1]** - [Description] - ETA: [time]
+2. **[Improvement 2]** - [Description] - ETA: [time]
+
+### Long-term Recommendations (1+ months)
+1. **[Recommendation 1]** - [Description]
+2. **[Recommendation 2]** - [Description]
+
+---
+
+## 📚 References & Resources
+
+### Best Practices Documentation
+- [Link to relevant documentation]
+- [Security guidelines]
+- [Performance optimization guides]
+
+### Tools & Automation
+- [Recommended tools for ongoing quality assurance]
+- [Automated testing suggestions]
+- [CI/CD improvements]
+
+---
+
+**Review Completed**: [YYYY-MM-DD HH:MM]  
+**Next Review Recommended**: [Date/Frequency]
+```
+
+## Bilingual Report Generation
+
+When requested, generate reports in both English and Thai:
+
+### English Report
+- Save as `review-report-[TARGET_NAME]-en.md` in `/reviews/`
+- Use technical English terminology
+- Include code examples and technical details
+
+### Thai Report  
+- Save as `review-report-[TARGET_NAME]-th.md` in `/reviews/`
+- Translate findings and recommendations to Thai
+- Maintain technical accuracy while using appropriate Thai technical terms
+- Keep code examples and file references in original language
+
+## Task List Maintenance
+
+1. **Update the task list as you work:**
+   - Mark tasks and subtasks as completed (`[x]`) per the protocol above.
+   - Add new tasks as they emerge during analysis.
+   - Document findings for each completed task.
+
+2. **Maintain the "Files to Review" section:**
+   - Mark files as reviewed with completion status.
+   - Add newly discovered files that need review.
+   - Note any files that were skipped and why.
+
+## AI Instructions
+
+When executing review tasks, the AI must:
+
+1. **Follow systematic approach**: Complete one sub-task at a time with thorough analysis
+2. **Leverage specialist reviewers**: Use appropriate specialist reviewers for domain-specific analysis
+3. **Document comprehensively**: Record all findings with specific evidence and examples
+4. **Classify findings appropriately**: Use consistent severity and category classifications
+5. **Provide actionable recommendations**: Include specific fix suggestions with code examples
+6. **Update task list regularly**: Mark completed tasks and document progress
+7. **Generate bilingual reports**: Create both English and Thai versions when requested
+8. **Pause for approval**: Wait for user confirmation before proceeding to next sub-task
+
+## Validation & Prerequisites
+
+Before executing review tasks:
+
+1. **Task List Validation**: Ensure review tasks file exists and is accessible
+2. **Review Plan Validation**: Verify original review plan is available for context
+3. **Codebase Access**: Confirm all target files and components are accessible
+4. **Output Directory**: Ensure `/reviews/` directory exists and is writable
+5. **Specialist Reviewers**: Verify specialist reviewer rules are available
+
+## Error Handling
+
+- **Missing Task List**: "No review task list found at `/reviews/review-tasks-[TARGET_NAME].md`. Please run @review-driven-workflow/02-generate-review-tasks first to generate a task list before executing the review process."
+- **Incomplete Review Plan**: "Review plan incomplete or missing critical sections. Please ensure the original review plan at `/reviews/review-plan-[TARGET_NAME].md` contains all required sections: objectives, scope, focus areas, and success criteria."
+- **File Access Issues**: "Cannot access file '[FILENAME]' at '[PATH]'. Please check that the file exists, you have proper read permissions, and the path is correct."
+- **Specialist Reviewer Unavailable**: "Specialist reviewer '@[REVIEWER_NAME]' is not available or not properly configured. Proceeding with general analysis for this task. Consider installing the specialist reviewer or updating your Cursor rules configuration."
+- **Output Generation Failed**: "Failed to generate review report. Please ensure you have write permissions to `/reviews/` directory and sufficient disk space."
+- **Task Dependencies**: "Task '[TASK_NAME]' has unmet dependencies. Please complete prerequisite tasks: [DEPENDENCY_LIST] before proceeding."
+
+## Progress Tracking
+
+During review execution:
+
+1. **Task Status Updates**: Mark each sub-task as completed with `[x]`
+2. **Findings Documentation**: Record specific findings for each completed task
+3. **Progress Indicators**: Show completion percentage for long reviews
+4. **Checkpoint Saves**: Auto-save progress after each parent task completion
+5. **Error Recovery**: Ability to resume from last completed task if interrupted
+
+## Next Steps
+
+After completing review execution:
+1. Generate comprehensive review reports in requested languages
+2. Validate all findings are properly documented with evidence
+3. Ensure all tasks are marked as completed
+4. Inform user: "Review execution completed successfully. Review reports generated at `/reviews/review-report-[TARGET_NAME]-en.md` and `/reviews/review-report-[TARGET_NAME]-th.md`. Ready to publish results? Run @review-driven-workflow/04-publish-review-results to publish findings to GitHub/GitLab."
+
+## Integration with Specialist Reviewers
+
+The execution process automatically leverages existing specialist reviewers:
+
+- **@code-reviewer**: For general code quality, patterns, and maintainability analysis
+- **@security-reviewer**: For security vulnerability assessment and secure coding practices
+- **@performance-reviewer**: For performance bottleneck identification and optimization suggestions  
+- **@api-reviewer**: For API design consistency and RESTful compliance analysis
+
+Each specialist reviewer provides domain-specific insights that are integrated into the comprehensive review report.

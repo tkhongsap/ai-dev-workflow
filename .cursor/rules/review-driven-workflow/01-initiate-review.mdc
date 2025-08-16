@@ -1,0 +1,108 @@
+---
+description: Initiate comprehensive code review process for codebase analysis
+alwaysApply: false
+---
+# Rule: Initiating a Comprehensive Code Review Process
+
+## Goal
+
+To guide an AI assistant in starting a comprehensive code review process for a codebase, program, or specific components. The review should be thorough, structured, and suitable for generating actionable insights and recommendations.
+
+## Process
+
+1. **Receive Review Target:** The user provides a target for review (repository, branch, specific files, or program component).
+2. **Ask Clarifying Questions:** Before starting the review, the AI *must* ask clarifying questions to understand the scope, objectives, and focus areas. Make sure to provide options in letter/number lists so I can respond easily with my selections.
+3. **Generate Review Plan:** Based on the initial target and the user's answers to the clarifying questions, generate a review plan using the structure outlined below.
+4. **Save Review Plan:** Save the generated document as `review-plan-[TARGET_NAME].md` inside the `/reviews` directory.
+
+## Clarifying Questions (Examples)
+
+The AI should adapt its questions based on the review target, but here are some common areas to explore:
+
+### Review Scope & Objectives
+- **Primary Goal:** "What is the main objective of this review? (e.g., security audit, performance optimization, code quality assessment, pre-deployment review)"
+- **Target Scope:** "What specific components should be reviewed? (entire codebase, specific modules, recent changes, critical paths)"
+- **Review Type:** "What type of review focus do you need?"
+  - A) Comprehensive (all aspects)
+  - B) Security-focused 
+  - C) Performance-focused
+  - D) Code quality & maintainability
+  - E) API design & consistency
+  - F) Architecture & design patterns
+
+### Context & Background
+- **Project Stage:** "What stage is this project in? (development, pre-production, production, legacy maintenance)"
+- **Known Issues:** "Are there any known issues, concerns, or areas of particular interest?"
+- **Previous Reviews:** "Have there been previous reviews? Any specific areas that need re-evaluation?"
+- **Compliance Requirements:** "Are there any specific compliance, security, or performance standards to validate against?"
+
+### Review Depth & Coverage
+- **Review Depth:** "How deep should the analysis go?"
+  - A) High-level architectural review
+  - B) Detailed code-level analysis
+  - C) Line-by-line comprehensive review
+- **Languages/Technologies:** "Which languages and technologies should be prioritized in the review?"
+- **Test Coverage:** "Should the review include test quality and coverage analysis?"
+- **Documentation:** "Should documentation quality and completeness be part of the review?"
+
+### Output & Deliverables
+- **Report Language:** "In which language(s) should the final report be generated?"
+  - A) English only
+  - B) Thai only  
+  - C) Both English and Thai
+- **Target Audience:** "Who is the primary audience for this review? (developers, management, security team, external auditors)"
+- **Publishing Requirements:** "Should the results be published to GitHub/GitLab issues or repositories?"
+
+## Review Plan Structure
+
+The generated review plan should include the following sections:
+
+1. **Review Overview:** Brief description of the review target, scope, and primary objectives.
+2. **Review Objectives:** List the specific, measurable goals for this review process.
+3. **Scope Definition:** Clearly define what will and will not be included in the review.
+4. **Review Focus Areas:** Detail the specific aspects to be analyzed (security, performance, code quality, etc.).
+5. **Target Components:** List the specific files, modules, or components to be reviewed.
+6. **Review Criteria:** Define the standards, best practices, and benchmarks to evaluate against.
+7. **Expected Deliverables:** Specify the format and content of review outputs.
+8. **Success Metrics:** How will the effectiveness and completeness of the review be measured?
+9. **Timeline & Phases:** Estimated timeline and breakdown of review phases.
+10. **Open Questions:** List any remaining questions or areas needing further clarification.
+
+## Target Audience
+
+Assume the primary reader of the review plan is a **technical team member** who will either conduct or consume the review results. Therefore, the plan should be clear, actionable, and technically detailed where appropriate.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/reviews/`
+- **Filename:** `review-plan-[TARGET_NAME].md`
+
+## Validation & Prerequisites
+
+Before starting the review planning process:
+
+1. **Target Validation**: Verify that the review target (repository, files, or components) is accessible
+2. **Directory Setup**: Ensure `/reviews/` directory exists, create if necessary
+3. **Previous Reviews**: Check for existing review plans to avoid duplication
+
+## Error Handling
+
+- **Target Not Found**: "Review target '[TARGET]' not accessible. Please verify the path exists and you have proper permissions."
+- **Directory Issues**: "Reviews directory not found. Creating '/reviews/' directory for review artifacts."
+- **Permission Issues**: "Insufficient permissions to access '[TARGET]'. Please check file/directory permissions."
+- **Existing Review**: "Review plan for '[TARGET]' already exists at '[PATH]'. Would you like to update it or create a new version?"
+
+## Final Instructions
+
+1. **Validate Prerequisites**: Check target accessibility and directory structure before proceeding
+2. **Do NOT start conducting the actual review**: This phase is for planning only
+3. **Ask Clarifying Questions**: Gather comprehensive requirements through structured questions
+4. **Create Review Plan**: Generate detailed plan based on user responses
+5. **Focus on Planning**: Understand the "what" and "why" of the review, not the "how" (which will be determined in the task generation phase)
+
+## Next Steps
+
+After completing the review plan:
+1. Save the plan as `review-plan-[TARGET_NAME].md` in `/reviews/`
+2. Inform user: "Review plan created successfully. Ready to generate detailed review tasks? Run @review-driven-workflow/02-generate-review-tasks to proceed."

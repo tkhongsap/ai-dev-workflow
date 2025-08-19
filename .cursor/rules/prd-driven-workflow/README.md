@@ -11,11 +11,21 @@ A systematic workflow that transforms user requirements into working features th
 ## Workflow at a Glance
 
 ```
-User Requirement → Plan (Create PRD) → Design (Generate Tasks) → Build (Process Tasks)
-    (Input)          (Document)           (Break Down)            (Implement)
-       ↓                  ↓                    ↓                      ↓
-   Initial Idea      PRD Document         Task Hierarchy        Working Feature
+Step 1: Create PRD → Step 2: Generate Tasks → Step 3: Process Tasks
+  (01-create-prd.mdc)  (02-generate-tasks.mdc)  (03-process-tasks.mdc)
+         ↓                      ↓                       ↓
+    PRD Document          Task Hierarchy          Working Feature
 ```
+
+Each step maps directly to a Cursor rule file as shown below.
+
+## File Mapping
+
+| Step | File | Purpose |
+|------|------|---------|
+| **1** | `01-create-prd.mdc` | Transform requirements into comprehensive PRD |
+| **2** | `02-generate-tasks.mdc` | Break down PRD into actionable task hierarchy |
+| **3** | `03-process-tasks.mdc` | Execute tasks systematically with testing |
 
 ## When to Use This Workflow
 

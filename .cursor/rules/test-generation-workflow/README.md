@@ -11,11 +11,23 @@ A systematic workflow for creating comprehensive test coverage through intellige
 ## Workflow at a Glance
 
 ```
-Code Analysis → Generate Tests → Create Test Plan → Execute & Monitor
-  (Understand)    (Implement)       (Strategy)        (Maintain)
-       ↓               ↓                 ↓                 ↓
-  Test Requirements  Test Suite    Testing Strategy   Quality Reports
+Step 1: Analyze Code → Step 2: Generate Tests → Step 3: Create Plan → Step 4: Execute & Maintain
+ (01-analyze-code-     (02-generate-test-     (03-create-test-    (04-execute-and-maintain-
+   for-testing.mdc)        cases.mdc)            plan.mdc)              tests.mdc)
+        ↓                      ↓                     ↓                      ↓
+  Test Requirements        Test Suite          Test Strategy         Quality Reports
 ```
+
+Each step maps directly to a Cursor rule file as shown below.
+
+## File Mapping
+
+| Step | File | Purpose |
+|------|------|---------|
+| **1** | `01-analyze-code-for-testing.mdc` | Analyze code & identify test requirements |
+| **2** | `02-generate-test-cases.mdc` | Generate comprehensive test implementations |
+| **3** | `03-create-test-plan.mdc` | Create strategic test plan for complex features |
+| **4** | `04-execute-and-maintain-tests.mdc` | Execute tests & maintain quality over time |
 
 ## When to Use This Workflow
 

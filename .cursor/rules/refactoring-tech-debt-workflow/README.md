@@ -11,11 +11,23 @@ A systematic workflow for improving existing code quality while maintaining syst
 ## Workflow at a Glance
 
 ```
-Codebase Analysis → Identify Tech Debt → Plan Refactoring → Execute Safely → Validate Impact
-     (Scan)            (Prioritize)         (Strategy)        (Implement)       (Measure)
-        ↓                   ↓                    ↓                 ↓                ↓
-  Current State      Debt Inventory       Refactor Plan    Improved Code    ROI Report
+Step 1: Identify Tech Debt → Step 2: Plan Refactoring → Step 3: Execute Safely → Step 4: Validate & Measure
+   (01-identify-tech-       (02-plan-refactoring-     (03-execute-          (04-validate-and-
+        debt.mdc)                tasks.mdc)           refactoring.mdc)         measure.mdc)
+           ↓                         ↓                      ↓                      ↓
+    Debt Analysis Report      Refactoring Plan        Improved Code          ROI & Impact Report
 ```
+
+Each step maps directly to a Cursor rule file as shown below.
+
+## File Mapping
+
+| Step | File | Purpose |
+|------|------|---------|
+| **1** | `01-identify-tech-debt.mdc` | Analyze codebase & prioritize technical debt |
+| **2** | `02-plan-refactoring-tasks.mdc` | Create strategic refactoring plan with tasks |
+| **3** | `03-execute-refactoring.mdc` | Implement changes safely with monitoring |
+| **4** | `04-validate-and-measure.mdc` | Validate results & measure business impact |
 
 ## When to Use This Workflow
 

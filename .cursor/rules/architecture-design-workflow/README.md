@@ -11,11 +11,23 @@ A comprehensive workflow for designing robust system architectures BEFORE writin
 ## Workflow at a Glance
 
 ```
-Business Requirements → Architecture Options → Technical Design → Stakeholder Sign-off
-      (Gather)             (Compare)            (Specify)           (Approve)
-         ↓                      ↓                   ↓                   ↓
-   Requirements Doc       Options Analysis    Technical Specs    ADRs & Approval
+Step 1: Define Requirements → Step 2: Propose Options → Step 3: Create Design → Step 4: Sign-off & Readiness
+   (01-define-architecture-    (02-propose-architecture-  (03-create-technical-  (04-architecture-signoff-
+       requirements.mdc)            options.mdc)              design.mdc)           and-readiness.mdc)
+            ↓                           ↓                         ↓                         ↓
+     Requirements Doc            Options Analysis          Technical Specs         ADRs & Approval
 ```
+
+Each step maps directly to a Cursor rule file as shown below.
+
+## File Mapping
+
+| Step | File | Purpose |
+|------|------|---------|
+| **1** | `01-define-architecture-requirements.mdc` | Gather business & technical requirements |
+| **2** | `02-propose-architecture-options.mdc` | Compare multiple architecture approaches |
+| **3** | `03-create-technical-design.mdc` | Specify detailed technical implementation |
+| **4** | `04-architecture-signoff-and-readiness.mdc` | Obtain stakeholder approval & ADRs |
 
 ## When to Use This Workflow
 

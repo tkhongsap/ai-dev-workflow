@@ -11,11 +11,23 @@ A comprehensive workflow for conducting thorough code reviews with multiple spec
 ## Workflow at a Glance
 
 ```
-Review Target → Plan Review → Generate Tasks → Execute Analysis → Publish Results
-   (Define)       (Scope)       (Break Down)      (Analyze)         (Document)
-      ↓              ↓               ↓                ↓                 ↓
-  Code/Branch    Review Plan    Task Hierarchy   Findings Report   Issues/Actions
+Step 1: Initiate Review → Step 2: Generate Tasks → Step 3: Execute Process → Step 4: Publish Results
+   (01-initiate-          (02-generate-review-   (03-execute-review-    (04-publish-review-
+     review.mdc)              tasks.mdc)           process.mdc)           results.mdc)
+         ↓                        ↓                      ↓                     ↓
+    Review Plan             Task Hierarchy         Findings Report       Published Issues
 ```
+
+Each step maps directly to a Cursor rule file as shown below.
+
+## File Mapping
+
+| Step | File | Purpose |
+|------|------|---------|
+| **1** | `01-initiate-review.mdc` | Define scope & create review plan |
+| **2** | `02-generate-review-tasks.mdc` | Break down into actionable review tasks |
+| **3** | `03-execute-review-process.mdc` | Analyze code with specialist reviewers |
+| **4** | `04-publish-review-results.mdc` | Publish findings to GitHub/GitLab |
 
 ## When to Use This Workflow
 

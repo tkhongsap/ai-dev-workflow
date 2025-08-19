@@ -1,6 +1,37 @@
 # Refactoring & Tech Debt Workflow Cursor Rules
 
-A comprehensive, AI-assisted workflow for systematic technical debt identification, planning, and refactoring designed to improve codebase health while maintaining system stability and minimizing business risk. This workflow ensures safe, incremental improvements with measurable business value.
+## Introduction
+
+A safety-first workflow to identify, plan, and execute refactoring with measurable ROI. It emphasizes incremental changes, continuous validation, and business impact tracking so teams can improve code health without risking stability or velocity.
+
+## What This Workflow Does
+
+A systematic workflow for improving existing code quality while maintaining system stability. This workflow helps you identify technical debt, prioritize improvements based on business impact, plan safe refactoring strategies, and execute changes incrementally with continuous validation - perfect for evolving legacy code, addressing performance issues, or reducing maintenance burden without disrupting service.
+
+## Workflow at a Glance
+
+```
+Codebase Analysis → Identify Tech Debt → Plan Refactoring → Execute Safely → Validate Impact
+     (Scan)            (Prioritize)         (Strategy)        (Implement)       (Measure)
+        ↓                   ↓                    ↓                 ↓                ↓
+  Current State      Debt Inventory       Refactor Plan    Improved Code    ROI Report
+```
+
+## When to Use This Workflow
+
+✅ **Use this workflow when:**
+- Code is becoming difficult to maintain or extend
+- Performance degradation affects user experience
+- Security vulnerabilities need systematic addressing
+- High bug rates in specific modules
+- Before major feature additions to problematic areas
+- Need to quantify technical debt for stakeholders
+
+❌ **Consider other workflows when:**
+- Building new features (→ PRD-Driven Workflow)
+- Designing new architecture (→ Architecture Workflow)
+- Only need code review (→ Review-Driven Workflow)
+- Creating tests for existing code (→ Test Generation Workflow)
 
 ## Overview
 

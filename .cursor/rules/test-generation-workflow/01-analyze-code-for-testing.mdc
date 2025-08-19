@@ -48,5 +48,6 @@ Assume the analysis will be used by developers to write comprehensive tests.
 ## Final Instructions
 
 1. Focus on understanding the code's behavior
-2. Identify all testable scenarios
-3. Document findings clearly for test implementation
+2. Make sure to ask the user clarifying questions
+3. Identify all testable scenarios
+4. Document findings clearly for test implementation

@@ -1,6 +1,37 @@
 # Test Generation Workflow Cursor Rules
 
-A comprehensive, AI-assisted workflow for systematic test creation and maintenance designed to accelerate quality assurance processes through intelligent test generation, strategic planning, and continuous monitoring. This workflow ensures robust test coverage and reliable test suites across all application layers.
+## Introduction
+
+An end-to-end workflow for building and maintaining meaningful test coverage. It analyzes code to derive test requirements, generates reliable tests, plans complex QA initiatives, and sustains quality with continuous execution and monitoring.
+
+## What This Workflow Does
+
+A systematic workflow for creating comprehensive test coverage through intelligent test generation and maintenance. This workflow analyzes your code to understand testing requirements, generates appropriate test cases, creates strategic test plans for complex features, and ensures continuous test quality - perfect for achieving robust test coverage whether starting from scratch or improving existing test suites.
+
+## Workflow at a Glance
+
+```
+Code Analysis → Generate Tests → Create Test Plan → Execute & Monitor
+  (Understand)    (Implement)       (Strategy)        (Maintain)
+       ↓               ↓                 ↓                 ↓
+  Test Requirements  Test Suite    Testing Strategy   Quality Reports
+```
+
+## When to Use This Workflow
+
+✅ **Use this workflow when:**
+- Need to create tests for new features or components
+- Working with legacy code lacking test coverage
+- Want to improve existing test quality and coverage
+- Setting up testing infrastructure for a project
+- Need comprehensive test strategies for complex features
+- Establishing continuous test monitoring and maintenance
+
+❌ **Consider other workflows when:**
+- Building the feature itself (→ PRD-Driven Workflow)
+- Reviewing code quality (→ Review-Driven Workflow)
+- Refactoring existing code (→ Refactoring Workflow)
+- Designing system architecture (→ Architecture Workflow)
 
 ## Overview
 

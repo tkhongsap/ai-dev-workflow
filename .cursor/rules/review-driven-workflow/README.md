@@ -1,6 +1,38 @@
 # Review-Driven Workflow Cursor Rules
 
-A comprehensive set of cursor rules that implement a structured code review workflow, similar to the PRD-driven workflow but focused on analyzing and reviewing existing codebases, programs, and components.
+## Introduction
+
+A structured workflow for high-quality code reviews at scale. It plans scope, generates targeted tasks, executes multi-specialist analyses, and publishes actionable reports—improving code quality, knowledge sharing, and readiness for change.
+
+## What This Workflow Does
+
+A comprehensive workflow for conducting thorough code reviews with multiple specialist perspectives. This workflow systematically analyzes existing code through planning, task breakdown, multi-dimensional analysis, and results publication - ideal for quality assurance, security audits, performance optimization, and team knowledge sharing through structured review processes.
+
+## Workflow at a Glance
+
+```
+Review Target → Plan Review → Generate Tasks → Execute Analysis → Publish Results
+   (Define)       (Scope)       (Break Down)      (Analyze)         (Document)
+      ↓              ↓               ↓                ↓                 ↓
+  Code/Branch    Review Plan    Task Hierarchy   Findings Report   Issues/Actions
+```
+
+## When to Use This Workflow
+
+✅ **Use this workflow when:**
+- Conducting comprehensive code quality assessments
+- Performing security audits or vulnerability analysis
+- Reviewing merge requests or pull requests
+- Onboarding team members through code walkthroughs
+- Analyzing performance bottlenecks systematically
+- Preparing for major refactoring efforts
+- Documenting technical debt and improvement areas
+
+❌ **Consider other workflows when:**
+- Building new features (→ PRD-Driven Workflow)
+- Designing system architecture (→ Architecture Workflow)
+- Actively refactoring code (→ Refactoring Workflow)
+- Generating tests (→ Test Generation Workflow)
 
 ## Overview
 

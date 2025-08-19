@@ -1,6 +1,36 @@
 # PRD-Driven Development Workflow Cursor Rules
 
-A structured, AI-assisted workflow for creating Product Requirements Documents (PRDs), generating actionable task lists, and systematically implementing features. This workflow transforms ideas into well-documented, executable development plans suitable for teams of all experience levels.
+## Introduction
+
+An execution-focused workflow that turns ideas into shipped features. It helps teams author high-quality PRDs, generate code-aware task plans, and drive disciplined delivery with testing and clean commits—optimized for clarity and traceability end-to-end.
+
+## What This Workflow Does
+
+A systematic workflow that transforms user requirements into working features through structured planning and execution. Starting from an initial idea or request, this workflow helps you create comprehensive PRDs, break them down into manageable tasks, and guide implementation step-by-step - ideal for feature development where clear documentation and systematic execution are essential.
+
+## Workflow at a Glance
+
+```
+User Requirement → Plan (Create PRD) → Design (Generate Tasks) → Build (Process Tasks)
+    (Input)          (Document)           (Break Down)            (Implement)
+       ↓                  ↓                    ↓                      ↓
+   Initial Idea      PRD Document         Task Hierarchy        Working Feature
+```
+
+## When to Use This Workflow
+
+✅ **Use this workflow when:**
+- Building new features from user requirements
+- Need clear documentation before implementation
+- Working with junior developers who need detailed guidance
+- Want systematic task breakdown and tracking
+- Require traceable development from idea to implementation
+
+❌ **Consider other workflows when:**
+- Designing system architecture (→ Architecture Workflow)
+- Reviewing existing code (→ Review-Driven Workflow)
+- Refactoring without new features (→ Refactoring Workflow)
+- Only need test coverage (→ Test Generation Workflow)
 
 ## Overview
 

@@ -59,5 +59,6 @@ Assume the review will be read by developers and technical leads.
 ## Final Instructions
 
 1. Keep the review scope achievable
-2. Focus on actionable findings
-3. Prioritize high-impact issues
+2. Make sure to ask the user clarifying questions
+3. Focus on actionable findings
+4. Prioritize high-impact issues

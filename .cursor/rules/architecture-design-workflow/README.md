@@ -1,6 +1,35 @@
 # Architecture & Design Workflow Cursor Rules
 
-A comprehensive, AI-assisted workflow for designing robust, scalable system architectures before implementation. This workflow provides systematic guidance from requirements gathering through technical design and stakeholder sign-off, ensuring well-architected solutions that meet business and technical needs.
+## Introduction
+
+A concise, phase-driven workflow for designing robust system architectures from requirements to approval. It produces clear artifacts (requirements, options, technical design, and ADRs) with validation gates that align stakeholders before implementation begins.
+
+## What This Workflow Does
+
+A comprehensive workflow for designing robust system architectures BEFORE writing any code. This workflow guides you through requirements gathering, architecture options evaluation, technical design, and stakeholder approval - perfect for new systems, major features, or architectural refactoring that requires careful planning and consensus before implementation begins.
+
+## Workflow at a Glance
+
+```
+Business Requirements → Architecture Options → Technical Design → Stakeholder Sign-off
+      (Gather)             (Compare)            (Specify)           (Approve)
+         ↓                      ↓                   ↓                   ↓
+   Requirements Doc       Options Analysis    Technical Specs    ADRs & Approval
+```
+
+## When to Use This Workflow
+
+✅ **Use this workflow when:**
+- Starting a new system or major component from scratch
+- Planning significant architectural changes or migrations
+- Evaluating technology choices with major implications
+- Needing stakeholder alignment before implementation
+- Designing for specific NFRs (performance, scale, security)
+
+❌ **Consider other workflows when:**
+- Building features with clear requirements (→ PRD-Driven Workflow)
+- Reviewing existing code quality (→ Review-Driven Workflow)
+- Improving existing code structure (→ Refactoring Workflow)
 
 ## Overview
 

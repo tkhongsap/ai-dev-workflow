@@ -20,6 +20,7 @@
 - [Quick Start](#-quick-start)
 - [Integration with Existing Projects](#-integration-with-existing-projects)
 - [Architecture](#-architecture)
+- [Available Skills](#-available-skills)
 - [Command Reference](#-command-reference)
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
@@ -230,6 +231,11 @@ git submodule update --init --recursive
 
 ```
 ai-dev-workflow/
+├── .claude/
+│   ├── commands/                   # Slash commands
+│   ├── agents/                     # Custom agents
+│   └── skills/                     # Reusable skills
+│       └── english-to-thai-cultural-translation.md
 ├── prd-driven-workflow/
 │   ├── 01-create-prd.md           # PRD creation guide
 │   ├── 02-generate-tasks.md       # Task generation
@@ -253,6 +259,7 @@ ai-dev-workflow/
 |-----------|---------|--------|
 | `.md` | Workflow documentation | Standard Markdown |
 | `.mdc` | Review rules with automation | Markdown + Front Matter |
+| `.claude/skills/*.md` | Reusable AI skills | Markdown + YAML Front Matter |
 
 ### MDC Rule Structure
 
@@ -264,6 +271,52 @@ alwaysApply: true               # Apply to all files
 ---
 # Rule content and review criteria
 ```
+
+### Skill File Structure
+
+Skills are reusable capabilities that can be invoked during conversations. They use YAML front matter for metadata:
+
+```yaml
+---
+name: skill-name
+description: Brief description of when to use this skill
+---
+
+# Skill Title
+
+Detailed instructions for the AI assistant on how to execute this skill.
+```
+
+## 🎨 Available Skills
+
+### English to Thai Cultural Translation
+
+**Skill Name**: `english-to-thai-cultural-translation`
+
+**Purpose**: Provides culturally-aware translation from English to Thai, ensuring natural phrasing and appropriate formality levels.
+
+**Key Features**:
+- Formality level selection (กระผม/ผม/ครับ/ค่ะ/นะ)
+- Cultural idiom adaptation
+- Context-appropriate honorifics and pronouns
+- Natural Thai phrasing (avoiding literal translations)
+- Technical term handling
+- Buddhist era date conversion
+
+**When to Use**:
+- Translating documentation to Thai
+- Adapting English content for Thai audiences
+- Questions about Thai language formality
+- Localizing technical content for Thailand
+- Understanding Thai pronouns and particles
+
+**Example Usage**:
+```
+User: "Translate this README to Thai with professional formality"
+Assistant: [Uses english-to-thai-cultural-translation skill]
+```
+
+**File Location**: `.claude/skills/english-to-thai-cultural-translation.md`
 
 ## 📊 Command Reference
 

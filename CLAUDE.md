@@ -57,10 +57,36 @@ The `.claude/` directory contains Claude Code-specific configurations:
 - `/extract-issues` - Extract GitLab issues and map to branches
 - `/parallel` - Execute multiple tasks in parallel
 
-**Skills** (`.claude/skills/` - Reusable capabilities):
-- `english-to-thai-cultural-translation/` - Culturally-aware Thai translation
-  - Structure: `[skill-name]/SKILL.md` (proper Claude Code format)
-  - Invoked when translating content or adapting for Thai audiences
+**Skills** (`.claude/skills/` - 16 Reusable capabilities):
+- Structure: `[skill-name]/SKILL.md` (proper Claude Code format from Anthropic)
+
+**Creative & Design Skills**:
+- `algorithmic-art/` - Create generative art using p5.js with seeded randomness, flow fields, and particle systems
+- `canvas-design/` - Create beautiful visual art in PNG/PDF using design philosophy and aesthetic movements
+- `slack-gif-creator/` - Create animated GIFs optimized for Slack's size constraints and emoji formats
+
+**Development & Technical Skills**:
+- `artifacts-builder/` - Build complex claude.ai HTML artifacts using React, Tailwind CSS, and shadcn/ui components
+- `mcp-builder/` - Guide for developing high-quality Model Context Protocol servers (Python FastMCP or Node/TypeScript)
+- `webapp-testing/` - Test local web applications using Playwright for UI verification and debugging
+
+**Document Processing Skills**:
+- `docx/` - Word document creation, editing, reading, and tracked changes (redlining)
+- `pdf/` - PDF manipulation including extraction, creation, merging, and form handling
+- `pptx/` - PowerPoint creation, editing, analysis, and HTML-to-PowerPoint conversion
+- `xlsx/` - Excel spreadsheet creation, editing, analysis with formula-based financial modeling
+
+**Enterprise & Communication Skills**:
+- `brand-guidelines/` - Apply Anthropic's official visual identity (colors, typography) to artifacts
+- `internal-comms/` - Craft organizational communications like reports, newsletters, and updates
+- `theme-factory/` - Style artifacts with 10 pre-set professional themes or generate custom themes
+
+**Translation Skills**:
+- `english-to-thai-cultural-translation/` - Culturally-aware Thai translation with proper formality levels
+
+**Meta Skills**:
+- `skill-creator/` - Comprehensive guide for building effective Claude Code skills
+- `template-skill/` - Basic starting template for new skill development
 
 ## Workflow Architecture Details
 
@@ -165,9 +191,20 @@ alwaysApply: false             # Manual invocation only
 ```
 
 **Invoking Skills**:
-- Skills auto-activate based on `description` triggers
-- Example: Mentioning "translate to Thai" activates `english-to-thai-cultural-translation`
+- Skills auto-activate based on `description` triggers in YAML frontmatter
 - Skills are context-aware and maintain conversation state
+- Examples of skill activation:
+  - "translate to Thai" → `english-to-thai-cultural-translation`
+  - "create generative art" → `algorithmic-art`
+  - "make a poster" → `canvas-design`
+  - "create GIF for Slack" → `slack-gif-creator`
+  - "build React artifact" → `artifacts-builder`
+  - "build MCP server" → `mcp-builder`
+  - "test web app" → `webapp-testing`
+  - "create Word document" → `docx`
+  - "edit PowerPoint" → `pptx`
+  - "create spreadsheet" → `xlsx`
+  - "apply Anthropic branding" → `brand-guidelines`
 
 ### Bilingual Support
 
